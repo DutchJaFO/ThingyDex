@@ -80,7 +80,7 @@
             "Reapers",
             "Carriers",
             "Bringers",
-            "Stalwats",
+            "Stalwarts",
             "Runners",
             "Ancients",
             "Wizards",

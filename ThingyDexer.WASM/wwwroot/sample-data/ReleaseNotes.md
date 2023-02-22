@@ -12,16 +12,21 @@
 - [Blazor Bootstrap](https://getblazorbootstrap.com){ target="_blank" }
 - [Markdig](https://github.com/xoofx/markdig){ target="_blank" }
 
+## Features
+1) Home page shows welcome text and release notes.
+2) First generator : [Create a Cult](./CreateCult)
+
 ## Version
-Initial version
+v0.1.1 (Alpha)
 
 ### New features
-Home page shows this text and release notes.
-
-First generator : [Create a Cult](./CreateCult)
+1) 'show details' switch shows dice values used to generate cultname
+2) 'show release notes' switch on home page
+3) 'show welcome' switch on home page
 
 ### Breaking changes
 none
 
 ### Changes
-none
+1) Bugfix : 'Stalwats' => 'Stalwarts'
+

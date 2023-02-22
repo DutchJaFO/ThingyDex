@@ -6,7 +6,7 @@ using ThingyDexer.Model;
 using ThingyDexer.View;
 using ThingyDexer.ViewModel;
 
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
+WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 

@@ -25,7 +25,7 @@ namespace ThingyDexer.WASM.General
         {
             get
             {
-                var x = random.Next(0, _Dice.Length); 
+                int x = random.Next(0, _Dice.Length); 
                 return _Dice[x];
             }
         }

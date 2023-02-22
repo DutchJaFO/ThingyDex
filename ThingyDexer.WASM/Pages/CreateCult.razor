@@ -8,7 +8,13 @@
 
 <p>
     <Tooltip Title="Changes the naming convention a bit" Placement="TooltipPlacement.Left">
-        <Switch Value="@Spiffy" Label="Extra weird" ValueChanged="@((newValue) => {Spiffy = newValue; if (string.IsNullOrEmpty(Cultname) == false) {GenerateCultName();}})"></Switch>
+        <Switch Value="@Spiffy" Label="Extra weird" ValueChanged="@((newValue) => {Spiffy = newValue; if (Cultname is not null) {GenerateCultName();}})"></Switch>
+    </Tooltip>
+</p>
+
+<p>
+    <Tooltip Title="Show dice values" Placement="TooltipPlacement.Left">
+        <Switch @bind-Value="@ShowDetails" Label="Show details"></Switch>
     </Tooltip>
 </p>
 
@@ -18,10 +24,24 @@
     </Button>
 </p>
 
-@if (string.IsNullOrEmpty(Cultname) == false)
+@if (Cultname.HasValue)
 {
-    <Callout Type="CalloutType.Info">
-        <p>Name : <strong>@Cultname</strong></p>
+    <Callout Type="CalloutType.Default" Heading="Cultname">
+        <p>
+            <h4>
+                <strong>
+                    @Displayname
+                </strong>
+            </h4>
+        </p>
+        @if (ShowDetails)
+        {
+            <Grid Class="Regel" Data="@DisplayDetails">
+                <GridColumn TItem="Regel" PropertyName="Index" HeaderText="Index">@context.Id</GridColumn>
+                <GridColumn TItem="Regel" PropertyName="Value" HeaderText="Value">@context.Name</GridColumn>
+            </Grid>
+        }
+        <br />
         <p>@($"{TimeStamp:dd-MM-yyyy HH:mm:ss}")</p>
     </Callout>
 }

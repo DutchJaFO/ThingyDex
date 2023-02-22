@@ -14,24 +14,25 @@
             _Tabel3 = new TextTable(_Randomizer); _Tabel3.Add(tabel3);
         }
 
-        public string GetValue(bool spiffy)
+        public (bool Spiffy, TableRowBase<string>[] Data) GetValueSet(bool spiffy)
         {
+            List<TableRowBase<string>> results = new();
             if (spiffy)
             {
-                string? v0 = _PrefixTabel.GetRandom();
-                string? v1 = _Tabel1.GetRandom();
-                string? v2 = _PrefixTabel.GetRandom();
-                string? v3 = _Tabel3.GetRandom();
+                TableRowBase<string> v0 = _PrefixTabel.GetRandomItem();
+                results.Add(v0);
+            }
 
-                return $"{v0} {v1} of the {v2} {v3}";
-            }
-            else
-            {
-                string? v1 = _Tabel1.GetRandom();
-                string? v2 = _PrefixTabel.GetRandom();
-                string? v3 = _Tabel3.GetRandom();
-                return $"{v1} of the {v2} {v3}";
-            }
+            TableRowBase<string> v1 = _Tabel1.GetRandomItem();
+            results.Add(v1);
+
+            TableRowBase<string> v2 = _PrefixTabel.GetRandomItem();
+            results.Add(v2);
+
+            TableRowBase<string> v3 = _Tabel3.GetRandomItem();
+            results.Add(v3);
+
+            return (spiffy, results.ToArray());
         }
     }
 }

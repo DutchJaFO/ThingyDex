@@ -3,8 +3,9 @@
 
     public class Table<T>
     {
-        private Random _Randomizer;
+        private readonly Random _Randomizer;
         private readonly List<TableRowBase<T>> _list = new();
+
         private int minValue = int.MinValue;
         private int maxValue = int.MaxValue;
 
@@ -26,21 +27,32 @@
             maxValue = _list.Select(o => o.Index).Max();
         }
 
-        public T? Get(int index)
+        public TableRowBase<T> GetRow(int index)
         {
             TableRowBase<T>? item = _list.FirstOrDefault(o => o.Index == index);
             if (item != null)
-                return item.Value;
+                return item;
             else
-                return default(T);
+                throw new ArgumentOutOfRangeException(nameof(index));
+        }
+
+        public T? Get(int index)
+        {
+            TableRowBase<T> item = GetRow(index);
+            return item.Value;
+        }
+
+        public TableRowBase<T> GetRandomItem()
+        {
+            int d = _Randomizer.Next(minValue, maxValue);
+            return GetRow(d);
         }
 
         public T? GetRandom()
         {
-            int d = _Randomizer.Next(minValue, maxValue);
-            return Get(d);
+            TableRowBase<T> item = GetRandomItem();
+            return item.Value;
         }
-
         public Table(Random random)
         {
             _Randomizer = random;

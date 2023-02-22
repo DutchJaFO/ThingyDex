@@ -11,6 +11,7 @@ It is quiet now ...
 			let us pray  
 				surely someone will answer  
 					or something ?  
+					  do we really want to know ?  
 
 ## Acknowledgements
-Inspired by the skirmishgame Verrotwood and a discussion on the OnTableTop Discord
+Inspired by the skirmish game Verrotwood and a discussion on the OnTableTop Discord

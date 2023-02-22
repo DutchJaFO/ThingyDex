@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingyDexer.WASM", "ThingyDexer.WASM\ThingyDexer.WASM.csproj", "{1B6FE404-F864-47CD-BDC1-236F598A3DDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{1FA563C8-2FA7-4675-ABA3-F471CBF94609}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingyDexer.Model", "ThingyDexer.Model\ThingyDexer.Model.csproj", "{B0D17564-1BE5-4174-923E-FFA145222AD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingyDexer.View", "ThingyDexer.View\ThingyDexer.View.csproj", "{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingyDexer.ViewModel", "ThingyDexer.ViewModel\ThingyDexer.ViewModel.csproj", "{DE795139-50C4-4F6F-BE7C-950F9A5A294B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1B6FE404-F864-47CD-BDC1-236F598A3DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6FE404-F864-47CD-BDC1-236F598A3DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6FE404-F864-47CD-BDC1-236F598A3DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6FE404-F864-47CD-BDC1-236F598A3DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D17564-1BE5-4174-923E-FFA145222AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D17564-1BE5-4174-923E-FFA145222AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D17564-1BE5-4174-923E-FFA145222AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D17564-1BE5-4174-923E-FFA145222AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE795139-50C4-4F6F-BE7C-950F9A5A294B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE795139-50C4-4F6F-BE7C-950F9A5A294B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE795139-50C4-4F6F-BE7C-950F9A5A294B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE795139-50C4-4F6F-BE7C-950F9A5A294B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C47E2954-C9D1-41A5-BFFE-887127FD4726}
+	EndGlobalSection
+EndGlobal

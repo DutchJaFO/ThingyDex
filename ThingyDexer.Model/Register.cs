@@ -1,0 +1,14 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using ThingyDexer.Model.Tabel;
+
+namespace ThingyDexer.Model
+{
+    public static class Register
+    {
+        public static IServiceCollection AddThingyDexerModels(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddScoped<CultnameTableSet>((s) => CultnameTableFactory.Create());
+            return serviceCollection;
+        }
+    }
+}

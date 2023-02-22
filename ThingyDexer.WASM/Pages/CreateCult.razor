@@ -1,0 +1,36 @@
+﻿@page "/createcult"
+
+@using BlazorBootstrap
+
+<PageTitle>Cult</PageTitle>
+
+<h1>Starting a cult</h1>
+
+<p>
+    <Tooltip Title="Changes the naming convention a bit" Placement="TooltipPlacement.Left">
+        <Switch Value="@Spiffy" Label="Extra weird" ValueChanged="@((newValue) => {Spiffy = newValue; if (string.IsNullOrEmpty(Cultname) == false) {GenerateCultName();}})"></Switch>
+    </Tooltip>
+</p>
+
+<p>
+    <Button Color="ButtonColor.Primary" Size="Size.Large" @onclick="GenerateCultName" TooltipTitle="Generates a new name for your cult" TooltipPlacement="TooltipPlacement.Auto">
+        <Icon Name="@ThingyDexer.WASM.General.Randomizer.DiceIcon" /> Click me
+    </Button>
+</p>
+
+@if (string.IsNullOrEmpty(Cultname) == false)
+{
+    <Callout Type="CalloutType.Info">
+        <p>Name : <strong>@Cultname</strong></p>
+        <p>@($"{TimeStamp:dd-MM-yyyy HH:mm:ss}")</p>
+    </Callout>
+}
+else
+{
+    <Callout Type="CalloutType.Tip">
+        <h4>Try clicking the button ...</h4>
+    </Callout>
+}
+
+
+

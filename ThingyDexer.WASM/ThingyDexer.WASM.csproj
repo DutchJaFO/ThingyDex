@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazor.Bootstrap" Version="1.4.4" />
+    <PackageReference Include="Markdig.Signed" Version="0.30.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.11" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.11" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\sample-data\ReleaseNotes.md">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\sample-data\weather.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\Components\" />
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ThingyDexer.Model\ThingyDexer.Model.csproj" />
+    <ProjectReference Include="..\ThingyDexer.ViewModel\ThingyDexer.ViewModel.csproj" />
+    <ProjectReference Include="..\ThingyDexer.View\ThingyDexer.View.csproj" />
+  </ItemGroup>
+
+</Project>

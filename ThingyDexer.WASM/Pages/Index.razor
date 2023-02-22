@@ -1,0 +1,16 @@
+﻿@page "/"
+
+<PageTitle>ThingyDexer</PageTitle>
+
+@if (string.IsNullOrEmpty(Welcome  ) == false)
+{
+    @((MarkupString)Welcome)
+}
+
+<hr />
+
+@if (string.IsNullOrEmpty(ReleaseNotes) == false)
+{
+    @((MarkupString)ReleaseNotes)
+}
+

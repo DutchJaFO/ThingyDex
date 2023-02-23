@@ -1,17 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using System.Runtime.CompilerServices;
-using System.Text;
-using ThingyDexer.Model.Tabel;
+using ThingyDexer.Model.Table;
+using ThingyDexer.ViewModel.Table;
 
 namespace ThingyDexer.WASM.Pages
 {
-    public struct Regel
-    {
-        public string Table { get; set; }
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
     public partial class CreateCult
     {
         public CreateCult()
@@ -45,7 +37,7 @@ namespace ThingyDexer.WASM.Pages
                         // [a] [x] of the [y] [z]
                         // remove extra entry
                         (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
-                        Cultname = new (Spiffy, x.Data.Skip(1).ToArray());
+                        Cultname = new(Spiffy, x.Data.Skip(1).ToArray());
                     }
                 }
                 else
@@ -85,7 +77,7 @@ namespace ThingyDexer.WASM.Pages
                         : $"{d?.Data[0].Value} of the {d?.Data[1].Value} {d?.Data[2].Value}";
             }
         }
-        public Regel[] DisplayDetails
+        public RegelString[] DisplayDetails
         {
             get
             {
@@ -93,11 +85,11 @@ namespace ThingyDexer.WASM.Pages
                 List<string> result = new();
                 if (d.HasValue)
                 {
-                    return (d.Value.Data.Select(o => new Regel() { Table = o.Owner.Name, Id = o.Index, Name = o.Value ?? "" })).ToArray();
+                    return (d.Value.Data.Select(o => new RegelString() { Source = o.Owner, Id = o.Index, Name = o.Value ?? "" })).ToArray();
                 }
                 else
                 {
-                    return Array.Empty<Regel>();
+                    return Array.Empty<RegelString>();
                 }
             }
         }
@@ -107,6 +99,23 @@ namespace ThingyDexer.WASM.Pages
         {
             get => _ShowDetails;
             set { _ShowDetails = value; StateHasChanged(); }
+        }
+
+        public Table<string>? VisibleTable { get; set; }
+        public int? SelectedId { get; set; }
+
+        protected void OnClickWithArgs(EventArgs args, (int Id, Table<string>? owner) data)
+        {
+            if (VisibleTable == data.owner)
+            {
+                VisibleTable = null;
+                SelectedId = null;
+            }
+            else
+            {
+                VisibleTable = data.owner;
+                SelectedId = data.Id;
+            }
         }
     }
 }

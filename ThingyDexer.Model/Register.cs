@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ThingyDexer.Model.Tabel;
+using ThingyDexer.Model.Table;
 
 namespace ThingyDexer.Model
 {

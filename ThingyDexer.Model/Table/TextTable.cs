@@ -1,4 +1,4 @@
-﻿namespace ThingyDexer.Model.Tabel
+﻿namespace ThingyDexer.Model.Table
 {
     public class TextTable : Table<string>
     {

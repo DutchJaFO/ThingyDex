@@ -1,4 +1,6 @@
-﻿namespace ThingyDexer.Model.Tabel
+﻿using System.Collections;
+
+namespace ThingyDexer.Model.Table
 {
 
     public class Table<T>
@@ -11,9 +13,12 @@
 
         public int Count => _list.Count;
 
+
+        public string Name { get; }
+
         public void Add(int index, T value)
         {
-            _list.Add(new TableRowBase<T>() { Index = index, Value = value });
+            _list.Add(new TableRowBase<T>() { Index = index, Value = value, Owner = this });
         }
 
         public void Add(IEnumerable<T> data)
@@ -53,9 +58,22 @@
             TableRowBase<T> item = GetRandomItem();
             return item.Value;
         }
-        public Table(Random random)
+
+        public IEnumerable<T2> Rows<T2>(Func<TableRowBase<T>, T2> select)
+        {
+            return _list.Select(o => select(o));
+        }
+
+        public Table(Random random,
+                     string? name = null,
+                     IEnumerable<T>? data = null)
         {
             _Randomizer = random;
+            Name = name ?? this.GetType().Name;
+            if (data is not null)
+            {
+                Add(data);
+            }
         }
     }
 }

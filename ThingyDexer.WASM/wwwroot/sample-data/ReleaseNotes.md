@@ -14,19 +14,19 @@
 
 ## Features
 1) Home page shows welcome text and release notes.
-2) First generator : [Create a Cult](./CreateCult)
+	a) 'show release notes' switch on home page
+	b) 'show welcome' switch on home page
+2) Cultname generator : [Create a Cult](./CreateCult)
+	a) 'show details' switch shows dice values used to generate cultname
 
 ## Version
-v0.1.1 (Alpha)
+v0.1.2 (ALPHA)
 
 ### New features
-1) 'show details' switch shows dice values used to generate cultname
-2) 'show release notes' switch on home page
-3) 'show welcome' switch on home page
+2.b) option to show table with items and the selected row when 'show details' is enabled
 
 ### Breaking changes
 none
 
 ### Changes
-1) Bugfix : 'Stalwats' => 'Stalwarts'
-
+none

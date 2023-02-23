@@ -1,6 +1,8 @@
 ﻿@page "/createcult"
 
 @using BlazorBootstrap
+@using ThingyDexer.ViewModel
+@using ThingyDexer.ViewModel.Table
 
 <PageTitle>Cult</PageTitle>
 
@@ -36,14 +38,81 @@
         </p>
         @if (ShowDetails)
         {
-            <Grid Class="Regel" Data="@DisplayDetails">
-                <GridColumn TItem="Regel" PropertyName="Index" HeaderText="Index">@context.Id</GridColumn>
-                <GridColumn TItem="Regel" PropertyName="Value" HeaderText="Value">@context.Name</GridColumn>
+            <Grid Data="@DisplayDetails" class="table table-hover table-bordered table-striped" Responsive=true AllowSorting=false AllowFiltering=false>
+                <GridColumn TItem="RegelString" PropertyName="Table" HeaderText="Table">
+                    <Button Color="ButtonColor.Info"
+                    Active="@(VisibleTable == context.Source)"
+                    Block="@(VisibleTable == context.Source)"
+                    Disabled=false
+                    Size="Size.Small"
+                    Style="width:196px"
+                    Type="ButtonType.Button"
+                    @onclick="((args) => OnClickWithArgs(args, (context.Id, context.Source)))">
+                        <Icon Name="IconName.Table" />
+                        @context.Table
+                        @if (VisibleTable == context.Source)
+                        {
+                            <Icon Name="IconName.Asterisk" />
+                        }
+
+                    </Button>
+                </GridColumn>
+                <GridColumn TItem="RegelString" PropertyName="Index" HeaderText="Index" TextAlignment="Alignment.End" HeaderTextAlignment="Alignment.End" Style="width:fit-content;">
+                    @context.Id
+                </GridColumn>
+                <GridColumn TItem="RegelString" PropertyName="Value" HeaderText="Value">
+                    @context.Name
+                </GridColumn>
             </Grid>
         }
         <br />
         <p>@($"{TimeStamp:dd-MM-yyyy HH:mm:ss}")</p>
     </Callout>
+
+    @if (ShowDetails && (@VisibleTable is not null))
+    {
+        <div>
+            <p>
+                <span>Table name :</span> @VisibleTable?.Name
+            </p>
+
+            <Grid Data="@VisibleTable?.Rows(o => new SelectableRegelString() { Selected = (o.Index == SelectedId), Id= o.Index, Name = o.Value})"
+                  class="table table-striped"
+          PageSize="10" AllowPaging=true PaginationAlignment="Alignment.Start" Responsive=true
+          AllowFiltering=true AllowSorting=true>
+                <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="Selected">
+                    @if (context.Selected)
+                    {
+                        <Icon Name="IconName.Check2Square" Size="IconSize.x2"></Icon>
+                    }
+                    else
+                    {
+                        <Icon Name="IconName.Square" Size="IconSize.x2"></Icon>
+                    }
+                </GridColumn>
+                <GridColumn TItem="SelectableRegelString" PropertyName="Id" HeaderText="Id">
+                    @if (context.Selected)
+                    {
+                        <strong>@context.Id</strong>
+                    }
+                    else
+                    {
+                        @context.Id
+                    }
+                </GridColumn>
+                <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value">
+                    @if (context.Selected)
+                    {
+                        <strong>@context.Name</strong>
+                    }
+                    else
+                    {
+                        @context.Name
+                    }
+                </GridColumn>
+            </Grid>
+        </div>
+    }
 }
 else
 {

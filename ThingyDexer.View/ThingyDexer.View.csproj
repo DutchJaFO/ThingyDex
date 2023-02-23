@@ -10,4 +10,12 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ThingyDexer.Model\ThingyDexer.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Table\" />
+  </ItemGroup>
+
 </Project>

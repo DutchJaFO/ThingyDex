@@ -28,7 +28,7 @@
 
 @if (Cultname.HasValue)
 {
-    <Callout Type="CalloutType.Default" Heading="Cultname">
+    <Callout Type="CalloutType.Default" Heading="Cult name">
         <p>
             <h4>
                 <strong>
@@ -39,25 +39,24 @@
         @if (ShowDetails)
         {
             <Grid Data="@DisplayDetails" class="table table-hover table-bordered table-striped" Responsive=true AllowSorting=false AllowFiltering=false>
-                <GridColumn TItem="RegelString" PropertyName="Table" HeaderText="Table">
+                <GridColumn TItem="RegelString" PropertyName="Index" HeaderText="Index" >
                     <Button Color="ButtonColor.Info"
                     Active="@(VisibleTable == context.Source)"
                     Block="@(VisibleTable == context.Source)"
                     Disabled=false
                     Size="Size.Small"
-                    Style="width:196px"
                     Type="ButtonType.Button"
                     @onclick="((args) => OnClickWithArgs(args, (context.Id, context.Source)))">
-                        <Icon Name="IconName.Table" />
-                        @context.Table
-                        @if (VisibleTable == context.Source)
+                        @if ((VisibleTable == context.Source) && (context.Id == SelectedId))
                         {
-                            <Icon Name="IconName.Asterisk" />
+                            <Icon Name="IconName.EyeFill" />
                         }
-
+                        else
+                        {
+                            <Icon Name="IconName.Eye" />
+                        }
                     </Button>
-                </GridColumn>
-                <GridColumn TItem="RegelString" PropertyName="Index" HeaderText="Index" TextAlignment="Alignment.End" HeaderTextAlignment="Alignment.End" Style="width:fit-content;">
+
                     @context.Id
                 </GridColumn>
                 <GridColumn TItem="RegelString" PropertyName="Value" HeaderText="Value">

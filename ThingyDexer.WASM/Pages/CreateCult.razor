@@ -37,6 +37,7 @@
         @if (ShowDetails)
         {
             <Grid Class="Regel" Data="@DisplayDetails">
+                <GridColumn TItem="Regel" PropertyName="Table" HeaderText="Table">@context.Table</GridColumn>
                 <GridColumn TItem="Regel" PropertyName="Index" HeaderText="Index">@context.Id</GridColumn>
                 <GridColumn TItem="Regel" PropertyName="Value" HeaderText="Value">@context.Name</GridColumn>
             </Grid>

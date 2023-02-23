@@ -4,7 +4,7 @@ namespace ThingyDexer.WASM.General
 {
     public static class Randomizer
     {
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
 
         private static IconName[] _Dice = new IconName[] {
             BlazorBootstrap.IconName.Dice1,

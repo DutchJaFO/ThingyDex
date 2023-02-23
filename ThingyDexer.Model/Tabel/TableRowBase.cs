@@ -5,7 +5,9 @@
         public int Index { get; set; }
         public T? Value { get; set; }
 
-        public static TableRowBase<T> Empty => new TableRowBase<T> { Index = -1 };
+        public static TableRowBase<T> Empty => new() { Index = -1 };
+
+        public Table<T> Owner { get; internal set; }
 
         public override int GetHashCode()
         {

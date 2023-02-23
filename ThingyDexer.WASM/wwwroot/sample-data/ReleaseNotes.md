@@ -18,15 +18,16 @@
 	b) 'show welcome' switch on home page
 2) Cultname generator : [Create a Cult](./CreateCult)
 	a) 'show details' switch shows dice values used to generate cultname
+	b) [new] option to show table with items and the selected row when 'show details' is enabled
 
 ## Version
-v0.1.2 (ALPHA)
+v0.1.3 (ALPHA)
 
 ### New features
-2.b) option to show table with items and the selected row when 'show details' is enabled
+- option to show table with items and the selected row when 'show details' is enabled
 
 ### Breaking changes
 none
 
 ### Changes
-none
+minor changes to layout

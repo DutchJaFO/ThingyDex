@@ -31,6 +31,7 @@ namespace ThingyDexer.WASM.Pages
                         TableRowBase<string> extra = this.CultnameTableSet.PrefixTable.GetRandomItem();
                         set.Insert(0, extra);
                         Cultname = new(Spiffy, set.ToArray());
+
                     }
                     else
                     {
@@ -38,6 +39,13 @@ namespace ThingyDexer.WASM.Pages
                         // remove extra entry
                         (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
                         Cultname = new(Spiffy, x.Data.Skip(1).ToArray());
+
+                        if ((SelectedId == x.Data[0].Index) && (VisibleTable == x.Data[0].Owner))
+                        {
+                            SelectedId = null;
+                            VisibleTable = null;
+                        }
+
                     }
                 }
                 else
@@ -47,6 +55,8 @@ namespace ThingyDexer.WASM.Pages
             }
             if (newName)
             {
+                SelectedId = null;
+                VisibleTable = null;
                 Cultname = this.CultnameTableSet?.GetValueSet(Spiffy);
             }
             TimeStamp = DateTime.Now.ToLocalTime();
@@ -106,7 +116,7 @@ namespace ThingyDexer.WASM.Pages
 
         protected void OnClickWithArgs(EventArgs args, (int Id, Table<string>? owner) data)
         {
-            if (VisibleTable == data.owner)
+            if ((VisibleTable == data.owner) && (SelectedId == data.Id))
             {
                 VisibleTable = null;
                 SelectedId = null;

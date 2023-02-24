@@ -13,6 +13,7 @@ namespace ThingyDexer.Model.Table
 
         public int Count => _list.Count;
 
+        public Guid Key { get; private set; }
 
         public string Name { get; }
 
@@ -69,6 +70,7 @@ namespace ThingyDexer.Model.Table
                      IEnumerable<T>? data = null)
         {
             _Randomizer = random;
+            Key = Guid.NewGuid();
             Name = name ?? this.GetType().Name;
             if (data is not null)
             {

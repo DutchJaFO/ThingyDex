@@ -12,6 +12,25 @@ namespace ThingyDexer.ViewModel.Table
 
     public class RegelString : Regel<string>
     {
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            else
+            {
+                var target = (RegelString)obj;
+                return (target.Source?.Key == Source?.Key) && (target.Id == Id);
+
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            if (Source != null)
+                return Id.GetHashCode() ^ Source.Key.GetHashCode();
+            else
+                return Id.GetHashCode();
+        }
     }
 
     public class SelectableRegelString : RegelString

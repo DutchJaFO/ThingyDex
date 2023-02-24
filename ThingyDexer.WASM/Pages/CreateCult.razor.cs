@@ -28,7 +28,8 @@ namespace ThingyDexer.WASM.Pages
                         // add extra entry 
                         (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
                         List<TableRowBase<string>> set = new(x.Data);
-                        TableRowBase<string> extra = this.CultnameTableSet.PrefixTable.GetRandomItem();
+                        TableRowBase<string> extra = this.CultnameTableSet.PrefixNameTable.GetRandomItem();
+                        // [what happens if this is identical ?] extra = this.CultnameTableSet.PrefixNameTable.GetRow(x.Data[1].Index);
                         set.Insert(0, extra);
                         Cultname = new(Spiffy, set.ToArray());
 
@@ -40,10 +41,9 @@ namespace ThingyDexer.WASM.Pages
                         (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
                         Cultname = new(Spiffy, x.Data.Skip(1).ToArray());
 
-                        if ((SelectedId == x.Data[0].Index) && (VisibleTable == x.Data[0].Owner))
+                        if ((SelectedRegel?.Id == x.Data[0].Index) && (SelectedRegel.Source == x.Data[0].Owner))
                         {
-                            SelectedId = null;
-                            VisibleTable = null;
+                            SelectedRegel = null;
                         }
 
                     }
@@ -55,8 +55,6 @@ namespace ThingyDexer.WASM.Pages
             }
             if (newName)
             {
-                SelectedId = null;
-                VisibleTable = null;
                 Cultname = this.CultnameTableSet?.GetValueSet(Spiffy);
             }
             TimeStamp = DateTime.Now.ToLocalTime();
@@ -111,21 +109,20 @@ namespace ThingyDexer.WASM.Pages
             set { _ShowDetails = value; StateHasChanged(); }
         }
 
-        public Table<string>? VisibleTable { get; set; }
-        public int? SelectedId { get; set; }
 
-        protected void OnClickWithArgs(EventArgs args, (int Id, Table<string>? owner) data)
+        public RegelString? SelectedRegel { get; set; }
+
+        protected void OnClickWithArgs(EventArgs args, RegelString data)
         {
-            if ((VisibleTable == data.owner) && (SelectedId == data.Id))
+            if ((SelectedRegel != null) && SelectedRegel.Equals(data))
             {
-                VisibleTable = null;
-                SelectedId = null;
+                SelectedRegel = null;
             }
             else
             {
-                VisibleTable = data.owner;
-                SelectedId = data.Id;
+                SelectedRegel = data;
             }
+            StateHasChanged();
         }
     }
 }

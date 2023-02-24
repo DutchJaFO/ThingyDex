@@ -3,12 +3,14 @@
     public class CultnameTableSet
     {
         private static Random _Randomizer = new();
+        public TextTable PrefixNameTable { get; }
         public TextTable NameTable { get; }
         public TextTable PrefixTable { get; }
         public TextTable SomethingTable { get; }
 
         public CultnameTableSet(string[] nameTable, string[] prefixTable, string[] somethingTable)
         {
+            PrefixNameTable = new TextTable(_Randomizer, "Prefix", prefixTable);
             NameTable = new TextTable(_Randomizer, "Name", nameTable);
             PrefixTable = new TextTable(_Randomizer, "Prefix", prefixTable);
             SomethingTable = new TextTable(_Randomizer, "Something", somethingTable);
@@ -19,7 +21,7 @@
             List<TableRowBase<string>> results = new();
             if (spiffy)
             {
-                TableRowBase<string> v0 = PrefixTable.GetRandomItem();
+                TableRowBase<string> v0 = PrefixNameTable.GetRandomItem();
                 results.Add(v0);
             }
 

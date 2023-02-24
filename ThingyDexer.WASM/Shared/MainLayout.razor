@@ -4,16 +4,22 @@
 
     <Sidebar IconName="IconName.Dice6Fill"
              Title="Thingydexer"
-             BadgeText="v0.1.3 (ALPHA)"
+             BadgeText="v0.1.4 (ALPHA)"
              DataProvider="SidebarDataProvider" />
 
     <main>
-        <article class="content px-4">
-            <div class="py-2">
+        <div class="bb-top-row p-4 d-flex justify-content-end" >
+            @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
+            @if (System.Diagnostics.Debugger.IsAttached)
+            {
+                <Alert Color="AlertColor.Danger">DEBUG-mode</Alert>
+            }
+        </div>
+
+        <article class="content px-1">
+            <div class="py-1">
                 @Body
             </div>
         </article>
     </main>
-
 </div>
-

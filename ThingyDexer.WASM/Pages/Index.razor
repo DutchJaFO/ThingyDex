@@ -1,24 +1,23 @@
 ﻿@page "/"
 
 <PageTitle>ThingyDexer</PageTitle>
-<Switch @bind-Value=ShowWelcome Label="Show welcome"></Switch>
-@if ((string.IsNullOrEmpty(Welcome) == false))
-{
-    if (ShowWelcome)
-    {
-        @((MarkupString)Welcome)
-    }
-}
 
-<hr />
-<Switch @bind-Value=ShowReleaseNotes Label="Show release notes"></Switch>
+<div>
+    <div class="row">
+        <div class="col-lg-6">
+            @if ((string.IsNullOrEmpty(Welcome) == false))
+            {
+                @((MarkupString)Welcome)
+            }
+        </div>
 
-@if (string.IsNullOrEmpty(ReleaseNotes) == false)
-{
-    if (ShowReleaseNotes)
-    {
-        @((MarkupString)ReleaseNotes)
-    }
+        <div class="col-lg-6">
+            @if (string.IsNullOrEmpty(ReleaseNotes) == false)
+            {
+                @((MarkupString)ReleaseNotes)
+            }
+        </div>
+    </div>
+</div>
 
-}
 

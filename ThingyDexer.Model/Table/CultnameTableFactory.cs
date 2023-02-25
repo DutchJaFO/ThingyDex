@@ -104,6 +104,8 @@
             "Raiders",
             "Templars",
             "Whisperers",
+            "Rulers",
+            "Prophets",
         };
         private static string[] _table2 = new string[]
         {
@@ -207,6 +209,17 @@
             "Raging",
             "Repugnant",
             "Steaming",
+            "Holy",
+            "Unholy",
+            "Demonic",
+            "Fiendish",
+            "Forsaken",
+            "White",
+            "Black",
+            "Red",
+            "Fiery",
+            "Green",
+            "Yellow"
         };
         private static string[] _table3 = new string[]
         {
@@ -310,6 +323,17 @@
             "Badger",
             "Mollusc",
             "Hamster",
+            "Demon",
+            "Fiend",
+            "Ghost",
+            "Lion",
+            "Ogre",
+            "King",
+            "Children",
+            "Corn",
+            "Emperor",
+            "Ruler",
+            "Prophet"
         };
 
         public static CultnameTableSet Create()

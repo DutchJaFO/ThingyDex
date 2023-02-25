@@ -29,7 +29,11 @@ namespace ThingyDexer.WASM.Pages
                         (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
                         List<TableRowBase<string>> set = new(x.Data);
                         TableRowBase<string> extra = this.CultnameTableSet.PrefixNameTable.GetRandomItem();
-                        // [what happens if this is identical ?] extra = this.CultnameTableSet.PrefixNameTable.GetRow(x.Data[1].Index);
+
+                        // [what happens if this is identical ?]
+                        // extra = this.CultnameTableSet.PrefixNameTable.GetRow(x.Data[1].Index);
+                        //
+
                         set.Insert(0, extra);
                         Cultname = new(Spiffy, set.ToArray());
 
@@ -40,11 +44,6 @@ namespace ThingyDexer.WASM.Pages
                         // remove extra entry
                         (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
                         Cultname = new(Spiffy, x.Data.Skip(1).ToArray());
-
-                        if ((SelectedRegel?.Id == x.Data[0].Index) && (SelectedRegel.Source == x.Data[0].Owner))
-                        {
-                            SelectedRegel = null;
-                        }
 
                     }
                 }
@@ -57,6 +56,23 @@ namespace ThingyDexer.WASM.Pages
             {
                 Cultname = this.CultnameTableSet?.GetValueSet(Spiffy);
             }
+
+            if (SelectedRegel is not null)
+            {
+                var regel = (DisplayDetails.Where(o => o.Source?.Key == SelectedRegel?.Source?.Key));
+                if (regel.Any())
+                {
+                    SelectedRegel = regel.FirstOrDefault(o => o.Id == SelectedRegel?.Id) ?? regel.First();
+                }
+                else
+                {
+                    SelectedRegel = null;
+                }
+            }
+            else
+            {
+            }
+
             TimeStamp = DateTime.Now.ToLocalTime();
             StateHasChanged();
         }

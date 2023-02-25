@@ -13,21 +13,20 @@
 - [Markdig](https://github.com/xoofx/markdig){ target="_blank" }
 
 ## Features
-1) Home page shows welcome text and release notes.
-	a) 'show release notes' switch on home page
-	b) 'show welcome' switch on home page
-2) Cultname generator : [Create a Cult](./CreateCult)
+1) [Home page](./) shows welcome text and release notes
+2) Cultname generator : [Create a Cult](./CreateCult)  
 	a) 'show details' switch shows dice values used to generate cultname
 	b) option to show table with items and the selected row when 'show details' is enabled
 
 ## Version
-v0.1.4 (ALPHA)
+v0.1.5 (ALPHA)
 
 ### New features
 none
 
 ### Breaking changes
-none
+- 'show release notes' switch removed from home page  
+- 'show welcome' switch removed from home page  
 
 ### Changes
 minor changes to layout

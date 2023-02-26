@@ -5,98 +5,81 @@
 @using ThingyDexer.ViewModel.Table
 @using ThingyDexer.WASM.Shared.Components
 
-<PageTitle>Cult</PageTitle>
+<PageTitle>Cult manager</PageTitle>
 
 <h1>Starting a cult</h1>
-
-@*
-<p>
-    <Tooltip Title="Changes the naming convention a bit" Placement="TooltipPlacement.Left">
-        <Switch Value="@Spiffy" Label="Extra weird" ValueChanged="@SpiffyValueChanged"></Switch>
-    </Tooltip>
-</p>
-<p>
-    <Tooltip Title="Show dice values" Placement="TooltipPlacement.Left">
-        <Switch @bind-Value="@ShowDetails" Label="Show details"></Switch>
-    </Tooltip>
-</p>
-<p>
-    <Button Color="ButtonColor.Primary" Size="Size.Large" @onclick="@(() => GenerateCultName(Spiffy))" TooltipTitle="Generates a new name for your cult" TooltipPlacement="TooltipPlacement.Auto">
-        <Icon Name="@ThingyDexer.WASM.General.Randomizer.DiceIcon" /> Click me
-    </Button>
-</p>
-*@
 
 @if (true)
 {
     <Callout Type="CalloutType.Default" Heading="Cult name">
         <hr />
         <div class="row">
-            <div class="col-sm-auto">
-                @if (HasCultname)
-                {
-                    <Button Color="ButtonColor.Primary" @onclick="@(() => { GenerateCultName(false); SelectedRegel = null; StateHasChanged();})">
-                        <Icon Name="@ThingyDexer.WASM.General.Randomizer.DiceFillIcon" />
-                    </Button>
-                    <Button Color="ButtonColor.Danger" @onclick="@ClearCultname">
-                        <Icon Name="IconName.Trash" />
-                    </Button>
-                }
-                else
-                {
-                    <Button Color="ButtonColor.Primary" @onclick="@(() => { GenerateCultName(false); SelectedRegel = null; StateHasChanged();})">
-                        <Icon Name="IconName.Dice1Fill" />
-                    </Button>
-                    <Button Color="ButtonColor.Secondary" @onclick="@(() => { GenerateCultName(true); SelectedRegel = null; StateHasChanged();})">
-                        <Icon Name="IconName.Dice2Fill" />
-                    </Button>
-                }
+            <div class="col-sm-auto" >
+                <Button Color="ButtonColor.Primary" Size="Size.Medium"
+                    @onclick="@(() => { GenerateCultName(false); })">
+                    <Icon Name="IconName.Dice1Fill" />
+                    [thingy] of the [prefix] [things]
+                </Button>
+            </div>
+
+            <div class="col-sm-auto" >
+                <Button Color="ButtonColor.Primary" Size="Size.Medium"
+                    @onclick="@(() => { GenerateCultName(true); })">
+                    <Icon Name="IconName.Dice2Fill" />
+                    [prefix] [thingy] of the [prefix] [things]
+                </Button>
+            </div>
+
+            <div class="col-sm-auto" >
+                <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
+                    Color="ButtonColor.Secondary"
+                    @onclick="@RerollCultName">
+                    <Icon Name="@ThingyDexer.WASM.General.Randomizer.DiceFillIcon" />
+                    Re-roll name
+                </Button>
             </div>
             <div class="col-sm-auto">
+                <Button Disabled="@((HasCultname == false) || (Prefix1 is null))" Size="Size.Medium"
+                    Color="ButtonColor.Danger" @onclick="@ClearPrefix">
+                    <Icon Name="IconName.Trash" />
+                    Clear prefix
+                </Button>
+            </div>
+            <div class="col-sm-auto">
+                <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
+                    Color="ButtonColor.Danger" @onclick="@ClearCultname">
+                    <Icon Name="IconName.Trash" />
+                    Clear name
+                </Button>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <TableRowDisplayItem RowItem="@Prefix1"
                                  Table=@CultnameTableSet.PrefixTable
-                                 RowItemChanged="@(async (o) => {
-                                                                        Prefix1 = o;
-                                                                            SelectedRegel = o;
-                                                                        await Task.CompletedTask;
-                                                                        StateHasChanged();
-                                                                        })"
+                                 RowItemChanged="@((o) => {Prefix1 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
                                  HasPrefix=false
-                                 Selected="@Prefix1Selected" IgnoreSelection="@IgnoreSelection"
+                                 Selected="@Prefix1Selected"
                                  OnRowSelect="@DoOnRowSelect" />
 
                 <TableRowDisplayItem RowItem="@Item1"
-                                 Table=@CultnameTableSet.SomethingTable
-                                 RowItemChanged="@(async (o) => {
-                                                                        Item1 = o;
-                                                                            SelectedRegel = o;
-                                                                        await Task.CompletedTask;
-                                                                        StateHasChanged();
-                                                                        })"
+                                 Table=@CultnameTableSet.NameTable
+                                 RowItemChanged="@((o) => {Item1 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
                                  HasPrefix=true
-                                 Selected="@Item1Selected" IgnoreSelection="@IgnoreSelection"
+                                 Selected="@Item1Selected"
                                  OnRowSelect="@DoOnRowSelect" />
 
                 <TableRowDisplayItem Table=@CultnameTableSet.PrefixNameTable
-                                 RowItem="@Prefix2" RowItemChanged="@(async (o) => {
-                                                                        Prefix2 = o;
-                                                                            SelectedRegel = o;
-                                                                        await Task.CompletedTask;
-                                                                        StateHasChanged();
-                                                                        })"
+                                 RowItem="@Prefix2" RowItemChanged="@((o) => {Prefix2 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
                                  HasPrefix=true Prefix="@(Prefix2 != null ?"of the" : null)"
-                                 Selected="@Prefix2Selected" IgnoreSelection="@IgnoreSelection"
+                                 Selected="@Prefix2Selected"
                                  OnRowSelect="@DoOnRowSelect" />
 
-                <TableRowDisplayItem Table=@CultnameTableSet.NameTable
-                                 RowItem="@Item2" RowItemChanged="@(async (o) => {
-                                                                        Item2 = o;
-                                                                            SelectedRegel = o;
-                                                                        await Task.CompletedTask;
-                                                                        StateHasChanged();
-                                                                        })"
+                <TableRowDisplayItem Table=@CultnameTableSet.SomethingTable
+                                 RowItem="@Item2" RowItemChanged="@((o) => {Item2 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
                                  HasPrefix=true Prefix="@((Prefix2 == null) && (Item2 != null) ?"of the" : null)"
-                                 Selected="@Item2Selected" IgnoreSelection="@IgnoreSelection"
+                                 Selected="@Item2Selected"
                                  OnRowSelect="@DoOnRowSelect" />
             </div>
         </div>

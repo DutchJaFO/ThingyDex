@@ -14,4 +14,8 @@ It is quiet now ...
 					  do we really want to know ?  
 
 ## Acknowledgements
-Inspired by the skirmish game Verrotwood and a discussion on the OnTableTop Discord
+Inspired by the skirmish game Verrotwood and a discussion with @ewokkebab on the OnTableTop Discord
+
+\#HoW \#BestHouse
+
+All hail the Squirrel Lord

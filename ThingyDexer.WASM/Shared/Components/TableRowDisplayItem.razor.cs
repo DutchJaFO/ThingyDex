@@ -23,7 +23,7 @@ namespace ThingyDexer.WASM.Shared.Components
 
 
         [Parameter, EditorRequired]
-        public Table<string> Table { get; set; }
+        public Table<string>? Table { get; set; }
 
         private TableRowBase<string>? _RowItem;
         [Parameter]

@@ -15,18 +15,17 @@
 ## Features
 1) [Home page](./) shows welcome text and release notes
 2) Cultname generator : [Create a Cult](./CreateCult)  
-	a) 'show details' switch shows dice values used to generate cultname
-	b) option to show table with items and the selected row when 'show details' is enabled
+	- [new] UI design for generator
+	- [new] each item of name can be selected and re-rolled by clicking on the die-icon next to it after selection
+3) [expirmental] indicator for new version updates (visible only when app update is available)
 
 ## Version
-v0.1.5 (ALPHA)
+v0.1.6 (ALPHA)
 
 ### New features
-none
+- redesigned UI for generator
+- [expirmental] new version indicator in UI
 
 ### Breaking changes
-- 'show release notes' switch removed from home page  
-- 'show welcome' switch removed from home page  
 
 ### Changes
-minor changes to layout

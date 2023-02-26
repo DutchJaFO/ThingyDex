@@ -20,11 +20,12 @@
         {
             if (obj is TableRowBase<T>)
             {
-                return Index.Equals(((TableRowBase<T>)obj).Index);
+                TableRowBase<T> target = ((TableRowBase<T>)obj);
+                return Index.Equals(target.Index) && (Owner.Key == target.Owner.Key);
             }
             else
             {
-                return Index.Equals(-1);
+                return false;
             }
         }
     }

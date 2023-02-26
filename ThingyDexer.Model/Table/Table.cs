@@ -37,9 +37,13 @@ namespace ThingyDexer.Model.Table
         {
             TableRowBase<T>? item = _list.FirstOrDefault(o => o.Index == index);
             if (item != null)
+            {
                 return item;
+            }
             else
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
+            }
         }
 
         public T? Get(int index)

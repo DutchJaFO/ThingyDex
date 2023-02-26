@@ -3,89 +3,125 @@
 @using BlazorBootstrap
 @using ThingyDexer.ViewModel
 @using ThingyDexer.ViewModel.Table
+@using ThingyDexer.WASM.Shared.Components
 
 <PageTitle>Cult</PageTitle>
 
 <h1>Starting a cult</h1>
 
+@*
 <p>
     <Tooltip Title="Changes the naming convention a bit" Placement="TooltipPlacement.Left">
-        <Switch Value="@Spiffy" Label="Extra weird" ValueChanged="@((newValue) => {Spiffy = newValue; if (Cultname is not null) {GenerateCultName();}})"></Switch>
+        <Switch Value="@Spiffy" Label="Extra weird" ValueChanged="@SpiffyValueChanged"></Switch>
     </Tooltip>
 </p>
-
 <p>
     <Tooltip Title="Show dice values" Placement="TooltipPlacement.Left">
         <Switch @bind-Value="@ShowDetails" Label="Show details"></Switch>
     </Tooltip>
 </p>
-
 <p>
-    <Button Color="ButtonColor.Primary" Size="Size.Large" @onclick="GenerateCultName" TooltipTitle="Generates a new name for your cult" TooltipPlacement="TooltipPlacement.Auto">
+    <Button Color="ButtonColor.Primary" Size="Size.Large" @onclick="@(() => GenerateCultName(Spiffy))" TooltipTitle="Generates a new name for your cult" TooltipPlacement="TooltipPlacement.Auto">
         <Icon Name="@ThingyDexer.WASM.General.Randomizer.DiceIcon" /> Click me
     </Button>
 </p>
+*@
 
-@if (Cultname.HasValue)
+@if (true)
 {
     <Callout Type="CalloutType.Default" Heading="Cult name">
+        <hr />
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-10">
-                <h4>
-                    <strong>
-                        @Displayname
-                    </strong>
-                </h4>
+            <div class="col-sm-auto">
+                @if (HasCultname)
+                {
+                    <Button Color="ButtonColor.Primary" @onclick="@(() => { GenerateCultName(false); SelectedRegel = null; StateHasChanged();})">
+                        <Icon Name="@ThingyDexer.WASM.General.Randomizer.DiceFillIcon" />
+                    </Button>
+                    <Button Color="ButtonColor.Danger" @onclick="@ClearCultname">
+                        <Icon Name="IconName.Trash" />
+                    </Button>
+                }
+                else
+                {
+                    <Button Color="ButtonColor.Primary" @onclick="@(() => { GenerateCultName(false); SelectedRegel = null; StateHasChanged();})">
+                        <Icon Name="IconName.Dice1Fill" />
+                    </Button>
+                    <Button Color="ButtonColor.Secondary" @onclick="@(() => { GenerateCultName(true); SelectedRegel = null; StateHasChanged();})">
+                        <Icon Name="IconName.Dice2Fill" />
+                    </Button>
+                }
+            </div>
+            <div class="col-sm-auto">
+                <TableRowDisplayItem RowItem="@Prefix1"
+                                 Table=@CultnameTableSet.PrefixTable
+                                 RowItemChanged="@(async (o) => {
+                                                                        Prefix1 = o;
+                                                                            SelectedRegel = o;
+                                                                        await Task.CompletedTask;
+                                                                        StateHasChanged();
+                                                                        })"
+                                 HasPrefix=false
+                                 Selected="@Prefix1Selected" IgnoreSelection="@IgnoreSelection"
+                                 OnRowSelect="@DoOnRowSelect" />
+
+                <TableRowDisplayItem RowItem="@Item1"
+                                 Table=@CultnameTableSet.SomethingTable
+                                 RowItemChanged="@(async (o) => {
+                                                                        Item1 = o;
+                                                                            SelectedRegel = o;
+                                                                        await Task.CompletedTask;
+                                                                        StateHasChanged();
+                                                                        })"
+                                 HasPrefix=true
+                                 Selected="@Item1Selected" IgnoreSelection="@IgnoreSelection"
+                                 OnRowSelect="@DoOnRowSelect" />
+
+                <TableRowDisplayItem Table=@CultnameTableSet.PrefixNameTable
+                                 RowItem="@Prefix2" RowItemChanged="@(async (o) => {
+                                                                        Prefix2 = o;
+                                                                            SelectedRegel = o;
+                                                                        await Task.CompletedTask;
+                                                                        StateHasChanged();
+                                                                        })"
+                                 HasPrefix=true Prefix="@(Prefix2 != null ?"of the" : null)"
+                                 Selected="@Prefix2Selected" IgnoreSelection="@IgnoreSelection"
+                                 OnRowSelect="@DoOnRowSelect" />
+
+                <TableRowDisplayItem Table=@CultnameTableSet.NameTable
+                                 RowItem="@Item2" RowItemChanged="@(async (o) => {
+                                                                        Item2 = o;
+                                                                            SelectedRegel = o;
+                                                                        await Task.CompletedTask;
+                                                                        StateHasChanged();
+                                                                        })"
+                                 HasPrefix=true Prefix="@((Prefix2 == null) && (Item2 != null) ?"of the" : null)"
+                                 Selected="@Item2Selected" IgnoreSelection="@IgnoreSelection"
+                                 OnRowSelect="@DoOnRowSelect" />
             </div>
         </div>
-        <hr />
-        <p>@($"{TimeStamp:dd-MM-yyyy HH:mm:ss}")</p>
-    </Callout>
 
+        <hr />
+        <div class="row">
+            <span class="px-3">
+                @($"{TimeStamp:dd-MM-yyyy HH:mm:ss}")
+            </span>
+        </div>
+    </Callout>
     @if (ShowDetails)
     {
         <div class="row">
-            <div class="col-sm-4 table-responsive">
-                <Grid Data="@DisplayDetails"
-                      class="table table-sm table-hover table-bordered table-striped"
-              Responsive=true
-              AllowSorting=false
-              AllowFiltering=true>
-
-                    <GridColumn TItem="RegelString" PropertyName="Index" HeaderText="Index" Filterable=false Sortable=false Class="col-sm-1">
-                        <Button Color="ButtonColor.None"
-                        Disabled=false
-                        Size="Size.Small"
-                        Type="ButtonType.Link"
-                        @onclick="((args) => OnClickWithArgs(args, context))">
-                            @if (context.Equals(SelectedRegel))
-                            {
-                                <Icon Name="IconName.Check2Square" />
-                            }
-                            else
-                            {
-                                <Icon Name="IconName.Square" />
-                            }
-                        </Button>
-
-                        @context.Id
-                    </GridColumn>
-                    <GridColumn TItem="RegelString" PropertyName="Value" HeaderText="Value" Filterable=true Sortable=false FilterOperator="FilterOperator.Contains" Class="alert-warning">
-                        @context.Name
-                    </GridColumn>
-                </Grid>
-            </div>
-            <div class="col table-responsive">
+            <div class="col-md-auto table-responsive">
                 @if (ShowDetails && (SelectedRegel is not null))
                 {
-                    <Grid Data="@SelectedRegel?.Source?.Rows(o => new SelectableRegelString() { Selected = (o.Index == SelectedRegel.Id), Id= o.Index, Name = o.Value})"
+                    <Grid Data="@SelectedRegel?.Owner?.Rows(o => new SelectableRegelString() { Selected = (o.Index == SelectedRegel.Index), Id= o.Index, Name = o.Value})"
                           class="table table-sm table-hover table-bordered table-striped"
-              AllowPaging=true
+              AllowPaging=false
               PaginationAlignment="Alignment.Start"
               Responsive=true
               AllowFiltering=true
               AllowSorting=true>
-                        <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="" Sortable=false FilterOperator="FilterOperator.Equals">
+                        <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="" Sortable=false FilterOperator="FilterOperator.Equals" Class="col-sm-auto">
                             @if (context.Selected)
                             {
                                 <Icon Name="IconName.Check2Square"></Icon>
@@ -98,20 +134,24 @@
                         <GridColumn TItem="SelectableRegelString"
                         PropertyName="Id"
                         HeaderText="Id"
-                        IsDefaultSortColumn=true SortDirection="SortDirection.Ascending" SortKeySelector="@((o) => o.Id)">
+                        IsDefaultSortColumn=true SortDirection="SortDirection.Ascending" SortKeySelector="@((o) => o.Id)" Class="col-sm-auto" FilterValue="">
                             @if (context.Selected)
                             {
-                                <strong>@context.Id</strong>
+                                <strong>
+                                    @context.Id.ToString("D3")
+                                </strong>
                             }
                             else
                             {
-                                @context.Id
+                                @context.Id.ToString("D3")
                             }
                         </GridColumn>
-                        <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value" Sortable=true SortKeySelector="@((o) => o.Name)">
+                        <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value" Sortable=true SortKeySelector="@((o) => o.Name)" Class="col-sm-auto">
                             @if (context.Selected)
                             {
-                                <strong>@context.Name</strong>
+                                <strong>
+                                    @context.Name
+                                </strong>
                             }
                             else
                             {
@@ -121,6 +161,7 @@
                     </Grid>
                 }
             </div>
+            <div class="col"></div>
         </div>
     }
 }

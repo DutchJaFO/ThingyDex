@@ -41,17 +41,13 @@ namespace ThingyDexer.WASM.Shared.Components
                 else
                 {
                     _RowItem = value;
-                    // StateHasChanged();
-                    if (IgnoreSelection == false)
-                    {
-                        RowItemChanged.InvokeAsync(value);
-                    }
+                    RowItemChanged?.Invoke(value);
                 }
             }
         }
 
         [Parameter]
-        public EventCallback<TableRowBase<string>?> RowItemChanged { get; set; }
+        public Action<TableRowBase<string>?>? RowItemChanged { get; set; }
 
         [Parameter]
         public RowSelectDelegate? OnRowSelect { get; set; }

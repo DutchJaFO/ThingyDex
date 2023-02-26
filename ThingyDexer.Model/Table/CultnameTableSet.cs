@@ -1,4 +1,6 @@
-﻿namespace ThingyDexer.Model.Table
+﻿using System.Xml.Linq;
+
+namespace ThingyDexer.Model.Table
 {
     public class CultnameTableSet
     {
@@ -16,25 +18,14 @@
             SomethingTable = new TextTable(_Randomizer, "Something", somethingTable);
         }
 
-        public (bool Spiffy, TableRowBase<string>[] Data) GetValueSet(bool spiffy)
+        public (TableRowBase<string>? PrefixName, TableRowBase<string>? Name, TableRowBase<string>? PrefixSomething, TableRowBase<string>? Something) GenerateName(bool spiffy)
         {
-            List<TableRowBase<string>> results = new();
-            if (spiffy)
-            {
-                TableRowBase<string> v0 = PrefixNameTable.GetRandomItem();
-                results.Add(v0);
-            }
-
-            TableRowBase<string> v1 = NameTable.GetRandomItem();
-            results.Add(v1);
-
-            TableRowBase<string> v2 = PrefixTable.GetRandomItem();
-            results.Add(v2);
-
-            TableRowBase<string> v3 = SomethingTable.GetRandomItem();
-            results.Add(v3);
-
-            return (spiffy, results.ToArray());
+            return (
+                    (spiffy ? PrefixTable.GetRandomItem() : null),
+                    NameTable.GetRandomItem(),
+                    PrefixNameTable.GetRandomItem(),
+                    SomethingTable.GetRandomItem()
+                   );
         }
     }
 }

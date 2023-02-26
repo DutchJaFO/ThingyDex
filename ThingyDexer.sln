@@ -10,11 +10,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingyDexer.Model", "ThingyDexer.Model\ThingyDexer.Model.csproj", "{B0D17564-1BE5-4174-923E-FFA145222AD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingyDexer.Model", "ThingyDexer.Model\ThingyDexer.Model.csproj", "{B0D17564-1BE5-4174-923E-FFA145222AD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingyDexer.View", "ThingyDexer.View\ThingyDexer.View.csproj", "{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingyDexer.View", "ThingyDexer.View\ThingyDexer.View.csproj", "{5A2AFAE7-682C-458C-9903-8A5BDDDF31C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThingyDexer.ViewModel", "ThingyDexer.ViewModel\ThingyDexer.ViewModel.csproj", "{DE795139-50C4-4F6F-BE7C-950F9A5A294B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingyDexer.ViewModel", "ThingyDexer.ViewModel\ThingyDexer.ViewModel.csproj", "{DE795139-50C4-4F6F-BE7C-950F9A5A294B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

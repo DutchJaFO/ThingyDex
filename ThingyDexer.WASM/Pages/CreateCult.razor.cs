@@ -8,72 +8,151 @@ namespace ThingyDexer.WASM.Pages
     {
         public CreateCult()
         {
-            Cultname = null;
         }
 
-        private void GenerateCultName()
+        public void ClearCultname()
         {
-            if (CultnameTableSet is null) return;
-
-            (bool Spiffy, TableRowBase<string>[] Data)? oldName = Cultname;
-            bool newName = (oldName is null);
-            if (oldName != null)
+            SelectedRegel = null;
+            Prefix1 = null;
+            Prefix2 = null;
+            Item1 = null;
+            Item2 = null;
+        }
+        private void GenerateCultName(bool spiffy)
+        {
+            if (CultnameTableSet is null)
             {
-                if (oldName.Value.Spiffy != Spiffy)
+                return;
+            }
+
+            bool prefix1Selected = Prefix1Selected;
+            bool prefix2Selected = Prefix2Selected;
+            bool item1Selected = Item1Selected;
+            bool item2Selected = Item2Selected;
+
+            try
+            {
+                IgnoreSelection = true;
+                if ((Prefix1 is null) && (Prefix2 is null) && (Item1 is null) && (Item2 is null))
                 {
-                    newName = false;
-                    if (Spiffy)
+                    if (spiffy)
                     {
-                        // [x] of the [y] [z]
-                        // add extra entry 
-                        (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
-                        List<TableRowBase<string>> set = new(x.Data);
-                        TableRowBase<string> extra = this.CultnameTableSet.PrefixNameTable.GetRandomItem();
-
-                        // [what happens if this is identical ?]
-                        // extra = this.CultnameTableSet.PrefixNameTable.GetRow(x.Data[1].Index);
-                        //
-
-                        set.Insert(0, extra);
-                        Cultname = new(Spiffy, set.ToArray());
-
+                        Prefix1 = CultnameTableSet.PrefixTable.GetRandomItem();
                     }
-                    else
-                    {
-                        // [a] [x] of the [y] [z]
-                        // remove extra entry
-                        (bool Spiffy, TableRowBase<string>[] Data) x = oldName.Value;
-                        Cultname = new(Spiffy, x.Data.Skip(1).ToArray());
+                    Item1 = CultnameTableSet.SomethingTable.GetRandomItem();
 
-                    }
+                    Prefix2 = CultnameTableSet.PrefixNameTable.GetRandomItem();
+                    Item2 = CultnameTableSet.NameTable.GetRandomItem();
                 }
                 else
                 {
-                    newName = true;
-                }
-            }
-            if (newName)
-            {
-                Cultname = this.CultnameTableSet?.GetValueSet(Spiffy);
-            }
+                    if (Prefix1 is not null)
+                    {
+                        Prefix1 = CultnameTableSet.PrefixTable.GetRandomItem();
+                    }
 
-            if (SelectedRegel is not null)
-            {
-                var regel = (DisplayDetails.Where(o => o.Source?.Key == SelectedRegel?.Source?.Key));
-                if (regel.Any())
+                    if (Item1 is not null)
+                    {
+                        Item1 = CultnameTableSet.SomethingTable.GetRandomItem();
+                    }
+
+                    if (Prefix2 is not null)
+                    {
+                        Prefix2 = CultnameTableSet.PrefixNameTable.GetRandomItem();
+                    }
+
+                    if (Item2 is not null)
+                    {
+                        Item2 = CultnameTableSet.NameTable.GetRandomItem();
+                    }
+                }
+
+                if (prefix1Selected || prefix2Selected || item1Selected || item2Selected)
                 {
-                    SelectedRegel = regel.FirstOrDefault(o => o.Id == SelectedRegel?.Id) ?? regel.First();
+                    if (prefix1Selected)
+                    {
+                        SelectedRegel = Prefix1;
+                    }
+                    if (item1Selected)
+                    {
+                        SelectedRegel = Item1;
+                    }
+
+                    if (prefix2Selected)
+                    {
+                        SelectedRegel = Prefix2;
+                    }
+                    if (item2Selected)
+                    {
+                        SelectedRegel = Item2;
+                    }
                 }
                 else
                 {
                     SelectedRegel = null;
                 }
+                TimeStamp = DateTime.Now.ToLocalTime();
+                // StateHasChanged();
+            }
+            finally
+            {
+                IgnoreSelection = false;
+            }
+        }
+
+        public bool IgnoreSelection { get; set; }
+
+        public bool Prefix1Selected
+        {
+            get
+            {
+                return (Prefix1 != null) && (Prefix1?.Equals(SelectedRegel) == true);
+            }
+        }
+
+        public bool Prefix2Selected
+        {
+            get
+            {
+                return (Prefix2 != null) && (Prefix2?.Equals(SelectedRegel) == true);
+            }
+        }
+
+        public bool Item1Selected
+        {
+            get
+            {
+                return (Item1 != null) && (Item1?.Equals(SelectedRegel) == true);
+            }
+        }
+
+        public bool Item2Selected
+        {
+            get
+            {
+                return (Item2 != null) && (Item2?.Equals(SelectedRegel) == true);
+            }
+        }
+
+        protected void DoOnRowSelect(TableRowBase<string>? row, bool selected)
+        {
+            if (row != null)
+            {
+                TableRowBase<string> nieuweSelectie = row;
+                if ((SelectedRegel != null) && SelectedRegel.Equals(nieuweSelectie))
+                {
+                    SelectedRegel = null;
+                }
+                else
+                {
+                    SelectedRegel = nieuweSelectie;
+                }
             }
             else
             {
+                SelectedRegel = null;
             }
-
-            TimeStamp = DateTime.Now.ToLocalTime();
+            ShowDetails = (SelectedRegel != null);
             StateHasChanged();
         }
 
@@ -88,35 +167,30 @@ namespace ThingyDexer.WASM.Pages
         public DateTime? TimeStamp { get; private set; }
 
         public bool Spiffy { get; set; }
-        public (bool Spiffy, TableRowBase<string>[] Data)? Cultname { get; set; }
+        public void SpiffyValueChanged(bool newValue)
+        {
+            bool oldSpiffy = Spiffy;
+            Spiffy = newValue;
+            if (HasCultname)
+            {
+                GenerateCultName(oldSpiffy);
+            }
+        }
 
-        public string Displayname
+        public bool HasCultname
         {
             get
             {
-                (bool Spiffy, TableRowBase<string>[] Data)? d = Cultname;
-                return
-                    ((d?.Spiffy) == true)
-                        ? $"{d?.Data[0].Value} {d?.Data[1].Value} of the {d?.Data[2].Value} {d?.Data[3].Value}"
-                        : $"{d?.Data[0].Value} of the {d?.Data[1].Value} {d?.Data[2].Value}";
+                return (Prefix1 != null) || (Item1 != null) || (Prefix2 != null) || (Item2 != null);
             }
         }
-        public RegelString[] DisplayDetails
-        {
-            get
-            {
-                (bool Spiffy, TableRowBase<string>[] Data)? d = Cultname;
-                List<string> result = new();
-                if (d.HasValue)
-                {
-                    return (d.Value.Data.Select(o => new RegelString() { Source = o.Owner, Id = o.Index, Name = o.Value ?? "" })).ToArray();
-                }
-                else
-                {
-                    return Array.Empty<RegelString>();
-                }
-            }
-        }
+
+        public TableRowBase<string>? Prefix1 { get; set; }
+        public TableRowBase<string>? Item1 { get; set; }
+
+        public TableRowBase<string>? Prefix2 { get; set; }
+        public TableRowBase<string>? Item2 { get; set; }
+
 
         private bool _ShowDetails;
         public bool ShowDetails
@@ -126,9 +200,9 @@ namespace ThingyDexer.WASM.Pages
         }
 
 
-        public RegelString? SelectedRegel { get; set; }
+        public TableRowBase<string>? SelectedRegel { get; set; }
 
-        protected void OnClickWithArgs(EventArgs args, RegelString data)
+        protected void OnClickWithArgs(EventArgs args, TableRowBase<string> data)
         {
             if ((SelectedRegel != null) && SelectedRegel.Equals(data))
             {

@@ -1,5 +1,6 @@
 using Markdig;
 using Microsoft.AspNetCore.Components;
+using System.Runtime.CompilerServices;
 
 namespace ThingyDexer.WASM.Pages
 {
@@ -13,7 +14,7 @@ namespace ThingyDexer.WASM.Pages
         protected override async Task OnInitializedAsync()
         {
             MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-
+            //TrackTrivia = pipeline.TrackTrivia;
             if (Welcome is null)
             {
                 string markdownText = await Client.GetStringAsync("sample-data/Welcome.md");
@@ -27,10 +28,9 @@ namespace ThingyDexer.WASM.Pages
             }
         }
 
-        public bool ShowWelcome { get; set; } = true;
+        public bool TrackTrivia { get; private set;}
         public string? Welcome { get; set; }
 
-        public bool ShowReleaseNotes { get; set; } = false;
         public string? ReleaseNotes { get; set; }
     }
 }

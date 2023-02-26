@@ -1,0 +1,48 @@
+﻿@inherits ComponentBase
+
+@if (RowItem != null)
+{
+    <span>
+        @if (HasPrefix)
+        {
+            if (Prefix is not null)
+            {
+                <Button Size="Size.Medium" Class="px-1" Type="ButtonType.Link" Color=ButtonColor.None Active=false Disabled=true>
+                    <h4>@Prefix</h4>
+                </Button>
+            }
+        }
+        @if (Selected == true)
+        {
+            <Button Type="ButtonType.Button" 
+                    Color="ButtonColor.Primary"
+                    @onclick="@(() => {RowItem = Table.GetRandomItem();})">
+
+                <Icon Name="IconName.Dice6Fill"></Icon>
+            </Button>
+        }
+        <Button Size="Size.Medium" Class="px-1"
+            Type="ButtonType.Link"
+            Color="@(Selected? ButtonColor.Link:ButtonColor.None)"
+            Outline="@(Selected? true:false)"
+            Active="@Selected"
+            @onclick="@(() => { DoOnRowSelect(); })"
+            @ref="RefButton">
+            <h4>@RowItem?.Value</h4>
+        </Button>
+        @*
+    @($"[{RowItem?.Owner.Name}:{RowItem?.Index:D3}] - {RowItem?.Value}")
+    *@
+    </span>
+} else
+{
+    <span>
+    <Button Type="ButtonType.Button"
+        Color="ButtonColor.Secondary" Outline=true
+        @onclick="@(() => {RowItem = Table.GetRandomItem();})">
+
+        <Icon Name="IconName.PlusCircle"></Icon>
+    </Button>
+    </span>
+}
+

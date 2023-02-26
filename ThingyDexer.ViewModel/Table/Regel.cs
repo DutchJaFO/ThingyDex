@@ -15,10 +15,13 @@ namespace ThingyDexer.ViewModel.Table
 
         public override bool Equals(object? obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
             else
             {
-                var target = (RegelString)obj;
+                RegelString target = (RegelString)obj;
                 return (target.Source?.Key == Source?.Key) && (target.Id == Id);
 
             }
@@ -27,9 +30,13 @@ namespace ThingyDexer.ViewModel.Table
         public override int GetHashCode()
         {
             if (Source != null)
+            {
                 return Id.GetHashCode() ^ Source.Key.GetHashCode();
+            }
             else
+            {
                 return Id.GetHashCode();
+            }
         }
     }
 

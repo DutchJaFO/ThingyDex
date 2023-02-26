@@ -14,12 +14,15 @@
         }
         @if (Selected == true)
         {
-            <Button Type="ButtonType.Button" 
+            if (Table != null)
+            {
+                <Button Type="ButtonType.Button" 
                     Color="ButtonColor.Primary"
-                    @onclick="@(() => {RowItem = Table.GetRandomItem();})">
+                    @onclick="@(() => { if (Table != null) {RowItem = Table.GetRandomItem();}})">
 
                 <Icon Name="IconName.Dice6Fill"></Icon>
             </Button>
+            }
         }
         <Button Size="Size.Medium" Class="px-1"
             Type="ButtonType.Link"

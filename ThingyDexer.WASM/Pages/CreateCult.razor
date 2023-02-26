@@ -116,7 +116,7 @@
                 {
                     <Grid Data="@SelectedRegel?.Owner?.Rows(o => new SelectableRegelString() { Selected = (o.Index == SelectedRegel.Index), Id= o.Index, Name = o.Value})"
                           class="table table-sm table-hover table-bordered table-striped"
-              AllowPaging=false
+              AllowPaging=true
               PaginationAlignment="Alignment.Start"
               Responsive=true
               AllowFiltering=true

@@ -1,3 +1,4 @@
+using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using System.Reflection.Metadata;
 using ThingyDexer.Model.Table;

@@ -7,6 +7,7 @@ namespace ThingyDexer.ViewModel.Table
         public Table<T>? Source { get; set; }
         public string Table => Source?.Name ?? string.Empty;
         public int Id { get; set; }
+        public string IdText => Id.ToString("D3");
         public T? Name { get; set; }
     }
 

@@ -3,8 +3,8 @@
 ## Acknowledgements
 Inspired by the skirmish game [Verrotwood](http://verrotwood.com/) and a discussion with [@ewokkebab] on the OnTableTop Discord
 
-- [Verrotwood project by @ewokkebab at OnTableTop](https://www.beastsofwar.com/project/1804221/){ target="_blank" }  
-- [@ewokkebab's cultname table used as source](https://www.beastsofwar.com/project-entry/1804304/){ target="_blank" }
+- [Verrotwood project by @ewokkebab at OnTableTop](https://www.beastsofwar.com/project/1804221/)
+- [@ewokkebab's cultname table used as source](https://www.beastsofwar.com/project-entry/1804304/)
 
 ## Useful links and resources 
 - [OnTableTop.com](https://www.ontabletop.com)

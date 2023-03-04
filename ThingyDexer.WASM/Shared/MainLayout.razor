@@ -1,17 +1,20 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="bb-page">
+<div class="bb-page primary-color">
 
     <Sidebar IconName="IconName.Dice6Fill"
-             Title="Thingydexer"
+             Title="Thingydex"
              BadgeText="v0.1.8 (ALPHA)"
-             DataProvider="SidebarDataProvider" />
+             DataProvider="SidebarDataProvider"
+             @ref="sidebar" />
 
     <main>
-        <div class="bb-top-row p-4 d-flex justify-content-end" >
+        <div class="bb-top-row px-4 d-flex justify-content-between">
+            <Icon Name="IconName.List" role="button" @onclick="ToogleSidebar" />
+            @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
+
             <UpdateAvailableDetector />
 
-            @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
             @if (System.Diagnostics.Debugger.IsAttached)
             {
                 <Alert Color="AlertColor.Danger">DEBUG-mode?</Alert>

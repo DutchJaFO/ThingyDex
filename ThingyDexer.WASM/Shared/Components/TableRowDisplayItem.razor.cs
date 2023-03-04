@@ -3,7 +3,7 @@ using ThingyDexer.Model.Table;
 
 namespace ThingyDexer.WASM.Shared.Components
 {
-    public partial class TableRowDisplayItem:ComponentBase
+    public partial class TableRowDisplayItem : ComponentBase
     {
         [Parameter, EditorRequired]
         public TextTable? Table { get; set; }
@@ -47,7 +47,10 @@ namespace ThingyDexer.WASM.Shared.Components
 
         public void DoSelectNoun()
         {
-            SelectedRegel = Noun;
+            if (Noun?.Equals(SelectedRegel) == true)
+                SelectedRegel = null;
+            else
+                SelectedRegel = Noun;
         }
 
         public void DoRerollSelectedRegel()

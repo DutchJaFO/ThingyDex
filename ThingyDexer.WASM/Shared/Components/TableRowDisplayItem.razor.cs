@@ -1,81 +1,75 @@
-using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using ThingyDexer.Model.Table;
 
 namespace ThingyDexer.WASM.Shared.Components
 {
-    public delegate void RowSelectDelegate(TableRowBase<string>? row, bool selected);
-
-    public partial class TableRowDisplayItem : ComponentBase
+    public partial class TableRowDisplayItem:ComponentBase
     {
-        protected Button? RefButton { get; set; }
-
-        public TableRowDisplayItem() : base() { }
-
-        public bool HasPrefix => string.IsNullOrWhiteSpace(Prefix) == false;
-
-        [Parameter]
-        public string? Prefix { get; set; } = null;
-
-        [Parameter]
-        public bool IgnoreSelection { get; set; }
-
-
         [Parameter, EditorRequired]
-        public Table<string>? Table { get; set; }
+        public TextTable? Table { get; set; }
 
-        private TableRowBase<string>? _RowItem;
+        private TableRowBase<string>? _Noun;
         [Parameter]
-#pragma warning disable BL0007 // Component parameters should be auto properties
-        public TableRowBase<string>? RowItem
-#pragma warning restore BL0007 // Component parameters should be auto properties
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "<Pending>")]
+        public TableRowBase<string>? Noun
         {
-            get => _RowItem;
+            get => _Noun;
             set
             {
-                if (_RowItem == value)
-                {
+                if (_Noun == value)
                     return;
-                }
-                else
-                {
-                    _RowItem = value;
-                    RowItemChanged?.Invoke(value);
-                    StateHasChanged();
-                }
+                _Noun = value;
+                NounChanged.InvokeAsync(value);
             }
         }
 
         [Parameter]
-        public Action<TableRowBase<string>?>? RowItemChanged { get; set; }
+        public EventCallback<TableRowBase<string>?> NounChanged { get; set; }
+
+        private TableRowBase<string>? _SelectedRegel;
 
         [Parameter]
-        public RowSelectDelegate? OnRowSelect { get; set; }
-        public void DoOnRowSelect()
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "<Pending>")]
+        public TableRowBase<string>? SelectedRegel
         {
-            OnRowSelect?.Invoke(RowItem, Selected);
-        }
-
-        private bool _Selected;
-        [Parameter]
-#pragma warning disable BL0007 // Component parameters should be auto properties
-        public bool Selected
-#pragma warning restore BL0007 // Component parameters should be auto properties
-        {
-            get => _Selected;
+            get => _SelectedRegel;
             set
             {
-                _Selected = value;
-                StateHasChanged();
+                if (_SelectedRegel == value)
+                    return;
+                _SelectedRegel = value;
+                SelectedRegelChanged.InvokeAsync(value);
             }
         }
 
-        public string? ToolTipText => $"[{RowItem?.Owner.Name}:{RowItem?.Index:D3}] - {RowItem?.Value}";
+        [Parameter]
+        public EventCallback<TableRowBase<string>?> SelectedRegelChanged { get; set; }
 
-        public void DoOnClickRollItem()
+        public void DoSelectNoun()
         {
-            RowItem = Table?.GetRandomItem();
-            Selected = true;
+            SelectedRegel = Noun;
+        }
+
+        public void DoRerollSelectedRegel()
+        {
+            var isNounSelected = Noun?.Equals(SelectedRegel) == true;
+            if ((Noun != null) && isNounSelected)
+            {
+                Noun = Noun.Owner.GetRandomItem();
+            }
+
+            if (isNounSelected)
+            {
+                SelectedRegel = Noun;
+            }
+
+            StateHasChanged();
+        }
+
+        public void DoRollSelectedRegel()
+        {
+            Noun = Table?.GetRandomItem();
+            SelectedRegel = Noun;
         }
     }
 }

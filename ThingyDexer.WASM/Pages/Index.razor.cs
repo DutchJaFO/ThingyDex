@@ -14,7 +14,6 @@ namespace ThingyDexer.WASM.Pages
         protected override async Task OnInitializedAsync()
         {
             MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-            //TrackTrivia = pipeline.TrackTrivia;
             if (Welcome is null)
             {
                 string markdownText = await Client.GetStringAsync("sample-data/Welcome.md");

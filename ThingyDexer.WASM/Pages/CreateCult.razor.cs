@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Components;
+using System.Reflection.Metadata;
 using ThingyDexer.Model.Table;
+using ThingyDexer.ViewModel.Table;
 
 namespace ThingyDexer.WASM.Pages
 {
@@ -11,8 +13,42 @@ namespace ThingyDexer.WASM.Pages
 
         public void ClearPrefix()
         {
-            SelectedRegel = null;
-            Prefix1 = null;
+            try
+            {
+                var isPrefix1Selected = Prefix1?.Equals(SelectedRegel) == true;
+                var isPrefix2Selected = Prefix2?.Equals(SelectedRegel) == true;
+                var isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                var isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+
+                if ((Prefix1 != null) && isPrefix1Selected)
+                {
+                    Prefix1 = null;
+                }
+
+                if ((Noun1 != null) && isNoun1Selected)
+                {
+                    Noun1 = null;
+                }
+
+                if ((Prefix2 != null) && isPrefix2Selected)
+                {
+                    Prefix2 = null;
+                }
+
+                if ((Noun2 != null) && isNoun2Selected)
+                {
+                    Noun2 = null;
+                }
+            }
+            finally
+            {
+                TimeStamp = DateTime.Now.ToLocalTime();
+
+                SelectedRegel = null;
+
+                ShowDetails = true;
+                StateHasChanged();
+            }
         }
 
         public void ClearCultname()
@@ -20,22 +56,127 @@ namespace ThingyDexer.WASM.Pages
             SelectedRegel = null;
             Prefix1 = null;
             Prefix2 = null;
-            Item1 = null;
-            Item2 = null;
+            Noun1 = null;
+            Noun2 = null;
+
+            TimeStamp = DateTime.Now.ToLocalTime();
+
+            ShowDetails = true;
+            StateHasChanged();
         }
-        private void RerollCultName()
+
+        private void DoSelectItem(SelectableRegelString newItem)
         {
+            if (newItem != null)
+            {
+                TableRowBase<string>? item = newItem?.Source?.GetRow(newItem.Id);
+                try
+                {
+                    var isPrefix1Selected = (item?.Owner != null) && (Prefix1?.Owner.Equals(item.Owner) == true);
+                    var isPrefix2Selected = (item?.Owner != null) && (Prefix2?.Owner.Equals(item.Owner) == true);
+                    var isNoun1Selected = (item?.Owner != null) && (Noun1?.Owner.Equals(item.Owner) == true);
+                    var isNoun2Selected = (item?.Owner != null) && (Noun2?.Owner.Equals(item.Owner) == true);
+
+                    if ((Prefix1 != null) && isPrefix1Selected)
+                    {
+                        Prefix1 = item;
+                    }
+
+                    if ((Noun1 != null) && isNoun1Selected)
+                    {
+                        Noun1 = item;
+                    }
+
+                    if ((Prefix2 != null) && isPrefix2Selected)
+                    {
+                        Prefix2 = item;
+                    }
+
+                    if ((Noun2 != null) && isNoun2Selected)
+                    {
+                        Noun2 = item;
+                    }
+                }
+                finally
+                {
+                    TimeStamp = DateTime.Now.ToLocalTime();
+
+                    SelectedRegel = item;
+
+                    ShowDetails = true;
+                    StateHasChanged();
+                }
+            }
+        }
+
+        private void RerollSelectedRegel()
+        {
+            bool isPrefix1Selected = false;
+            bool isPrefix2Selected = false;
+            bool isNoun1Selected = false;
+            bool isNoun2Selected = false;
             try
             {
-                SkipUpdate = true;
+                isPrefix1Selected = Prefix1?.Equals(SelectedRegel) == true;
+                isPrefix2Selected = Prefix2?.Equals(SelectedRegel) == true;
+                isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+
+                if ((Prefix1 != null) && isPrefix1Selected)
+                {
+                    Prefix1 = Prefix1.Owner.GetRandomItem();
+                }
+
+                if ((Noun1 != null) && isNoun1Selected)
+                {
+                    Noun1 = Noun1.Owner.GetRandomItem();
+                }
+
+                if ((Prefix2 != null) && isPrefix2Selected)
+                {
+                    Prefix2 = Prefix2.Owner.GetRandomItem();
+                }
+
+                if ((Noun2 != null) && isNoun2Selected)
+                {
+                    Noun2 = Noun2.Owner.GetRandomItem();
+                }
+            }
+            finally
+            {
+                TimeStamp = DateTime.Now.ToLocalTime();
+
+                if (isPrefix1Selected) SelectedRegel = Prefix1;
+                if (isPrefix2Selected) SelectedRegel = Prefix2;
+                if (isNoun1Selected) SelectedRegel = Noun1;
+                if (isNoun2Selected) SelectedRegel = Noun2;
+
+                ShowDetails = true;
+                StateHasChanged();
+            }
+        }
+
+        private void RerollCultName()
+        {
+            bool isPrefix1Selected = false;
+            bool isPrefix2Selected = false;
+            bool isNoun1Selected = false;
+            bool isNoun2Selected = false;
+            try
+            {
+                isPrefix1Selected = Prefix1?.Equals(SelectedRegel) == true;
+                isPrefix2Selected = Prefix2?.Equals(SelectedRegel) == true;
+                isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+
                 if (Prefix1 is not null)
                 {
                     Prefix1 = Prefix1.Owner.GetRandomItem();
                 }
 
-                if (Item1 is not null)
+                if (Noun1 is not null)
                 {
-                    Item1 = Item1.Owner.GetRandomItem();
+                    Noun1 = Noun1.Owner.GetRandomItem();
                 }
 
                 if (Prefix2 is not null)
@@ -43,16 +184,22 @@ namespace ThingyDexer.WASM.Pages
                     Prefix2 = Prefix2.Owner.GetRandomItem();
                 }
 
-                if (Item2 is not null)
+                if (Noun2 is not null)
                 {
-                    Item2 = Item2.Owner.GetRandomItem();
+                    Noun2 = Noun2.Owner.GetRandomItem();
                 }
             }
             finally
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
-                SkipUpdate = false;
-                SelectedRegel = Prefix1 ?? Item1;
+
+                if (isPrefix1Selected) SelectedRegel = Prefix1;
+                if (isPrefix2Selected) SelectedRegel = Prefix2;
+                if (isNoun1Selected) SelectedRegel = Noun1;
+                if (isNoun2Selected) SelectedRegel = Noun2;
+
+                ShowDetails = true;
+                StateHasChanged();
             }
         }
 
@@ -60,70 +207,36 @@ namespace ThingyDexer.WASM.Pages
         {
             if (CultnameTableSet is not null)
             {
+                bool isPrefix1Selected = false;
+                bool isPrefix2Selected = false;
+                bool isNoun1Selected = false;
+                bool isNoun2Selected = false;
                 try
                 {
-                    SkipUpdate = true;
+                    isPrefix1Selected = Prefix1?.Equals(SelectedRegel) == true;
+                    isPrefix2Selected = Prefix2?.Equals(SelectedRegel) == true;
+                    isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                    isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+
                     (TableRowBase<string>? prefixName, TableRowBase<string>? name, TableRowBase<string>? prefixSomething, TableRowBase<string>? something) = CultnameTableSet.GenerateName(spiffy);
                     Prefix1 = prefixName;
-                    Item1 = name;
+                    Noun1 = name;
                     Prefix2 = prefixSomething;
-                    Item2 = something;
+                    Noun2 = something;
                 }
                 finally
                 {
                     TimeStamp = DateTime.Now.ToLocalTime();
-                    SkipUpdate = false;
-                    SelectedRegel = Prefix1 ?? Item1;
+
+                    if (isPrefix1Selected) SelectedRegel = Prefix1;
+                    if (isPrefix2Selected) SelectedRegel = Prefix2;
+                    if (isNoun1Selected) SelectedRegel = Noun1;
+                    if (isNoun2Selected) SelectedRegel = Noun2;
+
+                    ShowDetails = true;
+                    StateHasChanged();
                 }
             }
-        }
-
-        public bool SkipUpdate { get; set; }
-
-        public bool Prefix1Selected
-        {
-            get;
-            set;
-        }
-
-        public bool Prefix2Selected
-        {
-            get;
-            set;
-        }
-
-        public bool Item1Selected
-        {
-            get;
-            set;
-        }
-
-        public bool Item2Selected
-        {
-            get;
-            set;
-        }
-
-        protected void DoOnRowSelect(TableRowBase<string>? row, bool selected)
-        {
-            if (row != null)
-            {
-                TableRowBase<string> nieuweSelectie = row;
-                if ((SelectedRegel != null) && SelectedRegel.Equals(nieuweSelectie))
-                {
-                    SelectedRegel = null;
-                }
-                else
-                {
-                    SelectedRegel = nieuweSelectie;
-                }
-            }
-            else
-            {
-                SelectedRegel = null;
-            }
-            ShowDetails = (SelectedRegel != null);
-            StateHasChanged();
         }
 
         protected override void OnInitialized()
@@ -134,24 +247,13 @@ namespace ThingyDexer.WASM.Pages
         [Inject]
         public CultnameTableSet? CultnameTableSet { get; set; }
 
-        public DateTime? TimeStamp { get; private set; }
-
-        public bool Spiffy { get; set; }
-        public void SpiffyValueChanged(bool newValue)
-        {
-            bool oldSpiffy = Spiffy;
-            Spiffy = newValue;
-            if (HasCultname)
-            {
-                GenerateCultName(oldSpiffy);
-            }
-        }
+        public DateTime? TimeStamp { get; private set; }= DateTime.Now.ToLocalTime();
 
         public bool HasCultname
         {
             get
             {
-                return (Prefix1 != null) || (Item1 != null) || (Prefix2 != null) || (Item2 != null);
+                return (Prefix1 != null) || (Noun1 != null) || (Prefix2 != null) || (Noun2 != null);
             }
         }
 
@@ -160,7 +262,7 @@ namespace ThingyDexer.WASM.Pages
             get;
             set;
         }
-        public TableRowBase<string>? Item1
+        public TableRowBase<string>? Noun1
         {
             get;
             set;
@@ -171,7 +273,7 @@ namespace ThingyDexer.WASM.Pages
             get;
             set;
         }
-        public TableRowBase<string>? Item2
+        public TableRowBase<string>? Noun2
         {
             get;
             set;
@@ -186,43 +288,10 @@ namespace ThingyDexer.WASM.Pages
         }
 
 
-        private TableRowBase<string>? _SelectedRegel;
         public TableRowBase<string>? SelectedRegel
         {
-            get => _SelectedRegel;
-            set
-            {
-                _SelectedRegel = value;
-
-                if (SelectedRegel is not null)
-                {
-                    Prefix1Selected = (SelectedRegel.Equals(Prefix1));
-                    Prefix2Selected = (SelectedRegel.Equals(Prefix2));
-                    Item1Selected = (SelectedRegel.Equals(Item1));
-                    Item2Selected = (SelectedRegel.Equals(Item2));
-                }
-                else
-                {
-                    Prefix1Selected = false;
-                    Prefix2Selected = false;
-                    Item1Selected = false;
-                    Item2Selected = false;
-                }
-                StateHasChanged();
-            }
-        }
-
-        protected void OnClickWithArgs(EventArgs args, TableRowBase<string> data)
-        {
-            if ((SelectedRegel != null) && SelectedRegel.Equals(data))
-            {
-                SelectedRegel = null;
-            }
-            else
-            {
-                SelectedRegel = data;
-            }
-            StateHasChanged();
+            get;
+            set;
         }
     }
 }

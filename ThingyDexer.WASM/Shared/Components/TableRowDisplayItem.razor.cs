@@ -12,8 +12,7 @@ namespace ThingyDexer.WASM.Shared.Components
 
         public TableRowDisplayItem() : base() { }
 
-        [Parameter]
-        public bool HasPrefix { get; set; } = false;
+        public bool HasPrefix => string.IsNullOrWhiteSpace(Prefix) == false;
 
         [Parameter]
         public string? Prefix { get; set; } = null;
@@ -42,6 +41,7 @@ namespace ThingyDexer.WASM.Shared.Components
                 {
                     _RowItem = value;
                     RowItemChanged?.Invoke(value);
+                    StateHasChanged();
                 }
             }
         }
@@ -71,5 +71,11 @@ namespace ThingyDexer.WASM.Shared.Components
         }
 
         public string? ToolTipText => $"[{RowItem?.Owner.Name}:{RowItem?.Index:D3}] - {RowItem?.Value}";
+
+        public void DoOnClickRollItem()
+        {
+            RowItem = Table?.GetRandomItem();
+            Selected = true;
+        }
     }
 }

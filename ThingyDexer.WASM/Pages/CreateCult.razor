@@ -11,148 +11,271 @@
 
 @if (true)
 {
-    <Callout Type="CalloutType.Default" Heading="Cult name">
-        <hr />
-        <div class="row">
-            <div class="col-sm-auto" >
-                <Button Color="ButtonColor.Primary" Size="Size.Medium"
+                    <Callout Type="CalloutType.Default" Heading="Cult name">
+                        <hr />
+                        <div class="row">
+                                <div class="col-sm-auto py-4 px-1">
+                                <Button Color="ButtonColor.Primary" Size="Size.Medium"
                     @onclick="@(() => { GenerateCultName(false); })">
-                    <Icon Name="IconName.Dice1Fill" />
-                    [thingy] of the [prefix] [things]
-                </Button>
-            </div>
+                                    <Icon Name="IconName.Dice1Fill" />
+                                    [thingy] of the [prefix] [things]
+                                </Button>
+                            </div>
 
-            <div class="col-sm-auto" >
-                <Button Color="ButtonColor.Primary" Size="Size.Medium"
+                            <div class="col-sm-auto py-4 px-1">
+                                <Button Color="ButtonColor.Primary" Size="Size.Medium"
                     @onclick="@(() => { GenerateCultName(true); })">
-                    <Icon Name="IconName.Dice2Fill" />
-                    [prefix] [thingy] of the [prefix] [things]
-                </Button>
-            </div>
-
-            <div class="col-sm-auto" >
-                <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
+                                    <Icon Name="IconName.Dice2Fill" />
+                                    [prefix] [thingy] of the [prefix] [things]
+                                </Button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 py-4 px-1">
+                                <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
+                    Color="ButtonColor.Secondary"
+                    @onclick="@RerollSelectedRegel">
+                                    <Icon Name="IconName.Dice3Fill" />
+                                    Re-roll selection
+                                </Button>
+                            </div>
+                            <div class="col-sm-3 py-4 px-1">
+                                <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
                     Color="ButtonColor.Secondary"
                     @onclick="@RerollCultName">
-                    <Icon Name="IconName.Dice3Fill" />
-                    Re-roll name
-                </Button>
-            </div>
-            <div class="col-sm-auto">
-                <Button Disabled="@((HasCultname == false) || (Prefix1 is null))" Size="Size.Medium"
+                                    <Icon Name="IconName.Dice4Fill" />
+                                    Re-roll name
+                                </Button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3 py-4 px-1">
+                                <Button Disabled="@((HasCultname == false) || (SelectedRegel is null))" Size="Size.Medium"
                     Color="ButtonColor.Danger" @onclick="@ClearPrefix">
-                    <Icon Name="IconName.Trash" />
-                    Clear prefix
-                </Button>
-            </div>
-            <div class="col-sm-auto">
-                <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
+                                    <Icon Name="IconName.Trash" />
+                                    Delete selection
+                                </Button>
+                            </div>
+                            <div class="col-sm-3 py-4 px-1">
+                                <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
                     Color="ButtonColor.Danger" @onclick="@ClearCultname">
-                    <Icon Name="IconName.Trash" />
-                    Clear name
-                </Button>
-            </div>
-            <div class="col"></div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <TableRowDisplayItem RowItem="@Prefix1"
-                                 Table=@CultnameTableSet.PrefixTable
-                                 RowItemChanged="@((o) => {Prefix1 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
-                                 HasPrefix=false
-                                 Selected="@Prefix1Selected"
-                                 OnRowSelect="@DoOnRowSelect" />
+                                    <Icon Name="IconName.Trash" />
+                                    Delete name
+                                </Button>
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-auto">
+                                <div class="mx-4 my-2 px-2 py-2" >
+                                    <span>
+                        @if (@Prefix1 != null)
+                        {
+                            if (SelectedRegel?.Equals(Prefix1) == true)
+                            {
+                                <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
+                                        Color="ButtonColor.Secondary"
+                                        @onclick="@RerollSelectedRegel">
+                                            <Icon Name="IconName.Dice1" />
+                                </Button>
+                            }
+                            <Button Type="ButtonType.Button"
+                                    Color="@(SelectedRegel?.Equals(Prefix1)==true? ButtonColor.Link:ButtonColor.None)"
+                                    Active=@(SelectedRegel?.Equals(Prefix1) == true)
+                                    Outline=false
+                                    @onclick="@(() => {SelectedRegel = Prefix1; ShowDetails= true;})">
+                                                                <h4>
+                                    @Prefix1?.Value
+                                                                </h4>
+                                                            </Button>
+                        }
+                        else
+                        {
+<Button Type="ButtonType.Button"
+                                    Color="ButtonColor.Secondary" 
+                                    Outline=true
+                                    @onclick="@(() => {Prefix1 = CultnameTableSet?.PrefixNameTable.GetRandomItem(); SelectedRegel = Prefix1; ShowDetails= true;})">
+                                                                <Icon Name="IconName.PlusCircle"></Icon>
+                                                            </Button>
+                        }
+                                    </span>
+                                    <span>
+                        @if (@Noun1 != null)
+                        {
+                            if (SelectedRegel?.Equals(Noun1) == true)
+                            {
+                                <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
+                                        Color="ButtonColor.Secondary"
+                                        @onclick="@RerollSelectedRegel">
+                                            <Icon Name="IconName.Dice1Fill" />
+                                </Button>
+                            }
+                                                            <Button Type="ButtonType.Button"
+                                    Color="@(SelectedRegel?.Equals(Noun1)==true? ButtonColor.Link:ButtonColor.None)"
+                                    Active=@(SelectedRegel?.Equals(Noun1) == true)
+                                    Outline=false
+                                    @onclick="@(() => {SelectedRegel = Noun1; ShowDetails= true;})">
+                                                                <h4>
+                                    @Noun1?.Value
+                                                                </h4>
+                                                            </Button>
+                        }
+                        else
+                        {
+                                                            <Button Type="ButtonType.Button"
+                                    Color="ButtonColor.Secondary" 
+                                    Outline=true
+                                    @onclick="@(() => {Noun1 = CultnameTableSet?.NameTable.GetRandomItem();SelectedRegel = Noun1; ShowDetails= true;})">
+                                                                <Icon Name="IconName.PlusCircle"></Icon>
+                                                            </Button>
+                        }
+                                    </span>
+                                    <span>
+                                            <Button Type="ButtonType.Button"
+                                    Color="ButtonColor.None" 
+                                    Disabled=true
+                                    Active=false
+                                    Outline=false >
+                                                <h4>
+                                                    of the
+                                                </h4>
+                                            </Button>
+                                        </span>
+                                    <span>
+                        @if (@Prefix2 != null)
+                        {
+                            if (SelectedRegel?.Equals(Prefix2) == true)
+                            {
+                                <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
+                                        Color="ButtonColor.Secondary"
+                                        @onclick="@RerollSelectedRegel">
+                                            <Icon Name="IconName.Dice2" />
+                                </Button>
+                            }
+                                                            <Button Type="ButtonType.Button"
+                                    Color="@(SelectedRegel?.Equals(Prefix2)==true? ButtonColor.Link:ButtonColor.None)"
+                                    Active=@(SelectedRegel?.Equals(Prefix2) == true)
+                                    Outline=false
+                                    @onclick="@(() => {SelectedRegel = Prefix2 ; ShowDetails= true;})">
+                                                                <h4>
+                                    @Prefix2?.Value
+                                                                </h4>
+                                                            </Button>
+                        }
+                        else
+                        {
+                                                            <Button Type="ButtonType.Button"
+                                    Color="ButtonColor.Secondary" 
+                                    Outline=true
+                                    @onclick="@(() => {Prefix2 = CultnameTableSet?.PrefixTable.GetRandomItem(); SelectedRegel = Prefix2; ShowDetails= true;})">
+                                                                <Icon Name="IconName.PlusCircle"></Icon>
+                                                            </Button>
+                        }
+                                    </span>
+                                    <span>
+                        @if (@Noun2 != null)
+                        {
+                            if (SelectedRegel?.Equals(Noun2) == true)
+                            {
+                                <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
+                                        Color="ButtonColor.Secondary"
+                                        @onclick="@RerollSelectedRegel">
+                                            <Icon Name="IconName.Dice2Fill" />
+                                </Button>
+                            }
+                                                            <Button Type="ButtonType.Button"
+                                    Color="@(SelectedRegel?.Equals(Noun2)==true? ButtonColor.Link:ButtonColor.None)"
+                                    Active=@(SelectedRegel?.Equals(Noun2) == true)
+                                    Outline=false
+                                    @onclick="@(() => {SelectedRegel = Noun2; ShowDetails= true;})">
+                                                                <h4>
+                                    @Noun2?.Value
+                                                                </h4>
+                                                            </Button>
+                        }
+                        else
+                        {
+                                                            <Button Type="ButtonType.Button"
+                                    Color="ButtonColor.Secondary" 
+                                    Outline=true
+                                    @onclick="@(() => {Noun2 = CultnameTableSet?.SomethingTable.GetRandomItem();SelectedRegel = Noun2; ShowDetails= true;})">
+                                                                <Icon Name="IconName.PlusCircle"></Icon>
+                                                            </Button>
+                        }
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
-                <TableRowDisplayItem RowItem="@Item1"
-                                 Table=@CultnameTableSet.NameTable
-                                 RowItemChanged="@((o) => {Item1 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
-                                 HasPrefix=true
-                                 Selected="@Item1Selected"
-                                 OnRowSelect="@DoOnRowSelect" />
-
-                <TableRowDisplayItem Table=@CultnameTableSet.PrefixNameTable
-                                 RowItem="@Prefix2" RowItemChanged="@((o) => {Prefix2 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
-                                 HasPrefix=true Prefix="@(Prefix2 != null ?"of the" : null)"
-                                 Selected="@Prefix2Selected"
-                                 OnRowSelect="@DoOnRowSelect" />
-
-                <TableRowDisplayItem Table=@CultnameTableSet.SomethingTable
-                                 RowItem="@Item2" RowItemChanged="@((o) => {Item2 = o;if (SkipUpdate == false){ SelectedRegel = o;}; StateHasChanged();})"
-                                 HasPrefix=true Prefix="@((Prefix2 == null) && (Item2 != null) ?"of the" : null)"
-                                 Selected="@Item2Selected"
-                                 OnRowSelect="@DoOnRowSelect" />
-            </div>
-        </div>
-
-        <hr />
-        <div class="row">
-            <span class="px-3">
+                        <hr />
+                        <div class="row">
+                            <span class="px-3">
                 @($"{TimeStamp:dd-MM-yyyy HH:mm:ss}")
-            </span>
-        </div>
-    </Callout>
+                            </span>
+                        </div>
+                    </Callout>
     @if (ShowDetails)
     {
-        <div class="row">
-            <div class="col-md-auto table-responsive">
+                                        <div class="row">
+                                            <div class="col-md-auto table-responsive">
                 @if (ShowDetails && (SelectedRegel is not null))
                 {
-                    <Grid Data="@SelectedRegel?.Owner?.Rows(o => new SelectableRegelString() { Selected = (o.Index == SelectedRegel.Index), Id= o.Index, Name = o.Value})"
-                          class="table table-sm table-hover table-bordered table-striped"
+                                                                    <Grid Data="@SelectedRegel?.Owner?.Rows(o => new SelectableRegelString() { Selected = (o.Index == SelectedRegel.Index), Id= o.Index, Name = o.Value, Source = SelectedRegel.Owner})"
+                                                                          class="table table-sm table-hover table-bordered table-striped"
               AllowPaging=true
               PaginationAlignment="Alignment.Start"
               Responsive=true
               AllowFiltering=true
               AllowSorting=true>
-                        <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="" Sortable=false FilterOperator="FilterOperator.Equals" Class="col-sm-auto">
-                            @if (context.Selected)
-                            {
-                                <Icon Name="IconName.Check2Square"></Icon>
-                            }
-                            else
-                            {
-                                <Icon Name="IconName.Square"></Icon>
-                            }
-                        </GridColumn>
-                        <GridColumn TItem="SelectableRegelString"
+                                                                        <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="" Sortable=false FilterOperator="FilterOperator.Equals" Class="col-sm-auto">
+                                                                            <Switch
+                                Value="context.Selected"
+                                ValueChanged="@(() => {if (context.Selected) ClearPrefix(); else DoSelectItem(context);})"
+                                                                                ></Switch>
+                                                                        </GridColumn>
+                                                                        <GridColumn TItem="SelectableRegelString"
                         PropertyName="Id"
                         HeaderText="Id"
                         IsDefaultSortColumn=true SortDirection="SortDirection.Ascending" SortKeySelector="@((o) => o.Id)" Class="col-sm-auto" FilterValue="">
-                            @if (context.Selected)
-                            {
-                                <strong>
+                                                                                <label @onclick="@(() => {if (context.Selected) ClearPrefix(); else DoSelectItem(context);})">
+                                @if (context.Selected)
+                                {
+                                                                                    <strong>
+                                        @context.Id.ToString("D3")
+                                                                                       </strong>
+                                }
+                                else
+                                {
                                     @context.Id.ToString("D3")
-                                </strong>
-                            }
-                            else
-                            {
-                                @context.Id.ToString("D3")
-                            }
-                        </GridColumn>
-                        <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value" Sortable=true SortKeySelector="@((o) => o.Name)" Class="col-sm-auto">
-                            @if (context.Selected)
-                            {
-                                <strong>
+                                }
+                                                                                </label>
+                                                                        </GridColumn>
+                                                                        <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value" Sortable=true SortKeySelector="@((o) => o.Name)" Class="col-sm-auto">
+                                                                            <label @onclick="@(() => {if (context.Selected) ClearPrefix(); else DoSelectItem(context);})">
+                                @if (context.Selected)
+                                {
+                                                                                                    <strong>
+                                        @context.Name
+                                                                                                    </strong>
+                                }
+                                else
+                                {
                                     @context.Name
-                                </strong>
-                            }
-                            else
-                            {
-                                @context.Name
-                            }
-                        </GridColumn>
-                    </Grid>
+                                }
+                                                                            </label>
+                                                                        </GridColumn>
+                                                                    </Grid>
                 }
-            </div>
-            <div class="col"></div>
-        </div>
+                                            </div>
+                                            <div class="col"></div>
+                                        </div>
     }
 }
 else
 {
-    <Callout Type="CalloutType.Tip">
-        <h4>Try clicking the button ...</h4>
-    </Callout>
+                    <Callout Type="CalloutType.Tip">
+                        <h4>Try clicking the button ...</h4>
+                    </Callout>
 }
 
 

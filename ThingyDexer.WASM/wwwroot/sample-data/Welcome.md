@@ -1,5 +1,6 @@
 # Welcome to hell ...
 
+<pre>
 The bells have rung
 All day  
 	All night  
@@ -12,13 +13,15 @@ It is quiet now ...
 				surely someone will answer  
 					or something ?  
 					  do we really want to know ?  
+</pre>
 
 ## Acknowledgements
-Inspired by the skirmish game Verrotwood and a discussion with @ewokkebab on the OnTableTop Discord
+Inspired by the skirmish game [Verrotwood](http://verrotwood.com/) and a discussion with [@ewokkebab] on the OnTableTop Discord
 
-[Verrotwood project by @ewokkebab at OnTableTop](https://www.beastsofwar.com/project/1804221/){ target="_blank" }
-[@ewokkebab's cultname table used as source](https://www.beastsofwar.com/project-entry/1804304/){ target="_blank" }
+- [Verrotwood project by @ewokkebab at OnTableTop](https://www.beastsofwar.com/project/1804221/){ target="_blank" }  
+- [@ewokkebab's cultname table used as source](https://www.beastsofwar.com/project-entry/1804304/){ target="_blank" }
 
-\#HoW \#BestHouse
+***\#HoW***  
+***\#BestHouse***
 
-All hail the Squirrel Lord
+*All hail the Squirrel Lord*

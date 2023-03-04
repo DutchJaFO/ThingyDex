@@ -17,19 +17,19 @@
 2) Cultname generator : [Create a Cult](./CreateCult)  
 	- UI design for generator
 	- dice button next to selected item can be used to re-roll it
-	- [new] each item of name can be selected and re-rolled by clicking a button
-	- [new] select an item in the table
+	- each item of name can be selected and re-rolled by clicking a button
+	- select an item in the table
 3) [expirmental] indicator for new version updates (visible only when app update is available)
+4) [new] option to collapse sidemenu to icons
 
 ## Version
-v0.1.8 (ALPHA)
+v0.1.9 (ALPHA)
 
 ### Expiremental
 - new version indicator in UI
 
 ### New features
-- each item of name can be selected and re-rolled by clicking a button
-- select an item in the table
+- [new] option to collapse sidemenu to icons
 
 ### Breaking changes
 

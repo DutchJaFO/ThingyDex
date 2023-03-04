@@ -14,24 +14,24 @@
                     <Callout Type="CalloutType.Default" Heading="Cult name">
                         <hr />
                         <div class="row">
-                                <div class="col-sm-auto py-4 px-1">
+                                <div class="col-sm-auto py-1 px-1">
                                 <Button Color="ButtonColor.Primary" Size="Size.Medium"
                     @onclick="@(() => { GenerateCultName(false); })">
                                     <Icon Name="IconName.Dice1Fill" />
-                                    [thingy] of the [prefix] [things]
+                                    [noun] of the [adjective] [noun]
                                 </Button>
                             </div>
 
-                            <div class="col-sm-auto py-4 px-1">
+                            <div class="col-sm-auto py-1 px-1">
                                 <Button Color="ButtonColor.Primary" Size="Size.Medium"
                     @onclick="@(() => { GenerateCultName(true); })">
                                     <Icon Name="IconName.Dice2Fill" />
-                                    [prefix] [thingy] of the [prefix] [things]
+                                    [prefix] [noun] of the [adjective] [noun]
                                 </Button>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-3 py-4 px-1">
+                            <div class="col-sm-3 py-1 px-1">
                                 <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
                     Color="ButtonColor.Secondary"
                     @onclick="@RerollSelectedRegel">
@@ -39,7 +39,7 @@
                                     Re-roll selection
                                 </Button>
                             </div>
-                            <div class="col-sm-3 py-4 px-1">
+                            <div class="col-sm-3 py-1 px-1">
                                 <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
                     Color="ButtonColor.Secondary"
                     @onclick="@RerollCultName">
@@ -49,14 +49,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-3 py-4 px-1">
+                            <div class="col-sm-3 py-1 px-1">
                                 <Button Disabled="@((HasCultname == false) || (SelectedRegel is null))" Size="Size.Medium"
                     Color="ButtonColor.Danger" @onclick="@ClearPrefix">
                                     <Icon Name="IconName.Trash" />
                                     Delete selection
                                 </Button>
                             </div>
-                            <div class="col-sm-3 py-4 px-1">
+                            <div class="col-sm-3 py-1 px-1">
                                 <Button Disabled="@(HasCultname == false)" Size="Size.Medium"
                     Color="ButtonColor.Danger" @onclick="@ClearCultname">
                                     <Icon Name="IconName.Trash" />

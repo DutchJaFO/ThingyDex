@@ -19,17 +19,21 @@
 	- dice button next to selected item can be used to re-roll it
 	- each item of name can be selected and re-rolled by clicking a button
 	- select an item in the table
+	- [new] even more naming styles
 3) [expirmental] indicator for new version updates (visible only when app update is available)
-4) [new] option to collapse sidemenu to icons
+4) option to collapse sidemenu to icons
 
 ## Version
-v0.1.9 (ALPHA)
+v0.1.10 (ALPHA)
 
 ### Expiremental
 - new version indicator in UI
 
 ### New features
-- [new] option to collapse sidemenu to icons
+- [new] even more naming styles  
+	"Fellowship of the Ring" ?  
+	"Unholy Avengers" ?  
+	It's easier now and you can keep bits while switching styles.
 
 ### Breaking changes
 

@@ -23,21 +23,21 @@
 	"Fellowship of the Ring" ?  
 	"Unholy Avengers" ?  
 	It's easier now and you can keep bits while switching styles.  
-	- [new] template : [adjective] [possessive noun] [adjective] [noun] (Unholy King's Rotten Apple)
-	- [new] option to include definite article
+	- template : [adjective] [possessive noun] [adjective] [noun] (Unholy King's Rotten Apple)
+	- option to include definite article
 3) [expirmental] indicator for new version updates (visible only when app update is available)
 4) option to collapse sidemenu to icons
 
 ## Version
-v0.1.11 (ALPHA)
+v0.1.12 (ALPHA)
 
 ### Expiremental
 - new version indicator in UI
 
 ### New features
-- [new] template : [adjective] [possessive noun] [adjective] [noun] (Unholy King's Rotten Apple)
-- [new] option to include definite article
 
 ### Breaking changes
 
 ### Changes
+- [bug] definite article never changes
+- [bug] switching 'definite article' on and off results in new cultname

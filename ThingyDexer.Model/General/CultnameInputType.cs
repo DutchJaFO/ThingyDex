@@ -4,78 +4,79 @@ namespace ThingyDexer.Model.General
 {
     public enum CultnameInputType
     {
-        TemplateNounOfTheAdjectiveNoun,
-        TemplatePrefixNounOfTheAdjectiveNoun,
-        TemplatePrefixNounOfTheNoun,
-        TemplateNounOfTheNoun,
+        TemplateAdjective2PossessiveNoun2Adjective1Noun1,
 
-        TemplatePrefixAdjectiveNoun,
+        TemplateNoun1OfTheAdjective2Noun2,
+        TemplateAdjective1Noun1OfTheAdjective2Noun2,
+        TemplateAdjective1Noun1OfTheNoun2,
+        TemplateNoun1OfTheNoun2,
 
-        TemplatePrefixNoun,
-        TemplateAdjectiveNoun,
+        TemplateAdjective1Adjective2Noun2,
+        TemplateAdjective1Noun1,
+        TemplateAdjective2Noun2,
+
         Custom,
         Manual
     }
 
     public static class CultnameInputTypeHelpers
     {
-        public static bool HasPrefix1(this CultnameInputType? soort)
-        {
-            return
-                (soort == CultnameInputType.TemplatePrefixNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNounOfTheNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNoun)
+        public static bool HasAdjective1(this CultnameInputType? soort) =>
+                (soort == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
                 ||
-                (soort == CultnameInputType.TemplatePrefixAdjectiveNoun)
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheNoun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Adjective2Noun2)
                 ||
                 (soort == CultnameInputType.Custom);
-        }
-        public static bool HasNoun1(this CultnameInputType? soort)
-        {
-            return
-                (soort == CultnameInputType.TemplateNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNounOfTheNoun)
-                || 
-                (soort == CultnameInputType.TemplateNounOfTheNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNoun)
-                || 
-                (soort == CultnameInputType.Custom);
-        }
-        public static bool HasPrefix2(this CultnameInputType? soort)
-        {
-            return
-                (soort == CultnameInputType.TemplateNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplateAdjectiveNoun)
+
+        public static bool HasNoun1(this CultnameInputType? soort) =>
+                (soort == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
                 ||
-                (soort == CultnameInputType.TemplatePrefixAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.Custom);
-        }
-        public static bool HasNoun2(this CultnameInputType? soort)
-        {
-            return
-                (soort == CultnameInputType.TemplateNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNounOfTheAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplatePrefixNounOfTheNoun)
+                (soort == CultnameInputType.TemplateNoun1OfTheAdjective2Noun2)
                 ||
-                (soort == CultnameInputType.TemplatePrefixAdjectiveNoun)
-                || 
-                (soort == CultnameInputType.TemplateNounOfTheNoun)
-                || 
-                (soort == CultnameInputType.TemplateAdjectiveNoun)
-                || 
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheNoun2)
+                ||
+                (soort == CultnameInputType.TemplateNoun1OfTheNoun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1)
+                ||
                 (soort == CultnameInputType.Custom);
-        }
+
+        public static bool HasAdjective2(this CultnameInputType? soort) =>
+                (soort == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
+                ||
+                (soort == CultnameInputType.TemplateNoun1OfTheAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Adjective2Noun2)
+                ||
+                (soort == CultnameInputType.Custom);
+
+        public static bool HasNoun2(this CultnameInputType? soort) =>
+                (soort == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
+                ||
+                (soort == CultnameInputType.TemplateNoun1OfTheAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Noun1OfTheNoun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective1Adjective2Noun2)
+                ||
+                (soort == CultnameInputType.TemplateNoun1OfTheNoun2)
+                ||
+                (soort == CultnameInputType.TemplateAdjective2Noun2)
+                ||
+                (soort == CultnameInputType.Custom);
     }
 }

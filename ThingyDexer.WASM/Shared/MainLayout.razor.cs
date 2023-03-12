@@ -9,8 +9,14 @@ namespace ThingyDexer.WASM.Shared
         private IEnumerable<NavItem> navItems;
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        Sidebar sidebar;
-        private void ToogleSidebar() => sidebar.ToggleSidebar();
+        Sidebar? sidebar;
+        protected bool ToggleSidebarIcon { get; set; } = true;
+        private void ToogleSidebar()
+        {
+            sidebar?.ToggleSidebar();
+            ToggleSidebarIcon = !ToggleSidebarIcon;
+            StateHasChanged();
+        }
         private async Task<SidebarDataProviderResult> SidebarDataProvider(SidebarDataProviderRequest request)
         {
             navItems ??= GetNavItems();

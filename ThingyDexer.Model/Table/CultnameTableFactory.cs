@@ -1,8 +1,9 @@
 ﻿namespace ThingyDexer.Model.Table
 {
-    public class CultnameTableFactory
+    public static class CultnameTableFactory
     {
-        private static string[] _table1 = new string[]
+        private static readonly string[] _table0 = new string[] { "The", "Ye" };
+        private static readonly string[] _table1 = new string[]
         {
             "Order",
             "Sisters",
@@ -107,7 +108,7 @@
             "Rulers",
             "Prophets",
         };
-        private static string[] _table2 = new string[]
+        private static readonly string[] _table2 = new string[]
         {
             "Bloody",
             "Rotten",
@@ -221,7 +222,7 @@
             "Green",
             "Yellow"
         };
-        private static string[] _table3 = new string[]
+        private static readonly string[] _table3 = new string[]
         {
             "Discharge",
             "River",
@@ -336,9 +337,9 @@
             "Prophet"
         };
 
-        public static CultnameTableSet Create()
+        public static CultnameTableSet Create(Random random)
         {
-            return new CultnameTableSet(_table1, _table2, _table3);
+            return new CultnameTableSet(random, _table0, _table1, _table2, _table3);
         }
     }
 }

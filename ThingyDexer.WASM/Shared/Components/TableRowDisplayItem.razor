@@ -3,9 +3,9 @@
 @using ThingyDexer.Model.Table
 
 <span>
-    @if (@Noun != null)
+    @if (Value != null)
     {
-        if (SelectedRegel?.Equals(Noun) == true)
+        if (SelectedRegel?.Equals(Value) == true)
         {
             <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
             Color="ButtonColor.Secondary"
@@ -14,12 +14,23 @@
             </Button>
         }
         <Button Type="ButtonType.Link"
-            Color="@(SelectedRegel?.Equals(Noun)==true? ButtonColor.Link:ButtonColor.None)"
-            Active=@(SelectedRegel?.Equals(Noun) == true)
+            Color="@(SelectedRegel?.Equals(Value)==true? ButtonColor.Link:ButtonColor.None)"
+            Active=@(SelectedRegel?.Equals(Value) == true)
             Outline=false
             @onclick="@(() => DoSelectNoun())">
             <h4>
-                @Noun?.Value
+                @{
+                    string? displayValue;
+                    if ((string.IsNullOrEmpty(Value?.Value)==false) && (SuffixAction != null))
+                    {
+                        displayValue = SuffixAction(Value.Value);
+                    }
+                    else
+                    {
+                        displayValue = Value?.Value;
+                    }
+                }
+                @displayValue
             </h4>
         </Button>
     }

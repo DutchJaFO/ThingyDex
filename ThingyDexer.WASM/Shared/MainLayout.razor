@@ -4,13 +4,14 @@
 
     <Sidebar IconName="IconName.Dice6Fill"
              Title="Thingydex"
-             BadgeText="v0.1.10 (ALPHA)"
+             BadgeText="v0.1.11 (ALPHA)"
              DataProvider="SidebarDataProvider"
              @ref="sidebar" />
 
     <main>
         <div class="bb-top-row px-4 d-flex justify-content-between">
-            <Icon Name="IconName.List" role="button" @onclick="ToogleSidebar" />
+            <Icon Name="@(ToggleSidebarIcon ? IconName.ArrowBarLeft : IconName.ArrowBarRight)"
+                  role="button" @onclick="ToogleSidebar" />
             @*<a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>*@
 
             <UpdateAvailableDetector />

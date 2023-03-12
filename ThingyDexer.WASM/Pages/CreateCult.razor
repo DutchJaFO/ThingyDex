@@ -20,90 +20,89 @@
             <ValidationSummary></ValidationSummary>
             <InputRadioGroup @bind-Value="CultNameSettingsViewModel.CultnameInputType">
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate1"
-                                Value="CultnameInputType.TemplateNounOfTheAdjectiveNoun" />
+                                Value="CultnameInputType.TemplateNoun1OfTheAdjective2Noun2" />
                         <label class="px-2" for="edtTemplate1">
-                            [noun] of the [adjective] [noun]
+                            [Noun] of the [Adjective] [Noun]
                         </label>
                     </div>
                 </div>
                 <!-- option 2 : Template 2  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate2"
-                                Value="CultnameInputType.TemplatePrefixNounOfTheAdjectiveNoun" />
-                        <label class="px-2" for="edtTemplate2">[prefix] [noun] of the [adjective] [noun]</label>
+                                Value="CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2" />
+                        <label class="px-2" for="edtTemplate2">[Adjective] [Noun] of the [Adjective] [Noun]</label>
                     </div>
                 </div>
                 <!-- option 2 : Template 3  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate3"
-                                Value="CultnameInputType.TemplatePrefixNounOfTheNoun" />
-                        <label class="px-2" for="edtTemplate3">[prefix] [noun] of the [noun]</label>
+                                Value="CultnameInputType.TemplateAdjective1Noun1OfTheNoun2" />
+                        <label class="px-2" for="edtTemplate3">[Adjective] [Noun] of the [Noun]</label>
                     </div>
                 </div>
                 <!-- option 2 : Template 4  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate4"
-                                Value="CultnameInputType.TemplateNounOfTheNoun" />
-                        <label class="px-2" for="edtTemplate4">[noun] of the [noun]</label>
+                                Value="CultnameInputType.TemplateNoun1OfTheNoun2" />
+                        <label class="px-2" for="edtTemplate4">[Noun] of the [Noun]</label>
                     </div>
                 </div>
                 <!-- option 2 : Template 5  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate5"
-                                Value="CultnameInputType.TemplatePrefixAdjectiveNoun" />
-                        <label class="px-2" for="edtTemplate5">[Prefix] [Adjective] [noun]</label>
+                                Value="CultnameInputType.TemplateAdjective1Adjective2Noun2" />
+                        <label class="px-2" for="edtTemplate5">[Adjective] [Adjective] [Noun]</label>
                     </div>
                 </div>
                 <!-- option 2 : Template 6  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate6"
-                                Value="CultnameInputType.TemplatePrefixNoun" />
-                        <label class="px-2" for="edtTemplate6">[Prefix] [noun]</label>
+                                Value="CultnameInputType.TemplateAdjective1Noun1" />
+                        <label class="px-2" for="edtTemplate6">[Adjective] [Noun]</label>
                     </div>
                 </div>
                 <!-- option 2 : Template 7  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtTemplate7"
-                                Value="CultnameInputType.TemplateAdjectiveNoun" />
-                        <label class="px-2" for="edtTemplate7">[adjective] [noun]</label>
+                                Value="CultnameInputType.TemplateAdjective2Noun2" />
+                        <label class="px-2" for="edtTemplate7">[Adjective] [Noun]</label>
+                    </div>
+                </div>
+                <!-- option x : Template [adjective] [noun]('s) [adjective] [noun] -->
+                <div class="row">
+                    <div class="col-sm-4 py-1 px-1">
+                        <InputRadio id="edtTemplate8"
+                                Value="CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1" />
+                        <label class="px-2" for="edtTemplate8">[Adjective] [Possessive noun] [Adjective] [Noun]</label>
                     </div>
                 </div>
                 <!-- option 3 : Custom  -->
                 <div class="row">
-                    <div class="col-sm-3 py-1 px-1">
+                    <div class="col-sm-4 py-1 px-1">
                         <InputRadio id="edtCustom"
                                 Value="CultnameInputType.Custom" />
                         <label class="px-2" for="edtCustom">Roll your own</label>
                     </div>
                 </div>
-                @*
-            <!-- option 4 : Manual  -->
-            <div class="row">
-            <div class="col-sm-3 py-1 px-1">
-            <InputRadio id="edtManual"
-            Value="CultnameInputType.Manual" />
-            <label class="px-1" for="edtManual">Freeform editor</label>
-            </div>
-            </div>
-            *@
+                @**@
+                <!-- option 4 : Manual  -->
+                <div class="row">
+                    <div class="col-sm-4 py-1 px-1">
+                        <InputRadio id="edtManual"
+                                Value="CultnameInputType.Manual" />
+                        <label class="px-1" for="edtManual">Freeform editor</label>
+                    </div>
+                </div>
+                @**@
             </InputRadioGroup>
-            <!-- buttons -->
-            @*
-        <div class="row">
-        <span class="col px-3">
-        <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Submit</Button>
-        <Button Color="ButtonColor.Danger" Type="ButtonType.Button" Disabled="@(CultNameSettingsViewModel.CultnameInputType == null)" onclick="@(() => {HandleReset(); })">Clear</Button>
-        </span>
-        </div>
-        *@
             <!-- Cult name -->
             <!-- header -->
             <hr />
@@ -120,6 +119,17 @@
 
                 if (CultNameSettingsViewModel.UseGenerator == true)
                 {
+                    <div class="row">
+                        <div class="col-sm-auto py-1 px-1">
+                            <Switch Value=@CultNameSettingsViewModel.IncludeRandomDefiniteArticle 
+                                    ValueChanged="@((v)  => 
+                                                    { 
+                                                        CultNameSettingsViewModel.IncludeRandomDefiniteArticle = v; 
+                                                        CultNameSettingsViewModel.RerollCultName();
+                                                    })" Label="Include definite article">
+                            </Switch>
+                        </div>
+                    </div>
                     <!--re-roll bits -->
                     <div class="row">
                         <div class="col-sm-auto py-1 px-1">
@@ -146,7 +156,7 @@
                         <div class="row">
                             <div class="col-sm-auto py-1 px-1">
                                 <Button Disabled="@((CultNameSettingsViewModel.HasCultname == false) || (CultNameSettingsViewModel.SelectedRegel is null))" Size="Size.Medium"
-                        Color="ButtonColor.Danger" @onclick="@(() => CultNameSettingsViewModel.ClearPrefix())">
+                        Color="ButtonColor.Danger" @onclick="@(() => CultNameSettingsViewModel.ClearSelectedItem())">
                                     <Icon Name="IconName.Trash" />
                                     Delete selection
                                 </Button>
@@ -166,52 +176,55 @@
                     <div class="row">
                         <div class="col-sm-auto">
                             <div class="mx-4 my-2 px-2 py-2">
-                                @if (CultNameSettingsViewModel.CultnameInputType.HasPrefix1())
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
                                 {
-                                    <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.PrefixNameTable"
-                                         Noun="@CultNameSettingsViewModel.Prefix1"
-                                         NounChanged="@((n) => {CultNameSettingsViewModel.Prefix1 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                    <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.DefiniteArticleTable"
+                                         Value="@CultNameSettingsViewModel.DefiniteArticle"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.DefiniteArticle = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
+                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
+                                }
+                                @if (CultNameSettingsViewModel.CultnameInputType.HasAdjective1())
+                                {
+                                    <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.AdjectiveTable1"
+                                         Value="@CultNameSettingsViewModel.Adjective1"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Adjective1 = n; CultNameSettingsViewModel.ShowDetails = true;})"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
                                          SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
                                 }
                                 @if (CultNameSettingsViewModel.CultnameInputType.HasNoun1())
                                 {
                                     <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.NameTable"
-                                         Noun="@CultNameSettingsViewModel.Noun1"
-                                         NounChanged="@((n) => {CultNameSettingsViewModel.Noun1 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         Value="@CultNameSettingsViewModel.Noun1"
+                                         SuffixAction="@((n) => (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1) ? MakePossessive(n) : n)"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Noun1 = n; CultNameSettingsViewModel.ShowDetails = true;})"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
                                          SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
 
                                 }
                                 <!-- -->
-                                @if ((CultNameSettingsViewModel.Noun1 is not null) && (CultNameSettingsViewModel.Noun2 is not null))
+                                @if ((CultNameSettingsViewModel.Noun1 is not null) && (CultNameSettingsViewModel.Noun2 is not null) && (CultNameSettingsViewModel.CultnameInputType != CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1))
                                 {
                                     <span>
-                                        <Button Type="ButtonType.Button"
-                                Color="ButtonColor.None"
-                                Disabled=true
-                                Active=false
-                                Outline=false>
-                                            <h4>
-                                                of the
-                                            </h4>
+                                        <Button Type="ButtonType.Button" Color="ButtonColor.None" Disabled=true Active=false Outline=false>
+                                            <h4>of the</h4>
                                         </Button>
                                     </span>
                                 }
                                 <!-- -->
-                                @if (CultNameSettingsViewModel.CultnameInputType.HasPrefix2())
+                                @if (CultNameSettingsViewModel.CultnameInputType.HasAdjective2())
                                 {
-                                    <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.PrefixTable"
-                                         Noun="@CultNameSettingsViewModel.Prefix2"
-                                         NounChanged="@((n) => {CultNameSettingsViewModel.Prefix2 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                    <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.AdjectiveTable2"
+                                         Value="@CultNameSettingsViewModel.Adjective2"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Adjective2 = n; CultNameSettingsViewModel.ShowDetails = true;})"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
                                          SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
                                 }
                                 @if (CultNameSettingsViewModel.CultnameInputType.HasNoun2())
                                 {
                                     <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.SomethingTable"
-                                         Noun="@CultNameSettingsViewModel.Noun2"
-                                         NounChanged="@((n) => {CultNameSettingsViewModel.Noun2 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         Value="@CultNameSettingsViewModel.Noun2"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Noun2 = n; CultNameSettingsViewModel.ShowDetails = true;})"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
                                          SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
                                 }
@@ -228,7 +241,15 @@
             {
                 <p>choose a method for your madness ...</p>
             }
-
+            <!-- buttons -->
+            @*
+        <div class="row">
+        <span class="col px-3">
+        <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Submit</Button>
+        <Button Color="ButtonColor.Danger" Type="ButtonType.Button" Disabled="@(CultNameSettingsViewModel.CultnameInputType == null)" onclick="@(() => {HandleReset(); })">Clear</Button>
+        </span>
+        </div>
+        *@
         </EditForm>
         <!--footer -->
         <hr />
@@ -242,8 +263,15 @@
     {
         <div class="row">
             <div class="col-md-auto">
-                <div class="px-4 my-4">
-                    @if ((CultNameSettingsViewModel.ShowDetails == true) && (CultNameSettingsViewModel.SelectedRegel != null))
+                <div class="my-2">
+                    Table : <strong>@CultNameSettingsViewModel?.SelectedRegel?.Owner.Name</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-auto">
+                <div class="my-2">
+                    @if ((CultNameSettingsViewModel?.ShowDetails == true) && (CultNameSettingsViewModel.SelectedRegel != null))
                     {
                         <Grid Data="@CultNameSettingsViewModel.SelectedRegel.Owner.Rows(o => new SelectableRegelString() { Selected = (o.Index == CultNameSettingsViewModel.SelectedRegel.Index), Id= o.Index, Name = o.Value, Source = CultNameSettingsViewModel.SelectedRegel.Owner})"
                               class="table table-sm table-hover table-bordered table-striped"
@@ -295,13 +323,13 @@
     }
 }
 @*
-    else
-    {
-    <Callout Type="CalloutType.Tip">
-    <h4>Try clicking the button ...</h4>
-    </Callout>
-    }
-    *@
+                                         else
+                                         {
+                                         <Callout Type="CalloutType.Tip">
+                                         <h4>Try clicking the button ...</h4>
+                                         </Callout>
+                                         }
+                                         *@
 
 
 

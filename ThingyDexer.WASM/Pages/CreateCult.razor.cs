@@ -1,6 +1,4 @@
-using BlazorBootstrap;
-using Microsoft.AspNetCore.Components;
-using System.Reflection.Metadata;
+using ThingyDexer.Model.General;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
@@ -9,9 +7,23 @@ namespace ThingyDexer.WASM.Pages
 {
     public partial class CreateCult
     {
+        public string? MakePossessive(string? value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                return value.EndsWith('s')
+                            ? $"{value}'"
+                            : $"{value}'s";
+            }
+            else
+            {
+                return value;
+            }
+        }
+
         public CreateCult()
         {
-            CultnameTableSet = CultnameTableFactory.Create();
+            CultnameTableSet = CultnameTableFactory.Create(new());
             CultNameSettingsEditModel = new();
             CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet);
         }
@@ -29,13 +41,11 @@ namespace ThingyDexer.WASM.Pages
         }
         public void HandleInvalidSubmit()
         {
-            CultNameSettingsEditModel.CultnameInputType = null;
-            CultNameSettingsEditModel.IsValid = false;
-            CultNameSettingsViewModel = new(CultnameTableSet);
+            ResetCultnameSettings();
             StateHasChanged();
         }
 
-        public void HandleReset()
+        public void ResetCultnameSettings()
         {
             CultNameSettingsEditModel.CultnameInputType = null;
             CultNameSettingsEditModel.IsValid = false;
@@ -46,14 +56,9 @@ namespace ThingyDexer.WASM.Pages
         public void DoChangeSelectedRow(SelectableRegelString context, bool allowDelete)
         {
             if (context.Selected && allowDelete)
-                CultNameSettingsViewModel.ClearPrefix();
+                CultNameSettingsViewModel.ClearSelectedItem();
             else
                 CultNameSettingsViewModel.DoSelectItem(context);
-        }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
         }
 
 

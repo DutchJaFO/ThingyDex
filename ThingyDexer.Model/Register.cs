@@ -7,9 +7,8 @@ namespace ThingyDexer.Model
     {
         public static IServiceCollection AddThingyDexerModels(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<Random>((s) => new Random());
-            serviceCollection.AddScoped<CultnameTableSet>((s) => CultnameTableFactory.Create());
-            return serviceCollection;
+            return serviceCollection.AddSingleton<Random>((s) => new Random())
+                                    .AddScoped(implementationFactory: (s) => CultnameTableFactory.Create(new Random()));
         }
     }
 }

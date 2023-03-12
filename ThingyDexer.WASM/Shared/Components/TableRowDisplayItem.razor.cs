@@ -45,17 +45,11 @@ namespace ThingyDexer.WASM.Shared.Components
         [Parameter]
         public EventCallback<TableRowBase<string>?> SelectedRegelChanged { get; set; }
 
-        public void DoSelectNoun()
-        {
-            if (Noun?.Equals(SelectedRegel) == true)
-                SelectedRegel = null;
-            else
-                SelectedRegel = Noun;
-        }
+        public void DoSelectNoun() => SelectedRegel = Noun?.Equals(SelectedRegel) == true ? null : Noun;
 
         public void DoRerollSelectedRegel()
         {
-            var isNounSelected = Noun?.Equals(SelectedRegel) == true;
+            bool isNounSelected = Noun?.Equals(SelectedRegel) == true;
             if ((Noun != null) && isNounSelected)
             {
                 Noun = Noun.Owner.GetRandomItem();

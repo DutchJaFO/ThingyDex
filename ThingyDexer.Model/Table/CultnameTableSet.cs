@@ -1,5 +1,4 @@
-﻿using System.Xml.Linq;
-using ThingyDexer.Model.General;
+﻿using ThingyDexer.Model.General;
 
 namespace ThingyDexer.Model.Table
 {

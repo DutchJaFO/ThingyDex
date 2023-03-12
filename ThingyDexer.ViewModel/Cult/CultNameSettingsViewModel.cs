@@ -120,10 +120,10 @@ namespace ThingyDexer.ViewModel.Cult
         {
             try
             {
-                var isPrefix1Selected = Prefix1?.Equals(SelectedRegel) == true;
-                var isPrefix2Selected = Prefix2?.Equals(SelectedRegel) == true;
-                var isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                var isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                bool isPrefix1Selected = Prefix1?.Equals(SelectedRegel) == true;
+                bool isPrefix2Selected = Prefix2?.Equals(SelectedRegel) == true;
+                bool isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                bool isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
 
                 if ((Prefix1 != null) && isPrefix1Selected)
                 {
@@ -313,10 +313,10 @@ namespace ThingyDexer.ViewModel.Cult
                 TableRowBase<string>? item = newItem?.Source?.GetRow(newItem.Id);
                 try
                 {
-                    var isPrefix1Selected = (item?.Owner != null) && (Prefix1?.Owner.Equals(item.Owner) == true);
-                    var isPrefix2Selected = (item?.Owner != null) && (Prefix2?.Owner.Equals(item.Owner) == true);
-                    var isNoun1Selected = (item?.Owner != null) && (Noun1?.Owner.Equals(item.Owner) == true);
-                    var isNoun2Selected = (item?.Owner != null) && (Noun2?.Owner.Equals(item.Owner) == true);
+                    bool isPrefix1Selected = (item?.Owner != null) && (Prefix1?.Owner.Equals(item.Owner) == true);
+                    bool isPrefix2Selected = (item?.Owner != null) && (Prefix2?.Owner.Equals(item.Owner) == true);
+                    bool isNoun1Selected = (item?.Owner != null) && (Noun1?.Owner.Equals(item.Owner) == true);
+                    bool isNoun2Selected = (item?.Owner != null) && (Noun2?.Owner.Equals(item.Owner) == true);
 
                     if ((Prefix1 != null) && isPrefix1Selected)
                     {

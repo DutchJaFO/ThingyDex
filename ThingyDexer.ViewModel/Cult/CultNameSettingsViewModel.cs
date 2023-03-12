@@ -265,6 +265,14 @@ namespace ThingyDexer.ViewModel.Cult
             }
         }
 
+        public void RerollDefiniteArticle()
+        {
+            var isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
+
+            DefiniteArticle = DefiniteArticle?.Owner.GetRandomItem();
+
+            if (isDefiniteArticleSelected) SelectedRegel = DefiniteArticle;
+        }
         public void RerollCultName()
         {
             bool isDefiniteArticleSelected = false;

@@ -125,7 +125,10 @@
                                     ValueChanged="@((v)  => 
                                                     { 
                                                         CultNameSettingsViewModel.IncludeRandomDefiniteArticle = v; 
-                                                        CultNameSettingsViewModel.RerollCultName();
+                                                        if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                                        {
+                                                            CultNameSettingsViewModel.RerollDefiniteArticle();
+                                                        }
                                                     })" Label="Include definite article">
                             </Switch>
                         </div>

@@ -28,6 +28,12 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/ThingyDexer.Test.csproj'
+    arguments: '--configuration $(buildConfiguration)' # Update this to match your need
+
 - task: VSTest@2
   inputs:
     testSelector: 'testAssemblies'

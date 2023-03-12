@@ -2,6 +2,7 @@
 {
     public static class CultnameTableFactory
     {
+        private static readonly string[] _table0 = new string[] { "The", "Ye" };
         private static readonly string[] _table1 = new string[]
         {
             "Order",
@@ -338,7 +339,7 @@
 
         public static CultnameTableSet Create(Random random)
         {
-            return new CultnameTableSet(random, _table1, _table2, _table3);
+            return new CultnameTableSet(random, _table0, _table1, _table2, _table3);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using System.Reflection.Metadata.Ecma335;
 using ThingyDexer.Model.Table;
 
 namespace ThingyDexer.WASM.Shared.Components
@@ -11,7 +12,7 @@ namespace ThingyDexer.WASM.Shared.Components
         private TableRowBase<string>? _Noun;
         [Parameter]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "BL0007:Component parameters should be auto properties", Justification = "<Pending>")]
-        public TableRowBase<string>? Noun
+        public TableRowBase<string>? Value
         {
             get => _Noun;
             set
@@ -19,12 +20,12 @@ namespace ThingyDexer.WASM.Shared.Components
                 if (_Noun == value)
                     return;
                 _Noun = value;
-                NounChanged.InvokeAsync(value);
+                ValueChanged.InvokeAsync(value);
             }
         }
 
         [Parameter]
-        public EventCallback<TableRowBase<string>?> NounChanged { get; set; }
+        public EventCallback<TableRowBase<string>?> ValueChanged { get; set; }
 
         private TableRowBase<string>? _SelectedRegel;
 
@@ -45,19 +46,22 @@ namespace ThingyDexer.WASM.Shared.Components
         [Parameter]
         public EventCallback<TableRowBase<string>?> SelectedRegelChanged { get; set; }
 
-        public void DoSelectNoun() => SelectedRegel = Noun?.Equals(SelectedRegel) == true ? null : Noun;
+        [Parameter]
+        public Func<string?, string?>? SuffixAction { get; set; }
+
+        public void DoSelectNoun() => SelectedRegel = Value?.Equals(SelectedRegel) == true ? null : Value;
 
         public void DoRerollSelectedRegel()
         {
-            bool isNounSelected = Noun?.Equals(SelectedRegel) == true;
-            if ((Noun != null) && isNounSelected)
+            bool isNounSelected = Value?.Equals(SelectedRegel) == true;
+            if ((Value != null) && isNounSelected)
             {
-                Noun = Noun.Owner.GetRandomItem();
+                Value = Value.Owner.GetRandomItem();
             }
 
             if (isNounSelected)
             {
-                SelectedRegel = Noun;
+                SelectedRegel = Value;
             }
 
             StateHasChanged();
@@ -65,8 +69,8 @@ namespace ThingyDexer.WASM.Shared.Components
 
         public void DoRollSelectedRegel()
         {
-            Noun = Table?.GetRandomItem();
-            SelectedRegel = Noun;
+            Value = Table?.GetRandomItem();
+            SelectedRegel = Value;
         }
     }
 }

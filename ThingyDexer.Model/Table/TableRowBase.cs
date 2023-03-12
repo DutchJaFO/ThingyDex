@@ -18,15 +18,10 @@
 
         public override bool Equals(object? obj)
         {
-            if (obj is TableRowBase<T>)
-            {
-                TableRowBase<T> target = ((TableRowBase<T>)obj);
-                return Index.Equals(target.Index) && (Owner.Key == target.Owner.Key);
-            }
-            else
-            {
-                return false;
-            }
+            return (obj is TableRowBase<T> target) 
+                && Index.Equals(target.Index) 
+                && (Owner.Key == target.Owner.Key)
+;
         }
     }
 }

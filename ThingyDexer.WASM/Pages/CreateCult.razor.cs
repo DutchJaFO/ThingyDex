@@ -11,7 +11,7 @@ namespace ThingyDexer.WASM.Pages
     {
         public CreateCult()
         {
-            CultnameTableSet = CultnameTableFactory.Create();
+            CultnameTableSet = CultnameTableFactory.Create(new());
             CultNameSettingsEditModel = new();
             CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet);
         }
@@ -29,13 +29,11 @@ namespace ThingyDexer.WASM.Pages
         }
         public void HandleInvalidSubmit()
         {
-            CultNameSettingsEditModel.CultnameInputType = null;
-            CultNameSettingsEditModel.IsValid = false;
-            CultNameSettingsViewModel = new(CultnameTableSet);
+            ResetCultnameSettings();
             StateHasChanged();
         }
 
-        public void HandleReset()
+        public void ResetCultnameSettings()
         {
             CultNameSettingsEditModel.CultnameInputType = null;
             CultNameSettingsEditModel.IsValid = false;
@@ -49,11 +47,6 @@ namespace ThingyDexer.WASM.Pages
                 CultNameSettingsViewModel.ClearPrefix();
             else
                 CultNameSettingsViewModel.DoSelectItem(context);
-        }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
         }
 
 

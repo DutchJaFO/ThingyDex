@@ -84,26 +84,17 @@
                         <label class="px-2" for="edtCustom">Roll your own</label>
                     </div>
                 </div>
-                @*
-            <!-- option 4 : Manual  -->
-            <div class="row">
-            <div class="col-sm-3 py-1 px-1">
-            <InputRadio id="edtManual"
-            Value="CultnameInputType.Manual" />
-            <label class="px-1" for="edtManual">Freeform editor</label>
-            </div>
-            </div>
-            *@
+                @**@
+                <!-- option 4 : Manual  -->
+                <div class="row">
+                    <div class="col-sm-3 py-1 px-1">
+                        <InputRadio id="edtManual"
+                                Value="CultnameInputType.Manual" />
+                        <label class="px-1" for="edtManual">Freeform editor</label>
+                    </div>
+                </div>
+                @**@
             </InputRadioGroup>
-            <!-- buttons -->
-            @*
-        <div class="row">
-        <span class="col px-3">
-        <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Submit</Button>
-        <Button Color="ButtonColor.Danger" Type="ButtonType.Button" Disabled="@(CultNameSettingsViewModel.CultnameInputType == null)" onclick="@(() => {HandleReset(); })">Clear</Button>
-        </span>
-        </div>
-        *@
             <!-- Cult name -->
             <!-- header -->
             <hr />
@@ -228,6 +219,15 @@
             {
                 <p>choose a method for your madness ...</p>
             }
+            <!-- buttons -->
+            @*
+        <div class="row">
+        <span class="col px-3">
+        <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Submit</Button>
+        <Button Color="ButtonColor.Danger" Type="ButtonType.Button" Disabled="@(CultNameSettingsViewModel.CultnameInputType == null)" onclick="@(() => {HandleReset(); })">Clear</Button>
+        </span>
+        </div>
+        *@
 
         </EditForm>
         <!--footer -->

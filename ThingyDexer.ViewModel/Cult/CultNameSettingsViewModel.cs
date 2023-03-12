@@ -124,10 +124,18 @@ namespace ThingyDexer.ViewModel.Cult
             set;
         }
 
+        private TableRowBase<string>? _SelectedRegel;
         public TableRowBase<string>? SelectedRegel
         {
-            get;
-            set;
+            get => _SelectedRegel;
+            set
+            {
+                if (_SelectedRegel != value)
+                {
+                    _SelectedRegel = value;
+                    OnPropertyChanged(nameof(SelectedRegel));
+                }
+            }
         }
 
         private bool _ShowDetails;
@@ -146,7 +154,7 @@ namespace ThingyDexer.ViewModel.Cult
 
         public void ClearSelectedItem()
         {
-            try            
+            try
             {
                 bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
                 bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;

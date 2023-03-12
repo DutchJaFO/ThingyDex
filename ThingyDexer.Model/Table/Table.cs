@@ -54,7 +54,7 @@ namespace ThingyDexer.Model.Table
 
         public TableRowBase<T> GetRandomItem()
         {
-            int d = _Randomizer.Next(minValue, maxValue);
+            int d = _Randomizer.Next(minValue, maxValue + 1);
             return GetRow(d);
         }
 

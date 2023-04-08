@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
@@ -9,9 +10,9 @@ namespace ThingyDexer.WASM.Pages
         #region Constructors
         public CultNameGenerator()
         {
-            CultnameTableSet = CultnameTableFactory.Create(new());
-            CultNameSettingsEditModel = new();
-            CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet);
+            // CultnameTableSet = CultnameTableFactory.Create(new());
+            // CultNameSettingsEditModel = new();
+            // CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet);
         }
         #endregion
 
@@ -33,9 +34,13 @@ namespace ThingyDexer.WASM.Pages
         private void DoChangeSelectedRow(SelectableRegelString context, bool allowDelete)
         {
             if (context.Selected && allowDelete)
+            {
                 CultNameSettingsViewModel.ClearSelectedItem();
+            }
             else
+            {
                 CultNameSettingsViewModel.DoSelectItem(context);
+            }
         }
 
         private void HandleValidSubmit()
@@ -61,13 +66,50 @@ namespace ThingyDexer.WASM.Pages
         #endregion Private
 
         #region Protected
+        protected override void OnParametersSet()
+        {
+            base.OnParametersSet();
+
+            if (CultnameTableSet is null)
+            {
+                CultnameTableSet = CultnameTableFactory.Create(new());
+            }
+
+            if (CultNameSettingsEditModel is null)
+            {
+                CultNameSettingsEditModel = new();
+            }
+
+            if (CultNameSettingsViewModel is null)
+            {
+                CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet);
+            }
+        }
         #endregion Protected
 
         #region Public
-        public CultnameTableSet CultnameTableSet { get; }
+
+        [Inject]
+        public CultnameTableSet CultnameTableSet
+        {
+            get;
+            set;
+        }
         #endregion
-        public CultNameSettingsEditModel CultNameSettingsEditModel { get; set; }
-        public CultNameSettingsViewModel CultNameSettingsViewModel { get; set; }
+
+        [Parameter]
+        public CultNameSettingsEditModel CultNameSettingsEditModel
+        {
+            get;
+            set;
+        }
+
+        [Parameter]
+        public CultNameSettingsViewModel CultNameSettingsViewModel
+        {
+            get;
+            set;
+        }
 
 
 

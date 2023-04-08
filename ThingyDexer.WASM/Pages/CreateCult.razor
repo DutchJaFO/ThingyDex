@@ -1,16 +1,21 @@
 ﻿@page "/createcult"
 
 @using BlazorBootstrap
-@using ThingyDexer.Model.General;
+@using ThingyDexer.Model.General
 @using ThingyDexer.ViewModel
 @using ThingyDexer.ViewModel.Table
 @using ThingyDexer.WASM.Shared.Components
+@using ThingyDexer.WASM.Pages.Wizard
 
 <PageTitle>Create a Cult</PageTitle>
 
 <h1>Starting a cult</h1>
 
 @if (true)
+{
+<NewCultWizard></NewCultWizard>
+}
+else
 {
     <CultNameGenerator></CultNameGenerator>
 }

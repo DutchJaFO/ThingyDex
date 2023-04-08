@@ -1,0 +1,19 @@
+﻿<div class="container-fluid">
+    @if (ViewModel.UseGenerator == true)
+    {
+        <h3>Generate Cult name</h3>
+    }
+    else
+    {
+        <h3>Edit Cult name</h3>
+    }
+
+    <Wizard Id="DemoWizard">
+        <WizardStep Name="Choose name generator" Title="Pick a naming convention for your Cult">
+            <CultnameTypeSelector CultNameSettingsEditModel=@EditModel CultNameSettingsViewModel=@ViewModel> </CultnameTypeSelector>
+        </WizardStep>
+        <WizardStep Name="Generate name" Title="Generate name">
+            <CultNameGenerator CultNameSettingsEditModel=@EditModel CultNameSettingsViewModel=@ViewModel> </CultNameGenerator>
+        </WizardStep>
+    </Wizard>
+</div>

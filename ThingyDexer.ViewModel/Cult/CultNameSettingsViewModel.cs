@@ -134,9 +134,12 @@ namespace ThingyDexer.ViewModel.Cult
                 {
                     _SelectedRegel = value;
                     OnPropertyChanged(nameof(SelectedRegel));
+                    OnPropertyChanged(nameof(HeeftSelectedRegel));
                 }
             }
         }
+
+        public bool HeeftSelectedRegel => (SelectedRegel != null);
 
         private bool _ShowDetails;
         public bool ShowDetails
@@ -255,11 +258,30 @@ namespace ThingyDexer.ViewModel.Cult
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
 
-                if (isDefiniteArticleSelected) SelectedRegel = DefiniteArticle;
-                if (isAdjective1Selected) SelectedRegel = Adjective1;
-                if (isAdjective2Selected) SelectedRegel = Adjective2;
-                if (isNoun1Selected) SelectedRegel = Noun1;
-                if (isNoun2Selected) SelectedRegel = Noun2;
+                if (isDefiniteArticleSelected)
+                {
+                    SelectedRegel = DefiniteArticle;
+                }
+
+                if (isAdjective1Selected)
+                {
+                    SelectedRegel = Adjective1;
+                }
+
+                if (isAdjective2Selected)
+                {
+                    SelectedRegel = Adjective2;
+                }
+
+                if (isNoun1Selected)
+                {
+                    SelectedRegel = Noun1;
+                }
+
+                if (isNoun2Selected)
+                {
+                    SelectedRegel = Noun2;
+                }
 
                 ShowDetails = true;
             }
@@ -271,7 +293,10 @@ namespace ThingyDexer.ViewModel.Cult
 
             DefiniteArticle = DefiniteArticle?.Owner.GetRandomItem();
 
-            if (isDefiniteArticleSelected) SelectedRegel = DefiniteArticle;
+            if (isDefiniteArticleSelected)
+            {
+                SelectedRegel = DefiniteArticle;
+            }
         }
         public void RerollCultName()
         {
@@ -316,11 +341,30 @@ namespace ThingyDexer.ViewModel.Cult
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
 
-                if (isDefiniteArticleSelected) SelectedRegel = DefiniteArticle;
-                if (isAdjective1Selected) SelectedRegel = Adjective1;
-                if (isAdjective2Selected) SelectedRegel = Adjective2;
-                if (isNoun1Selected) SelectedRegel = Noun1;
-                if (isNoun2Selected) SelectedRegel = Noun2;
+                if (isDefiniteArticleSelected)
+                {
+                    SelectedRegel = DefiniteArticle;
+                }
+
+                if (isAdjective1Selected)
+                {
+                    SelectedRegel = Adjective1;
+                }
+
+                if (isAdjective2Selected)
+                {
+                    SelectedRegel = Adjective2;
+                }
+
+                if (isNoun1Selected)
+                {
+                    SelectedRegel = Noun1;
+                }
+
+                if (isNoun2Selected)
+                {
+                    SelectedRegel = Noun2;
+                }
 
                 ShowDetails = true;
             }
@@ -362,11 +406,30 @@ namespace ThingyDexer.ViewModel.Cult
                 {
                     TimeStamp = DateTime.Now.ToLocalTime();
 
-                    if (isDefiniteArticleSelected) SelectedRegel = DefiniteArticle;
-                    if (isAdjective1Selected) SelectedRegel = Adjective1;
-                    if (isAdjective2Selected) SelectedRegel = Adjective2;
-                    if (isNoun1Selected) SelectedRegel = Noun1;
-                    if (isNoun2Selected) SelectedRegel = Noun2;
+                    if (isDefiniteArticleSelected)
+                    {
+                        SelectedRegel = DefiniteArticle;
+                    }
+
+                    if (isAdjective1Selected)
+                    {
+                        SelectedRegel = Adjective1;
+                    }
+
+                    if (isAdjective2Selected)
+                    {
+                        SelectedRegel = Adjective2;
+                    }
+
+                    if (isNoun1Selected)
+                    {
+                        SelectedRegel = Noun1;
+                    }
+
+                    if (isNoun2Selected)
+                    {
+                        SelectedRegel = Noun2;
+                    }
 
                     ShowDetails = true;
                 }

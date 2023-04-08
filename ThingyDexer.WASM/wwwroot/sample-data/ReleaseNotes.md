@@ -29,7 +29,7 @@
 4) option to collapse sidemenu to icons
 
 ## Version
-v0.1.12 (ALPHA)
+v0.1.13 (ALPHA)
 
 ### Expiremental
 - new version indicator in UI
@@ -39,5 +39,4 @@ v0.1.12 (ALPHA)
 ### Breaking changes
 
 ### Changes
-- [bug] definite article never changes
-- [bug] switching 'definite article' on and off results in new cultname
+refactoring of code

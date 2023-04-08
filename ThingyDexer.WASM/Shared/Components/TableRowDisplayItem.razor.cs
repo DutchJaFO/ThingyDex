@@ -18,7 +18,10 @@ namespace ThingyDexer.WASM.Shared.Components
             set
             {
                 if (_Noun == value)
+                {
                     return;
+                }
+
                 _Noun = value;
                 ValueChanged.InvokeAsync(value);
             }
@@ -37,7 +40,10 @@ namespace ThingyDexer.WASM.Shared.Components
             set
             {
                 if (_SelectedRegel == value)
+                {
                     return;
+                }
+
                 _SelectedRegel = value;
                 SelectedRegelChanged.InvokeAsync(value);
             }

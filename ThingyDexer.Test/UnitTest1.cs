@@ -26,9 +26,13 @@ namespace ThingyDexer.Test
                     var a = rnd.Next(minValue, maxValue + 1);
                     sequence.Add(a);
                     if (!testSet.ContainsKey(a))
+                    {
                         testSet.Add(a, 1);
+                    }
                     else
+                    {
                         testSet[a] = testSet[a]++;
+                    }
                 }
                 rnd = new Random(seed);
                 table = new TextTable(rnd, "test", testdata.ToList());

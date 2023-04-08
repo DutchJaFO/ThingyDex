@@ -334,7 +334,8 @@
             "Corn",
             "Emperor",
             "Ruler",
-            "Prophet"
+            "Prophet",
+            "Squirrel"
         };
 
         public static CultnameTableSet Create(Random random)

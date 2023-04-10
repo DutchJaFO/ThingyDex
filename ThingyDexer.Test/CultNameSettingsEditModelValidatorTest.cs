@@ -4,14 +4,13 @@ using ThingyDexer.ViewModel.Cult;
 namespace ThingyDexer.Test
 {
     [TestClass]
-    public class Class1
+    public class CultNameSettingsEditModelValidatorTest
     {
 
         [TestMethod]
         public void TestValidator() {
             var data = new CultNameSettingsEditModel();
             data.CultnameInputType = null;
-            data.Test = "123";
             var editContext = new EditContext(data);
             editContext.EnableDataAnnotationsValidation();
             var test =  editContext.Validate();

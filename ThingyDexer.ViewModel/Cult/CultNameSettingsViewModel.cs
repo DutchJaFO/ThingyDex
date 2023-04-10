@@ -1,14 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
-using ThingyDexer.Model.General;
+﻿using ThingyDexer.Model.General;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Table;
 
 namespace ThingyDexer.ViewModel.Cult
 {
-
-    [INotifyPropertyChanged]
-    public partial class CultNameSettingsViewModel : ViewModelBase
+    public class CultNameSettingsViewModel : ViewModelBase
     {
         private void AutoGenerateName(CultnameInputType? newType, CultnameInputType? oldType)
         {
@@ -48,43 +44,30 @@ namespace ThingyDexer.ViewModel.Cult
         }
         public void UpdateFromEditModel(CultNameSettingsEditModel editModel)
         {
-            CultnameInputType? oldType = CultnameInputType;
-            CultnameInputType = editModel.CultnameInputType;
-
-            AutoGenerateName(CultnameInputType, oldType);
+         
+            // AutoGenerateName(editModel.CultnameInputType, oldType);
         }
-
-        private CultnameInputType? _CultnameInputType;
-        public CultnameInputType? CultnameInputType
-        {
-            get => _CultnameInputType;
-            set
-            {
-                if (_CultnameInputType != value)
-                {
-                    CultnameInputType? oldType = _CultnameInputType;
-                    _CultnameInputType = value;
-                    OnPropertyChanged(nameof(CultnameInputType));
-                    OnPropertyChanged(nameof(UseGenerator));
-
-                    if (true)
-                    {
-                        AutoGenerateName(CultnameInputType, oldType);
-                    }
-                }
-            }
-        }
-
-        public CultNameSettingsViewModel(CultnameTableSet cultnameTableSet)
+        public CultNameSettingsViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsEditModel settings)
         {
             CultnameTableSet = cultnameTableSet;
+            Settings = settings;
         }
 
-        public bool UseGenerator => (CultnameInputType != Model.General.CultnameInputType.Manual);
+        public CultNameSettingsEditModel Settings {
+            get;
+            private set;
+        }
+
+        public bool UseGenerator => (Settings.CultnameInputType != Model.General.CultnameInputType.Manual);
 
         public CultnameTableSet CultnameTableSet { get; private set; }
 
-        public DateTime? TimeStamp { get; private set; } = DateTime.Now.ToLocalTime();
+        private DateTime? _TimeStamp;
+        public DateTime? TimeStamp
+        {
+            get => _TimeStamp;
+            private set => SetField(ref _TimeStamp, value);
+        }
 
         public bool HasCultname
         {
@@ -93,8 +76,6 @@ namespace ThingyDexer.ViewModel.Cult
                 return (Adjective1 != null) || (Noun1 != null) || (Adjective2 != null) || (Noun2 != null);
             }
         }
-
-        public bool IncludeRandomDefiniteArticle { get; set; } = true;
 
         public TableRowBase<string>? DefiniteArticle
         {
@@ -130,12 +111,8 @@ namespace ThingyDexer.ViewModel.Cult
             get => _SelectedRegel;
             set
             {
-                if (_SelectedRegel != value)
-                {
-                    _SelectedRegel = value;
-                    OnPropertyChanged(nameof(SelectedRegel));
-                    OnPropertyChanged(nameof(HeeftSelectedRegel));
-                }
+                SetField(ref _SelectedRegel, value);
+                OnPropertyChanged(nameof(HeeftSelectedRegel));
             }
         }
 
@@ -147,11 +124,7 @@ namespace ThingyDexer.ViewModel.Cult
             get => _ShowDetails;
             set
             {
-                if (_ShowDetails != value)
-                {
-                    _ShowDetails = value;
-                    SetProperty(ref this._ShowDetails, value);
-                }
+                SetField(ref _ShowDetails, value);
             }
         }
 
@@ -195,8 +168,7 @@ namespace ThingyDexer.ViewModel.Cult
                 TimeStamp = DateTime.Now.ToLocalTime();
 
                 SelectedRegel = null;
-
-                ShowDetails = true;
+                ShowDetails = false;
             }
         }
 
@@ -211,79 +183,52 @@ namespace ThingyDexer.ViewModel.Cult
 
             TimeStamp = DateTime.Now.ToLocalTime();
 
-            ShowDetails = true;
+            ShowDetails = false;
         }
 
         public void RerollSelectedRegel()
         {
-            bool isDefiniteArticleSelected = false;
-            bool isAdjective1Selected = false;
-            bool isAdjective2Selected = false;
-            bool isNoun1Selected = false;
-            bool isNoun2Selected = false;
             try
             {
-                isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
-                isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
-                isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
-                isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
+                bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
+                bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
+                bool isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                bool isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
 
                 if ((DefiniteArticle != null) && isDefiniteArticleSelected)
                 {
                     DefiniteArticle = DefiniteArticle.Owner.GetRandomItem();
+                    SelectedRegel = DefiniteArticle;
                 }
 
                 if ((Adjective1 != null) && isAdjective1Selected)
                 {
                     Adjective1 = Adjective1.Owner.GetRandomItem();
+                    SelectedRegel = Adjective1;
                 }
 
                 if ((Noun1 != null) && isNoun1Selected)
                 {
                     Noun1 = Noun1.Owner.GetRandomItem();
+                    SelectedRegel = Noun1;
                 }
 
                 if ((Adjective2 != null) && isAdjective2Selected)
                 {
                     Adjective2 = Adjective2.Owner.GetRandomItem();
+                    SelectedRegel = Adjective2;
                 }
 
                 if ((Noun2 != null) && isNoun2Selected)
                 {
                     Noun2 = Noun2.Owner.GetRandomItem();
+                    SelectedRegel = Noun2;
                 }
             }
             finally
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
-
-                if (isDefiniteArticleSelected)
-                {
-                    SelectedRegel = DefiniteArticle;
-                }
-
-                if (isAdjective1Selected)
-                {
-                    SelectedRegel = Adjective1;
-                }
-
-                if (isAdjective2Selected)
-                {
-                    SelectedRegel = Adjective2;
-                }
-
-                if (isNoun1Selected)
-                {
-                    SelectedRegel = Noun1;
-                }
-
-                if (isNoun2Selected)
-                {
-                    SelectedRegel = Noun2;
-                }
-
-                ShowDetails = true;
             }
         }
 
@@ -300,73 +245,62 @@ namespace ThingyDexer.ViewModel.Cult
         }
         public void RerollCultName()
         {
-            bool isDefiniteArticleSelected = false;
-            bool isAdjective1Selected = false;
-            bool isAdjective2Selected = false;
-            bool isNoun1Selected = false;
-            bool isNoun2Selected = false;
             try
             {
-                isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
-                isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
-                isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
+                bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
+                bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
+                bool isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
+                bool isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
 
                 if (DefiniteArticle is not null)
                 {
                     DefiniteArticle = DefiniteArticle.Owner.GetRandomItem();
+                    if (isDefiniteArticleSelected)
+                    {
+                        SelectedRegel = DefiniteArticle;
+                    }
                 }
 
                 if (Adjective1 is not null)
                 {
                     Adjective1 = Adjective1.Owner.GetRandomItem();
+                    if (isAdjective1Selected)
+                    {
+                        SelectedRegel = Adjective1;
+                    }
                 }
 
                 if (Noun1 is not null)
                 {
                     Noun1 = Noun1.Owner.GetRandomItem();
+                    if (isNoun1Selected)
+                    {
+                        SelectedRegel = Noun1;
+                    }
                 }
 
                 if (Adjective2 is not null)
                 {
                     Adjective2 = Adjective2.Owner.GetRandomItem();
+                    if (isAdjective2Selected)
+                    {
+                        SelectedRegel = Adjective2;
+                    }
                 }
 
                 if (Noun2 is not null)
                 {
                     Noun2 = Noun2.Owner.GetRandomItem();
+                    if (isNoun2Selected)
+                    {
+                        SelectedRegel = Noun2;
+                    }
                 }
             }
             finally
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
-
-                if (isDefiniteArticleSelected)
-                {
-                    SelectedRegel = DefiniteArticle;
-                }
-
-                if (isAdjective1Selected)
-                {
-                    SelectedRegel = Adjective1;
-                }
-
-                if (isAdjective2Selected)
-                {
-                    SelectedRegel = Adjective2;
-                }
-
-                if (isNoun1Selected)
-                {
-                    SelectedRegel = Noun1;
-                }
-
-                if (isNoun2Selected)
-                {
-                    SelectedRegel = Noun2;
-                }
-
-                ShowDetails = true;
             }
         }
 
@@ -394,8 +328,8 @@ namespace ThingyDexer.ViewModel.Cult
                                         Noun1,
                                         Adjective2,
                                         Noun2,
-                                        IncludeRandomDefiniteArticle,
-                                        CultnameInputType ?? Model.General.CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2);
+                                        Settings.IncludeRandomDefiniteArticle,
+                                        Settings.CultnameInputType ?? Model.General.CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2);
                     DefiniteArticle = definiteArticle;
                     Adjective1 = adjective1;
                     Noun1 = name;
@@ -430,8 +364,6 @@ namespace ThingyDexer.ViewModel.Cult
                     {
                         SelectedRegel = Noun2;
                     }
-
-                    ShowDetails = true;
                 }
             }
         }
@@ -477,10 +409,7 @@ namespace ThingyDexer.ViewModel.Cult
                 finally
                 {
                     TimeStamp = DateTime.Now.ToLocalTime();
-
                     SelectedRegel = item;
-
-                    ShowDetails = true;
                 }
             }
         }

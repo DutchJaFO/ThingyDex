@@ -1,4 +1,25 @@
 ﻿<CascadingValue Value="this">
+    <div id="@Id" class="row">
+        <div class="col-sm-auto">
+            <ul class="nav nav-pills flex-column">
+                @foreach (var step in Steps.Where(o => HasBeenActivated(o)))
+                {
+                    <li id="step-@(StepsIndex(step) + 1)" class="nav-item">
+                        <a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)" @onclick="@(e=> SetActive(step))">
+                            <span>@(StepsIndex(step) + 1))</span>
+                            <span>@step.Name</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="col-sm">
+            <div id="container-fluid">
+                @ChildContent
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-2">
             @*
@@ -35,88 +56,20 @@
         else
         {
             <div class="col-sm-2">
+                @{
+                   
                 <button class="btn btn-primary" style="width:96px"
-                        type="button" @onclick="GoNext">
+                        type="button"
+                    @onclick="GoNext">
                     Next
                 </button>
+                }
                 @*
             <button class="btn btn-primary" style="width:96px"
             disabled>
             Submit
             </button>
             *@
-            </div>
-        }
-    </div>
-
-    <div id="@Id" class="row" >
-        <div class="col-sm-auto">
-            <ul class="nav nav-pills flex-column">
-                @foreach (var step in Steps)
-                {
-                    <li id="step-@(StepsIndex(step) + 1)" class="nav-item">
-                        <a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)"
-                       @onclick="@(e=> SetActive(step))">
-                            <span>@(StepsIndex(step) + 1))</span>
-                            <span>@step.Name</span>
-                        </a>
-                    </li>
-                }
-            </ul>
-        </div>
-        <div class="col-sm">
-            <div id="container-fluid">
-                @ChildContent
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-sm-2">
-            @*
-            <button class="btn btn-primary" style="width:96px"
-                    type="button"
-                    @onclick="DoCancel">
-                Cancel
-            </button>
-            *@
-            <button class="btn btn-primary" style="width:96px"
-                    disabled="@(ActiveStepIx == 0)" @onclick="GoBack">
-                Previous
-            </button>
-        </div>
-
-        <div class="col-sm-8">
-        </div>
-
-        @if (IsLastStep)
-        {
-            <div class="col-sm-2">
-                <button class="btn btn-primary" style="width:96px"
-                        disabled>
-                    Next
-                </button>
-                @*
-                <button class="btn btn-primary" style="width:96px"
-                        type="submit" @onclick="GoNext">
-                    Submit
-                </button>
-                *@
-            </div>
-        }
-        else
-        {
-            <div class="col-sm-2">
-                <button class="btn btn-primary" style="width:96px"
-                        type="button" @onclick="GoNext">
-                    Next
-                </button>
-                @*
-                <button class="btn btn-primary" style="width:96px"
-                        disabled>
-                    Submit
-                </button>
-                *@
             </div>
         }
     </div>

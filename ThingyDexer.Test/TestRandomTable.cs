@@ -3,7 +3,7 @@ using ThingyDexer.Model.Table;
 namespace ThingyDexer.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class TestRandomTable
     {
         private const int seed = 500;
         private Random? rnd;

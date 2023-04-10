@@ -14,6 +14,8 @@ using Microsoft.JSInterop;
 using ThingyDexer.WASM;
 using ThingyDexer.WASM.Shared;
 using BlazorBootstrap;
+using ThingyDexer.ViewModel.Cult;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThingyDexer.WASM.Pages.Wizard
 {
@@ -24,6 +26,8 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// List of <see cref="WizardStep"/> added to the Wizard
         /// </summary>
         protected internal List<WizardStep> Steps = new List<WizardStep>();
+
+        protected internal List<WizardStep> ActivatedSteps = new();
 
         /// <summary>
         /// The control Id
@@ -59,7 +63,8 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// Sets the <see cref="ActiveStep"/> to the previous Index
         /// </summary>
 
-        protected internal void DoCancel() {
+        protected internal void DoCancel()
+        {
         }
 
         protected internal void GoBack()
@@ -75,9 +80,19 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// </summary>
         protected internal void GoNext()
         {
-            if (ActiveStepIx < Steps.Count - 1)
+            ActiveStep?.AfterNextStepAction?.Invoke();
+
+            ActiveStep?.DoValidateModel();
+            if (ActiveStep?.IsStepValid == true)
             {
-                SetActive(Steps[(Steps.IndexOf(ActiveStep) + 1)]);
+                if (ActiveStepIx < (Steps.Count - 1))
+                {
+                    SetActive(Steps[(Steps.IndexOf(ActiveStep) + 1)]);
+                    ActiveStep?.BeforeNextStepAction?.Invoke();
+                }
+            }
+            else
+            {
             }
         }
 
@@ -90,14 +105,19 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             ActiveStep = step ?? throw new ArgumentNullException(nameof(step));
 
-            ActiveStepIx = StepsIndex(step);
-            if (ActiveStepIx == Steps.Count - 1)
+            int newStepIx = StepsIndex(step);
+            if (true)
             {
-                IsLastStep = true;
-            }
-            else
-            {
-                IsLastStep = false;
+                ActivatedSteps.Add(step);
+                ActiveStepIx = newStepIx;
+                if (ActiveStepIx == Steps.Count - 1)
+                {
+                    IsLastStep = true;
+                }
+                else
+                {
+                    IsLastStep = false;
+                }
             }
         }
 
@@ -116,6 +136,12 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
             return Steps.IndexOf(step);
         }
+
+        public bool HasBeenActivated(WizardStep step)
+        {
+            return ActivatedSteps.Contains(step);
+        }
+
         /// <summary>
         /// Adds a <see cref="WizardStep"/> to the WizardSteps list
         /// </summary>

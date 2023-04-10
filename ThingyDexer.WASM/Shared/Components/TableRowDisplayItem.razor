@@ -5,23 +5,34 @@
 <span>
     @if (Value != null)
     {
-        if (SelectedRegel?.Equals(Value) == true)
-        {
-            <Button Disabled="@(SelectedRegel == null)" Size="Size.Medium"
-            Color="ButtonColor.Secondary"
-            @onclick="@(() => DoRerollSelectedRegel())">
-                <Icon Name="IconName.Dice2Fill" />
-            </Button>
-        }
-        <Button Type="ButtonType.Link"
-            Color="@(SelectedRegel?.Equals(Value)==true? ButtonColor.Link:ButtonColor.None)"
-            Active=@(SelectedRegel?.Equals(Value) == true)
-            Outline=false
-            @onclick="@(() => DoSelectNoun())">
+        <Button Type="ButtonType.Button"
+            Color="ButtonColor.Primary"
+            Outline=@(SelectedRegel?.Equals(Value) != true)
+            Active=false
+            @onclick="@(() => {
+                                if (SelectedRegel?.Equals(Value) == true)
+                                {
+                                    DoRollSelectedRegel();
+                                }
+                                else
+                                {
+                                    DoSelectNoun();
+                                }
+                            })">
+            @{
+                if (SelectedRegel?.Equals(Value) == true)
+                {
+                    <Icon Name="IconName.Dice2Fill" />
+                }
+                else
+                {
+                    <Icon Name="IconName.Dice2" />
+                }
+            }
             <h4>
                 @{
                     string? displayValue;
-                    if ((string.IsNullOrEmpty(Value?.Value)==false) && (SuffixAction != null))
+                    if ((string.IsNullOrEmpty(Value?.Value) == false) && (SuffixAction != null))
                     {
                         displayValue = SuffixAction(Value.Value);
                     }
@@ -41,6 +52,12 @@
             Outline=true
             @onclick="@(() => DoRollSelectedRegel())">
             <Icon Name="IconName.PlusCircle"></Icon>
+            <h4>
+                @{
+                    string? displayValue = Table?.Name;
+                }
+                [@displayValue]
+            </h4>
         </Button>
     }
 

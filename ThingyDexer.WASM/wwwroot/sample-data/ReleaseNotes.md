@@ -15,7 +15,7 @@
 ## Features
 1) [Home page](./) shows welcome text and release notes
 2) Cultname generator : [Create a Cult](./CreateCult)  
-	- [new] wizard-style UI design for generator
+	- wizard-style UI design for generator
 	- dice button next to selected item can be used to re-roll it
 	- each item of name can be selected and re-rolled by clicking a button
 	- select an item in the table
@@ -29,7 +29,7 @@
 4) option to collapse sidemenu to icons
 
 ## Version
-v0.1.14 (ALPHA)
+v0.1.15 (ALPHA)
 
 ### Experimental
 - new version indicator in UI
@@ -39,4 +39,4 @@ v0.1.14 (ALPHA)
 ### Breaking changes
 
 ### Changes
-- [new] wizard-style UI design for generator
+- minor bug fixes

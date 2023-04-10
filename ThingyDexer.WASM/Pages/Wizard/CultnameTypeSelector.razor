@@ -1,33 +1,29 @@
 ﻿@using ThingyDexer.Model.General;
 
-<EditForm Model="CultNameSettingsViewModel">
+<EditForm Model="CultNameSettingsEditModel">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
-
     <div class="row">
         <div class="col-sm-auto py-1 px-1">
-            <Switch Value=@CultNameSettingsViewModel.IncludeRandomDefiniteArticle
+            <Switch Value=@CultNameSettingsEditModel.IncludeRandomDefiniteArticle
                     ValueChanged="@((v)  =>
-                                                    {
-                                                        CultNameSettingsViewModel.IncludeRandomDefiniteArticle = v;
-                                                        if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                                                        {
-                                                            CultNameSettingsViewModel.RerollDefiniteArticle();
-                                                        }
-                                                        StateHasChanged();
-                                                    })" Label="Include definite article">
+                                            {
+                                              CultNameSettingsEditModel.IncludeRandomDefiniteArticle = v;
+                                              StateHasChanged();
+                                            })"
+                    Label="Include definite article">
             </Switch>
         </div>
     </div>
 
-    <InputRadioGroup @bind-Value="CultNameSettingsViewModel.CultnameInputType">
+    <InputRadioGroup @bind-Value="CultNameSettingsEditModel.CultnameInputType">
         <!-- option 1 : Template 1  -->
         <div class="row">
             <div class="col-sm-6 py-1 px-1">
                 <InputRadio id="edtTemplate1"
                             Value="CultnameInputType.TemplateNoun1OfTheAdjective2Noun2" />
                 <label class="px-2" for="edtTemplate1">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -41,7 +37,7 @@
                 <InputRadio id="edtTemplate2"
                             Value="CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2" />
                 <label class="px-2" for="edtTemplate2">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -55,7 +51,7 @@
                 <InputRadio id="edtTemplate3"
                             Value="CultnameInputType.TemplateAdjective1Noun1OfTheNoun2" />
                 <label class="px-2" for="edtTemplate3">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -69,7 +65,7 @@
                 <InputRadio id="edtTemplate4"
                             Value="CultnameInputType.TemplateNoun1OfTheNoun2" />
                 <label class="px-2" for="edtTemplate4">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -83,7 +79,7 @@
                 <InputRadio id="edtTemplate5"
                             Value="CultnameInputType.TemplateAdjective1Adjective2Noun2" />
                 <label class="px-2" for="edtTemplate5">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -97,7 +93,7 @@
                 <InputRadio id="edtTemplate6"
                             Value="CultnameInputType.TemplateAdjective1Noun1" />
                 <label class="px-2" for="edtTemplate6">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -111,7 +107,7 @@
                 <InputRadio id="edtTemplate7"
                             Value="CultnameInputType.TemplateAdjective2Noun2" />
                 <label class="px-2" for="edtTemplate7">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }
@@ -125,7 +121,7 @@
                 <InputRadio id="edtTemplate8"
                             Value="CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1" />
                 <label class="px-2" for="edtTemplate8">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                    @if (CultNameSettingsEditModel.IncludeRandomDefiniteArticle)
                     {
                         <span>[Definite Article]</span>
                     }

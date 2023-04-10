@@ -78,7 +78,7 @@ namespace ThingyDexer.WASM.Pages
         private void HandleValidSubmit()
         {
             CultNameSettingsEditModel.IsValid = true;
-            CultNameSettingsViewModel = new(CultnameTableSet);
+            CultNameSettingsViewModel = new(CultnameTableSet, CultNameSettingsEditModel);
             CultNameSettingsViewModel.UpdateFromEditModel(CultNameSettingsEditModel);
             StateHasChanged();
         }
@@ -92,7 +92,7 @@ namespace ThingyDexer.WASM.Pages
         {
             CultNameSettingsEditModel.CultnameInputType = null;
             CultNameSettingsEditModel.IsValid = false;
-            CultNameSettingsViewModel = new(CultnameTableSet);
+            CultNameSettingsViewModel = new(CultnameTableSet, CultNameSettingsEditModel);
             StateHasChanged();
         }
         #endregion Private
@@ -114,7 +114,7 @@ namespace ThingyDexer.WASM.Pages
 
             if (CultNameSettingsViewModel is null)
             {
-                CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet);
+                CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet, CultNameSettingsEditModel);
             }
         }
         #endregion Protected

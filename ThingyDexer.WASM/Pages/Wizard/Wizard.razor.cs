@@ -14,6 +14,8 @@ using Microsoft.JSInterop;
 using ThingyDexer.WASM;
 using ThingyDexer.WASM.Shared;
 using BlazorBootstrap;
+using ThingyDexer.ViewModel.Cult;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThingyDexer.WASM.Pages.Wizard
 {
@@ -78,9 +80,19 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// </summary>
         protected internal void GoNext()
         {
-            if (ActiveStepIx < Steps.Count - 1)
+            ActiveStep?.AfterNextStepAction?.Invoke();
+
+            ActiveStep?.DoValidateModel();
+            if (ActiveStep?.IsStepValid == true)
             {
-                SetActive(Steps[(Steps.IndexOf(ActiveStep) + 1)]);
+                if (ActiveStepIx < (Steps.Count - 1))
+                {
+                    SetActive(Steps[(Steps.IndexOf(ActiveStep) + 1)]);
+                    ActiveStep?.BeforeNextStepAction?.Invoke();
+                }
+            }
+            else
+            {
             }
         }
 

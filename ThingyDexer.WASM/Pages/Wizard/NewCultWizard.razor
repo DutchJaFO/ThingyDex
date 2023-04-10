@@ -11,11 +11,24 @@
     }
 
     <Wizard Id="DemoWizard">
-        <WizardStep Name="Choose name generator" Title="Pick a naming convention for your Cult">
-            <CultnameTypeSelector CultNameSettingsEditModel=@EditModel CultNameSettingsViewModel=@ViewModel> </CultnameTypeSelector>
+        <WizardStep Name="Choose name generator" Title="Pick a naming convention for your Cult"
+                    ViewModel=@ViewModel.Settings
+                    BeforeNextStepAction="@(() => {})"
+                    AfterNextStepAction="@(() => 
+                                            { 
+                                                ViewModel.GenerateCultName();
+                                            })">
+            <CultnameTypeSelector CultNameSettingsEditModel=@ViewModel.Settings
+                
+                                  />
         </WizardStep>
-        <WizardStep Name="Generate name" Title="Generate name">
-            <CultNameGenerator CultNameSettingsEditModel=@EditModel CultNameSettingsViewModel=@ViewModel> </CultNameGenerator>
+        <WizardStep Name="Generate name" Title="Generate name"
+                    ViewModel=@ViewModel
+                    BeforeNextStepAction="@(() => {})"
+                    AfterNextStepAction="@(() => {})">
+
+            <CultNameGenerator CultNameSettingsEditModel=@EditModel
+                               CultNameSettingsViewModel=@ViewModel />
         </WizardStep>
     </Wizard>
 </div>

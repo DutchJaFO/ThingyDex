@@ -1,19 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using ThingyDexer.WASM;
-using ThingyDexer.WASM.Shared;
-using BlazorBootstrap;
+using System.ComponentModel;
+using System.Text;
+using ThingyDexer.ViewModel.Cult;
 
 namespace ThingyDexer.WASM.Pages.Wizard
 {
@@ -24,6 +13,26 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// The <see cref="Wizard"/> container
         /// </summary>
         [CascadingParameter] protected internal Wizard Parent { get; set; }
+
+        public EditContext MyContext
+        {
+            get;
+            private set;
+        }
+
+        private IEnumerable<DisplayError> _Errors = new List<DisplayError>();
+        public IEnumerable<DisplayError> Errors => _Errors;
+
+
+        [Inject] public IServiceProvider ServiceProvider { get; set; }
+
+        [Parameter]
+        public ViewModelBase ViewModel { get; set; }
+
+        [Parameter] public Action? BeforeNextStepAction { get; set; }
+
+        [Parameter] public Action? AfterNextStepAction { get; set; }
+
 
         /// <summary>
         /// The Child Content of the current <see cref="WizardStep"/>
@@ -39,9 +48,42 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
         [Parameter] public string Title { get; set; }
 
+        public bool? IsStepValid { get; private set; }
+
+        public void DoValidateModel()
+        {
+            // if ((IsStepValid == null) || (MyContext?.IsModified() == true))
+            {
+                var isValid = MyContext?.Validate();
+
+                _Errors = MyContext?.GetValidationMessages().Select(o => new DisplayError(o)).ToList() ?? new List<DisplayError>();
+
+                if (IsStepValid != isValid)
+                {
+                    IsStepValid = isValid;
+                    StateHasChanged();
+                }
+            }
+        }
+
         protected override void OnInitialized()
         {
             Parent.AddStep(this);
+        }
+
+        protected async override Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+            MyContext = new EditContext(ViewModel);
+            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
+            MyContext.MarkAsUnmodified();
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            DoValidateModel();
+        }
+
+        private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            DoValidateModel();
         }
     }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

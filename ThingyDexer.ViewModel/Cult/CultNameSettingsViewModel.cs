@@ -1,14 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel;
-using ThingyDexer.Model.General;
+﻿using ThingyDexer.Model.General;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Table;
 
 namespace ThingyDexer.ViewModel.Cult
 {
-
-    [INotifyPropertyChanged]
-    public partial class CultNameSettingsViewModel : ViewModelBase
+    public class CultNameSettingsViewModel : ViewModelBase
     {
         private void AutoGenerateName(CultnameInputType? newType, CultnameInputType? oldType)
         {
@@ -48,43 +44,30 @@ namespace ThingyDexer.ViewModel.Cult
         }
         public void UpdateFromEditModel(CultNameSettingsEditModel editModel)
         {
-            CultnameInputType? oldType = CultnameInputType;
-            CultnameInputType = editModel.CultnameInputType;
-
-            AutoGenerateName(CultnameInputType, oldType);
+         
+            // AutoGenerateName(editModel.CultnameInputType, oldType);
         }
-
-        private CultnameInputType? _CultnameInputType;
-        public CultnameInputType? CultnameInputType
-        {
-            get => _CultnameInputType;
-            set
-            {
-                if (_CultnameInputType != value)
-                {
-                    CultnameInputType? oldType = _CultnameInputType;
-                    _CultnameInputType = value;
-                    OnPropertyChanged(nameof(CultnameInputType));
-                    OnPropertyChanged(nameof(UseGenerator));
-
-                    if (true)
-                    {
-                        AutoGenerateName(CultnameInputType, oldType);
-                    }
-                }
-            }
-        }
-
-        public CultNameSettingsViewModel(CultnameTableSet cultnameTableSet)
+        public CultNameSettingsViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsEditModel settings)
         {
             CultnameTableSet = cultnameTableSet;
+            Settings = settings;
         }
 
-        public bool UseGenerator => (CultnameInputType != Model.General.CultnameInputType.Manual);
+        public CultNameSettingsEditModel Settings {
+            get;
+            private set;
+        }
+
+        public bool UseGenerator => (Settings.CultnameInputType != Model.General.CultnameInputType.Manual);
 
         public CultnameTableSet CultnameTableSet { get; private set; }
 
-        public DateTime? TimeStamp { get; private set; } = DateTime.Now.ToLocalTime();
+        private DateTime? _TimeStamp;
+        public DateTime? TimeStamp
+        {
+            get => _TimeStamp;
+            private set => SetField(ref _TimeStamp, value);
+        }
 
         public bool HasCultname
         {
@@ -93,8 +76,6 @@ namespace ThingyDexer.ViewModel.Cult
                 return (Adjective1 != null) || (Noun1 != null) || (Adjective2 != null) || (Noun2 != null);
             }
         }
-
-        public bool IncludeRandomDefiniteArticle { get; set; } = true;
 
         public TableRowBase<string>? DefiniteArticle
         {
@@ -130,7 +111,7 @@ namespace ThingyDexer.ViewModel.Cult
             get => _SelectedRegel;
             set
             {
-                SetProperty(ref this._SelectedRegel, value);
+                SetField(ref _SelectedRegel, value);
                 OnPropertyChanged(nameof(HeeftSelectedRegel));
             }
         }
@@ -143,7 +124,7 @@ namespace ThingyDexer.ViewModel.Cult
             get => _ShowDetails;
             set
             {
-                SetProperty(ref this._ShowDetails, value);
+                SetField(ref _ShowDetails, value);
             }
         }
 
@@ -347,8 +328,8 @@ namespace ThingyDexer.ViewModel.Cult
                                         Noun1,
                                         Adjective2,
                                         Noun2,
-                                        IncludeRandomDefiniteArticle,
-                                        CultnameInputType ?? Model.General.CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2);
+                                        Settings.IncludeRandomDefiniteArticle,
+                                        Settings.CultnameInputType ?? Model.General.CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2);
                     DefiniteArticle = definiteArticle;
                     Adjective1 = adjective1;
                     Noun1 = name;

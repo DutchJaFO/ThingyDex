@@ -1,54 +1,4 @@
 ﻿<CascadingValue Value="this">
-    <div class="row">
-        <div class="col-sm-2">
-            @*
-            <button class="btn btn-primary" style="width:96px"
-            type="button"
-            @onclick="DoCancel">
-            Cancel
-            </button>
-            *@
-            <button class="btn btn-primary" style="width:96px"
-                    disabled="@(ActiveStepIx == 0)" @onclick="GoBack">
-                Previous
-            </button>
-        </div>
-
-        <div class="col-sm-8">
-        </div>
-
-        @if (IsLastStep)
-        {
-            <div class="col-sm-2">
-                <button class="btn btn-primary" style="width:96px"
-                        disabled>
-                    Next
-                </button>
-                @*
-            <button class="btn btn-primary" style="width:96px"
-            type="submit" @onclick="GoNext">
-            Submit
-            </button>
-            *@
-            </div>
-        }
-        else
-        {
-            <div class="col-sm-2">
-                <button class="btn btn-primary" style="width:96px"
-                        type="button" @onclick="GoNext">
-                    Next
-                </button>
-                @*
-            <button class="btn btn-primary" style="width:96px"
-            disabled>
-            Submit
-            </button>
-            *@
-            </div>
-        }
-    </div>
-
     <div id="@Id" class="row">
         <div class="col-sm-auto">
             <ul class="nav nav-pills flex-column">
@@ -106,10 +56,14 @@
         else
         {
             <div class="col-sm-2">
+                @{
+                   
                 <button class="btn btn-primary" style="width:96px"
-                        type="button" @onclick="GoNext">
+                        type="button"
+                    @onclick="GoNext">
                     Next
                 </button>
+                }
                 @*
             <button class="btn btn-primary" style="width:96px"
             disabled>

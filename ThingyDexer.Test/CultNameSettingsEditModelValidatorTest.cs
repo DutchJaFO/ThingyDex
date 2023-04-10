@@ -15,7 +15,21 @@ namespace ThingyDexer.Test
             editContext.EnableDataAnnotationsValidation();
             var test =  editContext.Validate();
             
-            Assert.IsTrue(false);
+            Assert.IsFalse(test);
+
+        }
+
+        [TestMethod]
+        public void TestValidator2()
+        {
+            var data = new CultNameSettingsEditModel();
+            data.CultnameInputType = Model.General.CultnameInputType.TemplateAdjective1Noun1;
+
+            var editContext = new EditContext(data);
+            editContext.EnableDataAnnotationsValidation();
+            var test = editContext.Validate();
+
+            Assert.IsTrue(test);
 
         }
     }

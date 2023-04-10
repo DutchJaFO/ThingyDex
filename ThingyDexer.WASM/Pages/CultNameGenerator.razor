@@ -18,12 +18,25 @@
         {
             if (CultNameSettingsViewModel.UseGenerator == true)
             {
+
+                <div class="row">
+                    <div class="col-sm-auto py-1 px-1">
+                        <Switch Value=@CultNameSettingsViewModel.ShowDetails
+                        ValueChanged="@((v)  =>
+                                                    {
+                                                        CultNameSettingsViewModel.ShowDetails = v;
+                                                        StateHasChanged();
+                                                    })" Label="Show details">
+                        </Switch>
+                    </div>
+                </div>
+
                 <!--re-roll bits -->
                 <div class="row">
                     <div class="col-sm-auto py-1 px-1">
                         <Button disabled="@(CultNameSettingsViewModel.HeeftSelectedRegel == false)" Size="Size.Medium"
                         Color="ButtonColor.Secondary"
-                        @onclick="@(()=>CultNameSettingsViewModel.RerollSelectedRegel())">
+                        @onclick="@(()=>{CultNameSettingsViewModel.RerollSelectedRegel();StateHasChanged();})">
                             <Icon Name="IconName.Dice3Fill" />
                             Re-roll selection
                         </Button>
@@ -31,7 +44,7 @@
                     <div class="col-sm-auto py-1 px-1">
                         <Button Disabled="@(CultNameSettingsViewModel.HasCultname == false)" Size="Size.Medium"
                         Color="ButtonColor.Secondary"
-                        @onclick="@(()=>CultNameSettingsViewModel.RerollCultName())">
+                        @onclick="@(()=> {CultNameSettingsViewModel.RerollCultName(); StateHasChanged();})">
                             <Icon Name="IconName.Dice4Fill" />
                             Re-roll name
                         </Button>
@@ -45,14 +58,14 @@
                         <div class="col-sm-auto py-1 px-1">
                             <Button Disabled="@(CultNameSettingsViewModel.SelectedRegel == null)"
                         Size="Size.Medium"
-                        Color="ButtonColor.Danger" @onclick="@(() => CultNameSettingsViewModel.ClearSelectedItem())">
+                        Color="ButtonColor.Danger" @onclick="@(() => {CultNameSettingsViewModel.ClearSelectedItem();StateHasChanged();})">
                                 <Icon Name="IconName.Trash" />
                                 Delete selection
                             </Button>
                         </div>
                         <div class="col-sm-auto py-1 px-1">
                             <Button Disabled="@(CultNameSettingsViewModel.HasCultname == false)" Size="Size.Medium"
-                        Color="ButtonColor.Danger" @onclick="@(() => CultNameSettingsViewModel.ClearCultname())">
+                        Color="ButtonColor.Danger" @onclick="@(() => {CultNameSettingsViewModel.ClearCultname();StateHasChanged();})">
                                 <Icon Name="IconName.Trash" />
                                 Delete name
                             </Button>
@@ -69,26 +82,26 @@
                             {
                                 <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.DefiniteArticleTable"
                                          Value="@CultNameSettingsViewModel.DefiniteArticle"
-                                         ValueChanged="@((n) => {CultNameSettingsViewModel.DefiniteArticle = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.DefiniteArticle = n; })"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
-                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
+                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; })" />
                             }
                             @if (CultNameSettingsViewModel.CultnameInputType.HasAdjective1())
                             {
                                 <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.AdjectiveTable1"
                                          Value="@CultNameSettingsViewModel.Adjective1"
-                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Adjective1 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Adjective1 = n; })"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
-                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
+                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; })" />
                             }
                             @if (CultNameSettingsViewModel.CultnameInputType.HasNoun1())
                             {
                                 <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.NameTable"
                                          Value="@CultNameSettingsViewModel.Noun1"
                                          SuffixAction="@((n) => (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1) ? MakePossessive(n) : n)"
-                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Noun1 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Noun1 = n; })"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
-                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
+                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; })" />
 
                             }
                             <!-- -->
@@ -105,17 +118,17 @@
                             {
                                 <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.AdjectiveTable2"
                                          Value="@CultNameSettingsViewModel.Adjective2"
-                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Adjective2 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Adjective2 = n; })"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
-                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
+                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; })" />
                             }
                             @if (CultNameSettingsViewModel.CultnameInputType.HasNoun2())
                             {
                                 <TableRowDisplayItem Table="@CultNameSettingsViewModel.CultnameTableSet.SomethingTable"
                                          Value="@CultNameSettingsViewModel.Noun2"
-                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Noun2 = n; CultNameSettingsViewModel.ShowDetails = true;})"
+                                         ValueChanged="@((n) => {CultNameSettingsViewModel.Noun2 = n; })"
                                          SelectedRegel="@CultNameSettingsViewModel.SelectedRegel"
-                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; CultNameSettingsViewModel.ShowDetails = true;})" />
+                                         SelectedRegelChanged="@((r) => { CultNameSettingsViewModel.SelectedRegel = r; })" />
                             }
                         </div>
                     </div>
@@ -126,15 +139,6 @@
         {
             <p>choose a method for your madness ...</p>
         }
-        <!-- buttons -->
-        @*
-        <div class="row">
-        <span class="col px-3">
-        <Button Color="ButtonColor.Primary" Type="ButtonType.Submit">Submit</Button>
-        <Button Color="ButtonColor.Danger" Type="ButtonType.Button" Disabled="@(CultNameSettingsViewModel.CultnameInputType == null)" onclick="@(() => {HandleReset(); })">Clear</Button>
-        </span>
-        </div>
-        *@
     </EditForm>
     <!--footer -->
 </div>
@@ -150,52 +154,51 @@
     <div class="row">
         <div class="col-md-auto">
             <div class="my-2">
-                @if ((CultNameSettingsViewModel?.ShowDetails == true) && (CultNameSettingsViewModel.SelectedRegel != null))
-                {
-                    <Grid Data="@CultNameSettingsViewModel.SelectedRegel.Owner.Rows(o => new SelectableRegelString() { Selected = (o.Index == CultNameSettingsViewModel.SelectedRegel.Index), Id= o.Index, Name = o.Value, Source = CultNameSettingsViewModel.SelectedRegel.Owner})"
-                          class="table table-sm table-hover table-bordered table-striped"
+                <Grid @ref="grid"
+                  TItem="SelectableRegelString"
+                  DataProvider="EmployeesDataProvider"
+                      class="table table-sm table-hover table-bordered table-striped"
                   AllowPaging=true
                   PaginationAlignment="Alignment.Start"
                   Responsive=true
                   AllowFiltering=true
                   AllowSorting=true>
-                        <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="" Sortable=false FilterOperator="FilterOperator.Equals" Class="col-sm-auto">
-                            <Switch Value="context.Selected"
+                    <GridColumn TItem="SelectableRegelString" PropertyName="Selected" HeaderText="" Sortable=false FilterOperator="FilterOperator.Equals" Class="col-sm-auto">
+                        <Switch Value="context.Selected"
                             ValueChanged="@(() => {var x=context; DoChangeSelectedRow(x, (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.Custom));})"></Switch>
-                        </GridColumn>
-                        <GridColumn TItem="SelectableRegelString"
+                    </GridColumn>
+                    <GridColumn TItem="SelectableRegelString"
                             PropertyName="IdText"
                             HeaderText="Id"
                             IsDefaultSortColumn=true SortDirection="SortDirection.Ascending" SortKeySelector="@((o) => o.IdText)" Class="col-sm-auto" FilterValue="">
-                            <label @onclick="@(() => {var x=context; DoChangeSelectedRow(x, (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.Custom));})">
-                                @if (context.Selected)
-                                {
-                                    <strong>
-                                        @context.IdText
-                                    </strong>
-                                }
-                                else
-                                {
+                        <label @onclick="@(() => {var x=context; DoChangeSelectedRow(x, (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.Custom));})">
+                            @if (context.Selected)
+                            {
+                                <strong>
                                     @context.IdText
-                                }
-                            </label>
-                        </GridColumn>
-                        <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value" Sortable=true SortKeySelector="@((o) => o.Name)" Class="col-sm-auto">
-                            <label @onclick="@(() => {var x=context; DoChangeSelectedRow(x, (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.Custom));})">
-                                @if (context.Selected)
-                                {
-                                    <strong>
-                                        @context.Name
-                                    </strong>
-                                }
-                                else
-                                {
+                                </strong>
+                            }
+                            else
+                            {
+                                @context.IdText
+                            }
+                        </label>
+                    </GridColumn>
+                    <GridColumn TItem="SelectableRegelString" PropertyName="Name" HeaderText="Value" Sortable=true SortKeySelector="@((o) => o.Name)" Class="col-sm-auto">
+                        <label @onclick="@(() => {var x=context; DoChangeSelectedRow(x, (CultNameSettingsViewModel.CultnameInputType == CultnameInputType.Custom));})">
+                            @if (context.Selected)
+                            {
+                                <strong>
                                     @context.Name
-                                }
-                            </label>
-                        </GridColumn>
-                    </Grid>
-                }
+                                </strong>
+                            }
+                            else
+                            {
+                                @context.Name
+                            }
+                        </label>
+                    </GridColumn>
+                </Grid>
             </div>
         </div>
     </div>

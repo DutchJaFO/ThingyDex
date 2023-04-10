@@ -25,6 +25,8 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// </summary>
         protected internal List<WizardStep> Steps = new List<WizardStep>();
 
+        protected internal List<WizardStep> ActivatedSteps = new();
+
         /// <summary>
         /// The control Id
         /// </summary>
@@ -59,7 +61,8 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// Sets the <see cref="ActiveStep"/> to the previous Index
         /// </summary>
 
-        protected internal void DoCancel() {
+        protected internal void DoCancel()
+        {
         }
 
         protected internal void GoBack()
@@ -90,14 +93,19 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             ActiveStep = step ?? throw new ArgumentNullException(nameof(step));
 
-            ActiveStepIx = StepsIndex(step);
-            if (ActiveStepIx == Steps.Count - 1)
+            int newStepIx = StepsIndex(step);
+            if (true)
             {
-                IsLastStep = true;
-            }
-            else
-            {
-                IsLastStep = false;
+                ActivatedSteps.Add(step);
+                ActiveStepIx = newStepIx;
+                if (ActiveStepIx == Steps.Count - 1)
+                {
+                    IsLastStep = true;
+                }
+                else
+                {
+                    IsLastStep = false;
+                }
             }
         }
 
@@ -116,6 +124,12 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
             return Steps.IndexOf(step);
         }
+
+        public bool HasBeenActivated(WizardStep step)
+        {
+            return ActivatedSteps.Contains(step);
+        }
+
         /// <summary>
         /// Adds a <see cref="WizardStep"/> to the WizardSteps list
         /// </summary>

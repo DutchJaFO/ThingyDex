@@ -1,7 +1,9 @@
+using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThingyDexer.WASM.Pages
 {
@@ -17,6 +19,36 @@ namespace ThingyDexer.WASM.Pages
         #endregion
 
         #region Private
+
+        private Grid<SelectableRegelString> grid;
+
+        private async Task RefreshGridAsync()
+        {
+            await grid.RefreshDataAsync();
+        }
+
+        private async Task<GridDataProviderResult<SelectableRegelString>> EmployeesDataProvider(GridDataProviderRequest<SelectableRegelString> request)
+        {
+            if (CultNameSettingsViewModel?.SelectedRegel != null)
+            {
+                var regel = CultNameSettingsViewModel.SelectedRegel;
+                var data = regel.Owner.Rows(o =>
+                                        new SelectableRegelString()
+                                        {
+                                            Selected = (o.Index == regel.Index),
+                                            Id = o.Index,
+                                            Name = o.Value,
+                                            Source = regel.Owner
+                                        });
+
+                return await Task.FromResult(request.ApplyTo(data));
+            }
+            else
+            {
+                var set = new List<SelectableRegelString>();
+                return await Task.FromResult(request.ApplyTo(set));
+            }
+        }
         private static string? MakePossessive(string? value)
         {
             if (!string.IsNullOrEmpty(value))

@@ -49,14 +49,13 @@
         }
     </div>
 
-    <div id="@Id" class="row" >
+    <div id="@Id" class="row">
         <div class="col-sm-auto">
             <ul class="nav nav-pills flex-column">
-                @foreach (var step in Steps)
+                @foreach (var step in Steps.Where(o => HasBeenActivated(o)))
                 {
                     <li id="step-@(StepsIndex(step) + 1)" class="nav-item">
-                        <a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)"
-                       @onclick="@(e=> SetActive(step))">
+                        <a class="nav-link @((ActiveStep == step) ? "active" : "")" href="javascript: void(0)" @onclick="@(e=> SetActive(step))">
                             <span>@(StepsIndex(step) + 1))</span>
                             <span>@step.Name</span>
                         </a>
@@ -75,9 +74,9 @@
         <div class="col-sm-2">
             @*
             <button class="btn btn-primary" style="width:96px"
-                    type="button"
-                    @onclick="DoCancel">
-                Cancel
+            type="button"
+            @onclick="DoCancel">
+            Cancel
             </button>
             *@
             <button class="btn btn-primary" style="width:96px"
@@ -97,11 +96,11 @@
                     Next
                 </button>
                 @*
-                <button class="btn btn-primary" style="width:96px"
-                        type="submit" @onclick="GoNext">
-                    Submit
-                </button>
-                *@
+            <button class="btn btn-primary" style="width:96px"
+            type="submit" @onclick="GoNext">
+            Submit
+            </button>
+            *@
             </div>
         }
         else
@@ -112,11 +111,11 @@
                     Next
                 </button>
                 @*
-                <button class="btn btn-primary" style="width:96px"
-                        disabled>
-                    Submit
-                </button>
-                *@
+            <button class="btn btn-primary" style="width:96px"
+            disabled>
+            Submit
+            </button>
+            *@
             </div>
         }
     </div>

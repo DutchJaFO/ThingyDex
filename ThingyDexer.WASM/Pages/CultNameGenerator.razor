@@ -8,7 +8,9 @@
 <div>
     <!-- Step 1 : how do we create our (cult) name -->
 
-    <EditForm Model="CultNameSettingsViewModel" OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+    <EditForm Model="CultNameSettingsViewModel"
+              OnValidSubmit="HandleValidSubmit" OnInvalidSubmit="HandleInvalidSubmit">
+
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
 
@@ -18,25 +20,12 @@
         {
             if (CultNameSettingsViewModel.UseGenerator == true)
             {
-
-                <div class="row">
-                    <div class="col-sm-auto py-1 px-1">
-                        <Switch Value=@CultNameSettingsViewModel.ShowDetails
-                        ValueChanged="@((v)  =>
-                                                    {
-                                                        CultNameSettingsViewModel.ShowDetails = v;
-                                                        StateHasChanged();
-                                                    })" Label="Show details">
-                        </Switch>
-                    </div>
-                </div>
-
                 <!--re-roll bits -->
                 <div class="row">
                     <div class="col-sm-auto py-1 px-1">
-                        <Button disabled="@(CultNameSettingsViewModel.HeeftSelectedRegel == false)" Size="Size.Medium"
+                        <Button Disabled="@(CultNameSettingsViewModel.HeeftSelectedRegel == false)" Size="Size.Medium"
                         Color="ButtonColor.Secondary"
-                        @onclick="@(()=>{CultNameSettingsViewModel.RerollSelectedRegel();StateHasChanged();})">
+                        @onclick="@((a)=>{CultNameSettingsViewModel.RerollSelectedRegel();StateHasChanged();})">
                             <Icon Name="IconName.Dice3Fill" />
                             Re-roll selection
                         </Button>
@@ -133,6 +122,23 @@
                         </div>
                     </div>
                 </div>
+
+                <!--show details -->
+                <div class="row">
+                    <div class="col-sm-auto py-1 px-1">
+                        @if (CultNameSettingsViewModel.HeeftSelectedRegel)
+                        {
+                            var testLabel = $"Show details of table '{CultNameSettingsViewModel?.SelectedRegel?.Owner.Name}'";
+                            <Switch @bind-Value="@CultNameSettingsViewModel.ShowDetails" Label="@testLabel">
+                            </Switch>
+                        }
+                        else
+                        {
+                            <Switch @bind-Value="@CultNameSettingsViewModel.ShowDetails" Label="Show details" Disabled="true">
+                            </Switch>
+                        }
+                    </div>
+                </div>
             }
         }
         else
@@ -154,9 +160,8 @@
     <div class="row">
         <div class="col-md-auto">
             <div class="my-2">
-                <Grid @ref="grid"
-                  TItem="SelectableRegelString"
-                  DataProvider="EmployeesDataProvider"
+                <Grid TItem="SelectableRegelString"
+                  DataProvider="SelectedRegelTableDataProvider"
                       class="table table-sm table-hover table-bordered table-striped"
                   AllowPaging=true
                   PaginationAlignment="Alignment.Start"

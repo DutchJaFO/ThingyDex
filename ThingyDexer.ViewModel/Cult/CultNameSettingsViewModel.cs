@@ -1,4 +1,6 @@
-﻿using ThingyDexer.Model.General;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+using ThingyDexer.Model.General;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Table;
 
@@ -6,6 +8,47 @@ namespace ThingyDexer.ViewModel.Cult
 {
     public class CultNameSettingsViewModel : ViewModelBase
     {
+        private static string? MakePossessive(string? value)
+        {
+            if (!string.IsNullOrEmpty(value))
+            {
+                return value.EndsWith('s')
+                            ? $"{value}'"
+                            : $"{value}'s";
+            }
+            else
+            {
+                return value;
+            }
+        }
+
+        private bool _SkipUpdates = false;
+        private void UpdateCultname()
+        {
+            if (_SkipUpdates) return;
+            ValidCultname = ((Noun1 != null) || (Noun2 != null)) ? true : null;
+
+            string? noun1 =
+                  (Settings.CultnameInputType == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
+                    ? MakePossessive(Noun1?.Value)
+                    : Noun1?.Value;
+
+            string nameStep1 = $"{DefiniteArticle?.Value} {Adjective1?.Value} {noun1}".Trim();
+            string nameStep2 = $"{Adjective2?.Value} {Noun2?.Value}".Trim();
+            if ((Noun1 is not null) && (Noun2 is not null) && (Settings.CultnameInputType != CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1))
+                Cultname = $"{nameStep1} of the {nameStep2}".Trim();
+            else
+                Cultname = $"{nameStep1} {nameStep2}".Trim();
+        }
+
+        private bool? _ValidCultname;
+        [Required(ErrorMessage ="Cult name is invalid")]
+        public bool? ValidCultname
+        {
+            get => _ValidCultname;
+            private set => SetField(ref _ValidCultname, value);
+        }
+
         private void AutoGenerateName(CultnameInputType? newType, CultnameInputType? oldType)
         {
             switch (newType)
@@ -44,16 +87,19 @@ namespace ThingyDexer.ViewModel.Cult
         }
         public void UpdateFromEditModel(CultNameSettingsEditModel editModel)
         {
-         
+
             // AutoGenerateName(editModel.CultnameInputType, oldType);
         }
+
         public CultNameSettingsViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsEditModel settings)
         {
             CultnameTableSet = cultnameTableSet;
             Settings = settings;
         }
 
-        public CultNameSettingsEditModel Settings {
+        [Required]
+        public CultNameSettingsEditModel Settings
+        {
             get;
             private set;
         }
@@ -69,6 +115,7 @@ namespace ThingyDexer.ViewModel.Cult
             private set => SetField(ref _TimeStamp, value);
         }
 
+        [Required]
         public bool HasCultname
         {
             get
@@ -77,32 +124,49 @@ namespace ThingyDexer.ViewModel.Cult
             }
         }
 
+        private string? _Cultname;
+
+        [Required(ErrorMessage = "Roll your cult name")]
+        public string? Cultname
+        {
+            get => _Cultname;
+            set => SetField(ref _Cultname, value);
+        }
+
+        private TableRowBase<string>? _DefiniteArticle;
         public TableRowBase<string>? DefiniteArticle
         {
-            get;
-            set;
+            get => _DefiniteArticle;
+            set { SetField(ref _DefiniteArticle, value); this.UpdateCultname(); }
+
         }
 
+        private TableRowBase<string>? _Adjective1;
         public TableRowBase<string>? Adjective1
         {
-            get;
-            set;
-        }
-        public TableRowBase<string>? Noun1
-        {
-            get;
-            set;
+            get => _Adjective1;
+            set { SetField(ref _Adjective1, value); this.UpdateCultname(); }
         }
 
+        private TableRowBase<string>? _Noun1;
+        public TableRowBase<string>? Noun1
+        {
+            get => _Noun1;
+            set { SetField(ref _Noun1, value); this.UpdateCultname(); }
+        }
+
+        private TableRowBase<string>? _Adjective2;
         public TableRowBase<string>? Adjective2
         {
-            get;
-            set;
+            get => _Adjective2;
+            set { SetField(ref _Adjective2, value); this.UpdateCultname(); }
         }
+
+        private TableRowBase<string>? _Noun2;
         public TableRowBase<string>? Noun2
         {
-            get;
-            set;
+            get => _Noun2;
+            set { SetField(ref _Noun2, value); this.UpdateCultname(); }
         }
 
         private TableRowBase<string>? _SelectedRegel;
@@ -112,11 +176,16 @@ namespace ThingyDexer.ViewModel.Cult
             set
             {
                 SetField(ref _SelectedRegel, value);
-                OnPropertyChanged(nameof(HeeftSelectedRegel));
+                HeeftSelectedRegel = _SelectedRegel is not null;
             }
         }
 
-        public bool HeeftSelectedRegel => (SelectedRegel != null);
+        private bool _HeeftSelectedRegel = false;
+        public bool HeeftSelectedRegel
+        {
+            get => _HeeftSelectedRegel;
+            private set => SetField(ref _HeeftSelectedRegel, value);
+        }
 
         private bool _ShowDetails;
         public bool ShowDetails
@@ -132,6 +201,7 @@ namespace ThingyDexer.ViewModel.Cult
         {
             try
             {
+                _SkipUpdates = true;
                 bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
                 bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
                 bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
@@ -166,7 +236,8 @@ namespace ThingyDexer.ViewModel.Cult
             finally
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
-
+                _SkipUpdates = false;
+                UpdateCultname();
                 SelectedRegel = null;
                 ShowDetails = false;
             }
@@ -174,16 +245,24 @@ namespace ThingyDexer.ViewModel.Cult
 
         public void ClearCultname()
         {
-            SelectedRegel = null;
-            DefiniteArticle = null;
-            Adjective1 = null;
-            Adjective2 = null;
-            Noun1 = null;
-            Noun2 = null;
+            try
+            {
+                _SkipUpdates = true;
+                SelectedRegel = null;
+                DefiniteArticle = null;
+                Adjective1 = null;
+                Adjective2 = null;
+                Noun1 = null;
+                Noun2 = null;
 
-            TimeStamp = DateTime.Now.ToLocalTime();
+                TimeStamp = DateTime.Now.ToLocalTime();
 
-            ShowDetails = false;
+                ShowDetails = false;
+            }
+            finally {
+                _SkipUpdates = false;
+                UpdateCultname();
+            }
         }
 
         public void RerollSelectedRegel()
@@ -234,7 +313,7 @@ namespace ThingyDexer.ViewModel.Cult
 
         public void RerollDefiniteArticle()
         {
-            var isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
+            bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
 
             DefiniteArticle = DefiniteArticle?.Owner.GetRandomItem();
 
@@ -247,6 +326,7 @@ namespace ThingyDexer.ViewModel.Cult
         {
             try
             {
+                _SkipUpdates = true;
                 bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
                 bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
                 bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
@@ -301,9 +381,10 @@ namespace ThingyDexer.ViewModel.Cult
             finally
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
+                _SkipUpdates = false;
+                UpdateCultname();
             }
         }
-
         public void GenerateCultName()
         {
             if (CultnameTableSet is not null)
@@ -315,6 +396,8 @@ namespace ThingyDexer.ViewModel.Cult
                 bool isNoun2Selected = false;
                 try
                 {
+                    _SkipUpdates = true;
+
                     isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
                     isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
                     isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
@@ -364,6 +447,10 @@ namespace ThingyDexer.ViewModel.Cult
                     {
                         SelectedRegel = Noun2;
                     }
+
+                    _SkipUpdates = false;
+                    UpdateCultname();
+
                 }
             }
         }

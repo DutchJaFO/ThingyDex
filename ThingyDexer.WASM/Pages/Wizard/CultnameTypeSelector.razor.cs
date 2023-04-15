@@ -9,7 +9,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
     {
         #region Protected
 
-        public EditContext MyContext
+        public EditContext? MyContext
         {
             get;
             private set;
@@ -18,17 +18,19 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             base.OnParametersSet();
 
-            if (CultNameSettingsEditModel is null)
-            {
-                CultNameSettingsEditModel = new();
-            }
+            CultNameSettingsEditModel ??= new();
 
             MyContext = new EditContext(CultNameSettingsEditModel);
-            MyContext.EnableDataAnnotationsValidation();
+#pragma warning disable CS8604 // Possible null reference argument.
+            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
+#pragma warning restore CS8604 // Possible null reference argument.
         }
         #endregion Protected
+
+        [Inject] IServiceProvider? ServiceProvider { get; set; }
+
         [Parameter]
-        public CultNameSettingsEditModel CultNameSettingsEditModel
+        public CultNameSettingsEditModel? CultNameSettingsEditModel
         {
             get;
             set;

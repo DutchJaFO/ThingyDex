@@ -1,9 +1,9 @@
 using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThingyDexer.WASM.Pages
 {
@@ -19,20 +19,12 @@ namespace ThingyDexer.WASM.Pages
         #endregion
 
         #region Private
-
-        private Grid<SelectableRegelString> grid;
-
-        private async Task RefreshGridAsync()
-        {
-            await grid.RefreshDataAsync();
-        }
-
-        private async Task<GridDataProviderResult<SelectableRegelString>> EmployeesDataProvider(GridDataProviderRequest<SelectableRegelString> request)
+        private async Task<GridDataProviderResult<SelectableRegelString>> SelectedRegelTableDataProvider(GridDataProviderRequest<SelectableRegelString> request)
         {
             if (CultNameSettingsViewModel?.SelectedRegel != null)
             {
-                var regel = CultNameSettingsViewModel.SelectedRegel;
-                var data = regel.Owner.Rows(o =>
+                TableRowBase<string> regel = CultNameSettingsViewModel.SelectedRegel;
+                IEnumerable<SelectableRegelString> data = regel.Owner.Rows(o =>
                                         new SelectableRegelString()
                                         {
                                             Selected = (o.Index == regel.Index),
@@ -45,7 +37,7 @@ namespace ThingyDexer.WASM.Pages
             }
             else
             {
-                var set = new List<SelectableRegelString>();
+                List<SelectableRegelString> set = new List<SelectableRegelString>();
                 return await Task.FromResult(request.ApplyTo(set));
             }
         }
@@ -65,19 +57,21 @@ namespace ThingyDexer.WASM.Pages
 
         private void DoChangeSelectedRow(SelectableRegelString context, bool allowDelete)
         {
-            if (context.Selected && allowDelete)
+            if (CultNameSettingsViewModel != null)
             {
-                CultNameSettingsViewModel.ClearSelectedItem();
-            }
-            else
-            {
-                CultNameSettingsViewModel.DoSelectItem(context);
+                if (context.Selected && allowDelete)
+                {
+                    CultNameSettingsViewModel.ClearSelectedItem();
+                }
+                else
+                {
+                    CultNameSettingsViewModel.DoSelectItem(context);
+                }
             }
         }
 
         private void HandleValidSubmit()
         {
-            CultNameSettingsEditModel.IsValid = true;
             CultNameSettingsViewModel = new(CultnameTableSet, CultNameSettingsEditModel);
             CultNameSettingsViewModel.UpdateFromEditModel(CultNameSettingsEditModel);
             StateHasChanged();
@@ -90,14 +84,13 @@ namespace ThingyDexer.WASM.Pages
 
         private void ResetCultnameSettings()
         {
-            CultNameSettingsEditModel.CultnameInputType = null;
-            CultNameSettingsEditModel.IsValid = false;
             CultNameSettingsViewModel = new(CultnameTableSet, CultNameSettingsEditModel);
             StateHasChanged();
         }
         #endregion Private
 
         #region Protected
+
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
@@ -116,10 +109,22 @@ namespace ThingyDexer.WASM.Pages
             {
                 CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet, CultNameSettingsEditModel);
             }
+
+            MyContext = new EditContext(CultNameSettingsViewModel);
+            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
+
         }
         #endregion Protected
 
         #region Public
+
+        public EditContext MyContext
+        {
+            get;
+            private set;
+        }
+
+        [Inject] IServiceProvider ServiceProvider {get; set; }
 
         [Inject]
         public CultnameTableSet CultnameTableSet
@@ -136,7 +141,7 @@ namespace ThingyDexer.WASM.Pages
             set;
         }
 
-        [Parameter]
+        [Parameter, EditorRequired]
         public CultNameSettingsViewModel CultNameSettingsViewModel
         {
             get;

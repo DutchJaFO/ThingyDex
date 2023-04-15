@@ -54,7 +54,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             // if ((IsStepValid == null) || (MyContext?.IsModified() == true))
             {
-                var isValid = MyContext?.Validate();
+                bool? isValid = MyContext?.Validate();
 
                 _Errors = MyContext?.GetValidationMessages().Select(o => new DisplayError(o)).ToList() ?? new List<DisplayError>();
 

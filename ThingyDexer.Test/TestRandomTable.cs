@@ -19,11 +19,11 @@ namespace ThingyDexer.Test
             if (testSet.Any() == false)
             {
                 rnd = new Random(seed);
-                var minValue = 1;
-                var maxValue = 10;
+                int minValue = 1;
+                int maxValue = 10;
                 while (testSet.Keys.Count < maxValue)
                 {
-                    var a = rnd.Next(minValue, maxValue + 1);
+                    int a = rnd.Next(minValue, maxValue + 1);
                     sequence.Add(a);
                     if (!testSet.ContainsKey(a))
                     {
@@ -43,11 +43,11 @@ namespace ThingyDexer.Test
         [TestMethod]
         public void TestSequence()
         {
-            var idx = 0;
-            foreach (var entry in sequence)
+            int idx = 0;
+            foreach (int entry in sequence)
             {
-                var x = table?.GetRandomItem();
-                var y = table?.GetRow(sequence[idx++]);
+                TableRowBase<string>? x = table?.GetRandomItem();
+                TableRowBase<string>? y = table?.GetRow(sequence[idx++]);
                 Assert.AreEqual(y, x);
             }
         }

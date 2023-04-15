@@ -9,7 +9,7 @@ namespace ThingyDexer.ViewModel.Cult
 
         private CultnameInputType? _CultnameInputType;
 
-        [Required]
+        [Required(ErrorMessage ="Choose a pattern")]
         public CultnameInputType? CultnameInputType
         {
             get => _CultnameInputType;

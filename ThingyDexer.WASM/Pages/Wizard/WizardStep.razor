@@ -15,6 +15,7 @@
             if (Errors.Any())
             {
                 <hr />
+                <Callout Heading="Errors" Type="CalloutType.Danger">
                 <ul>
                     @foreach (DisplayError error in Errors)
                     {
@@ -23,6 +24,7 @@
                         </li>
                     }
                 </ul>
+                </Callout>
             }
         }
         <hr />

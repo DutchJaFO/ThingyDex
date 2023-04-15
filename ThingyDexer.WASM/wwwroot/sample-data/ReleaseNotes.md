@@ -25,11 +25,12 @@
 	It's easier now and you can keep bits while switching styles.  
 	- template : [adjective] [possessive noun] [adjective] [noun] (Unholy King's Rotten Apple)
 	- option to include definite article
+	- (new) added validations
 3) [expirmental] indicator for new version updates (visible only when app update is available)
 4) option to collapse sidemenu to icons
 
 ## Version
-v0.1.15 (ALPHA)
+v0.1.16 (ALPHA)
 
 ### Experimental
 - new version indicator in UI
@@ -39,4 +40,4 @@ v0.1.15 (ALPHA)
 ### Breaking changes
 
 ### Changes
-- minor bug fixes
+- added validations

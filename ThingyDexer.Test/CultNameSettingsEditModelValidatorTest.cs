@@ -9,11 +9,11 @@ namespace ThingyDexer.Test
 
         [TestMethod]
         public void TestValidator() {
-            var data = new CultNameSettingsEditModel();
+            CultNameSettingsEditModel data = new CultNameSettingsEditModel();
             data.CultnameInputType = null;
-            var editContext = new EditContext(data);
+            EditContext editContext = new EditContext(data);
             editContext.EnableDataAnnotationsValidation();
-            var test =  editContext.Validate();
+            bool test =  editContext.Validate();
             
             Assert.IsFalse(test);
 
@@ -22,12 +22,12 @@ namespace ThingyDexer.Test
         [TestMethod]
         public void TestValidator2()
         {
-            var data = new CultNameSettingsEditModel();
+            CultNameSettingsEditModel data = new CultNameSettingsEditModel();
             data.CultnameInputType = Model.General.CultnameInputType.TemplateAdjective1Noun1;
 
-            var editContext = new EditContext(data);
+            EditContext editContext = new EditContext(data);
             editContext.EnableDataAnnotationsValidation();
-            var test = editContext.Validate();
+            bool test = editContext.Validate();
 
             Assert.IsTrue(test);
 

@@ -69,14 +69,11 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
         protected internal void GoBack()
         {
-            if (PreviousSteps.Any())
+            if (ActiveStepIx > 0)
             {
-                WizardStep previousStep = PreviousSteps.Pop();
-                SetActive(previousStep);
+                SetActive(Steps[ActiveStepIx - 1]);
             }
         }
-
-        protected internal Stack<WizardStep> PreviousSteps { get; private set; } = new();
 
         /// <summary>
         /// Sets the <see cref="ActiveStep"/> to the next Index
@@ -90,7 +87,6 @@ namespace ThingyDexer.WASM.Pages.Wizard
             {
                 if (ActiveStepIx < (Steps.Count - 1))
                 {
-                    PreviousSteps.Push(ActiveStep);
                     int nextStepId = (Steps.IndexOf(ActiveStep) + 1);
 
                     WizardStep nextStep = Steps[nextStepId];
@@ -115,7 +111,10 @@ namespace ThingyDexer.WASM.Pages.Wizard
             int newStepIx = StepsIndex(step);
             if (true)
             {
-                ActivatedSteps.Add(step);
+                if (ActivatedSteps.Contains(step) == false)
+                {
+                    ActivatedSteps.Add(step);
+                }
                 ActiveStepIx = newStepIx;
                 if (ActiveStepIx == Steps.Count - 1)
                 {

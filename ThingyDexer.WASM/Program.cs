@@ -1,10 +1,10 @@
+using BlazorBootstrap; // Add this line for BlazorBootstrap
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using ThingyDexer.WASM;
-using BlazorBootstrap; // Add this line for BlazorBootstrap
 using ThingyDexer.Model;
 using ThingyDexer.View;
 using ThingyDexer.ViewModel;
+using ThingyDexer.WASM;
 
 WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

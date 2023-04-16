@@ -8,7 +8,8 @@ namespace ThingyDexer.Test
     {
 
         [TestMethod]
-        public void TestValidator() {
+        public void TestValidator()
+        {
             CultNameSettingsViewModel data = new CultNameSettingsViewModel();
             data.CultnameInputType = null;
             EditContext editContext = new(data);
@@ -17,8 +18,8 @@ namespace ThingyDexer.Test
             editContext.EnableDataAnnotationsValidation();
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            bool test =  editContext.Validate();
-            
+            bool test = editContext.Validate();
+
             Assert.IsFalse(test);
 
         }

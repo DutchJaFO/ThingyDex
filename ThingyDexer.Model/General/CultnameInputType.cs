@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace ThingyDexer.Model.General
+﻿namespace ThingyDexer.Model.General
 {
     public enum CultnameInputType
     {

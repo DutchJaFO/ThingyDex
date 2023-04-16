@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 using ThingyDexer.Model.General;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Table;
@@ -211,7 +210,7 @@ namespace ThingyDexer.ViewModel.Cult
                 SetField(ref _SelectedRegel, value);
                 HeeftSelectedRegel = _SelectedRegel is not null;
 
-                if (OnUpdateSelection != null) 
+                if (OnUpdateSelection != null)
                 {
                     OnUpdateSelection.Invoke(_SelectedRegel);
                 }

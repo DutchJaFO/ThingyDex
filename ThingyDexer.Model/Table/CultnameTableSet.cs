@@ -24,7 +24,7 @@ namespace ThingyDexer.Model.Table
         public (TableRowBase<string>? DefiniteArticle, TableRowBase<string>? Adjective1, TableRowBase<string>? Noun1, TableRowBase<string>? Adjective2, TableRowBase<string>? Noun2) GenerateName(TableRowBase<string>? da, TableRowBase<string>? p1, TableRowBase<string>? n1, TableRowBase<string>? p2, TableRowBase<string>? n2, bool includeDefiniteArticle, CultnameInputType cultnameInputType)
         {
             return (
-                    (includeDefiniteArticle? DefiniteArticleTable.GetRandomItem() : null),
+                    (includeDefiniteArticle ? DefiniteArticleTable.GetRandomItem() : null),
                     (cultnameInputType switch
                     {
                         CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1 => p1 ?? AdjectiveTable1.GetRandomItem(),

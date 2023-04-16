@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace ThingyDexer.Model.Table
+﻿namespace ThingyDexer.Model.Table
 {
 
     public class Table<T>

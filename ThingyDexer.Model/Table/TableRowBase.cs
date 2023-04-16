@@ -18,8 +18,8 @@
 
         public override bool Equals(object? obj)
         {
-            return (obj is TableRowBase<T> target) 
-                && Index.Equals(target.Index) 
+            return (obj is TableRowBase<T> target)
+                && Index.Equals(target.Index)
                 && (Owner.Key == target.Owner.Key)
 ;
         }

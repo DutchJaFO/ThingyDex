@@ -11,7 +11,7 @@
     }
 
     <Wizard Id="DemoWizard">
-        <WizardStep Name="Choose name generator" Title="Pick a naming convention for your Cult"
+        <WizardStep Id="step1" Name="Choose name generator" Title="Pick a naming convention for your Cult"
                     ViewModel=@ViewModel.Settings
                     BeforeNextStepAction="@(() => {})"
                     AfterNextStepAction="@(() => 
@@ -22,13 +22,53 @@
                 
                                   />
         </WizardStep>
-        <WizardStep Name="Generate name" Title="Generate name"
+        <WizardStep Id="step2" Name="Generate name" Title="Generate name"
+                    ViewModel=@ViewModel
+                    BeforeNextStepAction="@(() => { 
+                            if(generatorControl != null) 
+                            {
+                                generatorControl.DoUpdateControls(); 
+                            }
+                        })"
+                    AfterNextStepAction="@(() => {})">
+
+            <CultNameGenerator @ref=generatorControl CultNameSettingsEditModel=@EditModel
+                               CultNameSettingsViewModel=@ViewModel />
+        </WizardStep>
+
+        @*
+        <WizardStep Id="step3" Name="Cult details" Title="Details"
                     ViewModel=@ViewModel
                     BeforeNextStepAction="@(() => {})"
                     AfterNextStepAction="@(() => {})">
 
-            <CultNameGenerator CultNameSettingsEditModel=@EditModel
-                               CultNameSettingsViewModel=@ViewModel />
+            [TODO : deity]
+            [TODO : description]
+            [TODO : primary focus = (Strength / Dexterity / Intelligence / Defense)]
+            [TODO : (starting) favour = 300 in campaign / 500 in one-off mode      ]
+            [TODO : initial power : 0]
+            [TODO : add rituals (4 rituals init)]
         </WizardStep>
+
+        <WizardStep id="step4" Name="Cultists" Title="Add Cultists"
+                    ViewModel=@ViewModel
+                    BeforeNextStepAction="@(() => {})"
+                    AfterNextStepAction="@(() => {})">
+
+            [TODO : add cultists (4 max)]
+            [TODO : cultist (name)]
+            [TODO : cultist STR     1 - 5 (+1 = 50 favour)]
+            [TODO : cultist DEX     1 - 5 (+1 = 50 favour)]
+            [TODO : cultist INT     1 - 5 (+1 = 50 favour)]
+            [TODO : cultist DEF     1 - 5 (+1 = 50 favour)]
+            [TODO : cultist Health 10 -25 (+1 = 75 favour)]
+
+            [TODO : add equipment (favour cost per item)]
+        </WizardStep>
+        *@
     </Wizard>
 </div>
+
+@code{
+    private CultNameGenerator? generatorControl;
+}

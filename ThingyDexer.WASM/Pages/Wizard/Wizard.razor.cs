@@ -80,15 +80,27 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// </summary>
         protected internal void GoNext()
         {
-            ActiveStep?.AfterNextStepAction?.Invoke();
+            if (ActiveStep?.AfterNextStepAction is not null)
+            {
+                ActiveStep.AfterNextStepAction.Invoke();
+            }
 
             ActiveStep?.DoValidateModel();
             if (ActiveStep?.IsStepValid == true)
             {
                 if (ActiveStepIx < (Steps.Count - 1))
                 {
-                    SetActive(Steps[(Steps.IndexOf(ActiveStep) + 1)]);
-                    ActiveStep?.BeforeNextStepAction?.Invoke();
+                    int nextStepId = (Steps.IndexOf(ActiveStep) + 1);
+
+                    WizardStep nextStep = Steps[nextStepId];
+                    SetActive(nextStep);
+
+                    StateHasChanged();
+
+                    if (ActiveStep?.BeforeNextStepAction is not null)
+                    {
+                        ActiveStep.BeforeNextStepAction.Invoke();
+                    }
                 }
             }
             else
@@ -108,7 +120,10 @@ namespace ThingyDexer.WASM.Pages.Wizard
             int newStepIx = StepsIndex(step);
             if (true)
             {
-                ActivatedSteps.Add(step);
+                if (ActivatedSteps.Contains(step) == false)
+                {
+                    ActivatedSteps.Add(step);
+                }
                 ActiveStepIx = newStepIx;
                 if (ActiveStepIx == Steps.Count - 1)
                 {

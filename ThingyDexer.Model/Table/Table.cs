@@ -75,7 +75,7 @@ namespace ThingyDexer.Model.Table
         {
             _Randomizer = random;
             Key = Guid.NewGuid();
-            Name = name ?? this.GetType().Name;
+            Name = name ?? GetType().Name;
             if (data is not null)
             {
                 Add(data);

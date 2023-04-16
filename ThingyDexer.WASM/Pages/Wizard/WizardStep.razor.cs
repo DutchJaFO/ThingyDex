@@ -41,6 +41,9 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
         [Parameter] public RenderFragment Footer { get; set; }
 
+
+        [Parameter] public string Id { get; set; }
+
         /// <summary>
         /// The Name of the step
         /// </summary>

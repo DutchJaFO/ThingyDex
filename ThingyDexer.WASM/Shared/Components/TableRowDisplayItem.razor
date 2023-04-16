@@ -8,7 +8,7 @@
         <Button Type="ButtonType.Button"
             Color="ButtonColor.Primary"
             Outline=@(SelectedRegel?.Equals(Value) != true)
-            Active=false
+            Active=false 
             @onclick="@(() => {
                                 if (SelectedRegel?.Equals(Value) == true)
                                 {
@@ -62,4 +62,3 @@
     }
 
 </span>
-

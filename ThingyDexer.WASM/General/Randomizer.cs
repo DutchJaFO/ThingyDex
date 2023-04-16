@@ -6,7 +6,7 @@ namespace ThingyDexer.WASM.General
     {
         private static readonly Random random = new();
 
-        private static IconName[] _Dice = new IconName[] {
+        private static readonly IconName[] _Dice = new IconName[] {
             BlazorBootstrap.IconName.Dice1,
             BlazorBootstrap.IconName.Dice2,
             BlazorBootstrap.IconName.Dice3,
@@ -20,7 +20,7 @@ namespace ThingyDexer.WASM.General
             BlazorBootstrap.IconName.Dice5Fill,
             BlazorBootstrap.IconName.Dice6Fill,
         };
-        private static IconName[] _DiceStandard = new IconName[] {
+        private static readonly IconName[] _DiceStandard = new IconName[] {
             BlazorBootstrap.IconName.Dice1,
             BlazorBootstrap.IconName.Dice2,
             BlazorBootstrap.IconName.Dice3,
@@ -28,7 +28,7 @@ namespace ThingyDexer.WASM.General
             BlazorBootstrap.IconName.Dice5,
             BlazorBootstrap.IconName.Dice6,
         };
-        private static IconName[] _DiceFill = new IconName[] {
+        private static readonly IconName[] _DiceFill = new IconName[] {
             BlazorBootstrap.IconName.Dice1Fill,
             BlazorBootstrap.IconName.Dice2Fill,
             BlazorBootstrap.IconName.Dice3Fill,

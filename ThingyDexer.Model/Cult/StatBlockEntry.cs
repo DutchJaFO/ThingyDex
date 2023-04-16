@@ -4,7 +4,7 @@
     {
         #region Constructor
 
-        public StatBlockEntry(StatBlockType type, int value = 1)
+        public StatBlockEntry(StatBlockType type, int value = CultistStatistics.Minimum)
         {
             Type = type;
             Value = value;

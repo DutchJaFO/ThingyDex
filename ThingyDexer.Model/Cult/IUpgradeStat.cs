@@ -2,11 +2,12 @@
 {
     public interface IUpgradeStat
     {
-        string StatName { get; }
-        int MinValue { get; }
-        int MaxValue { get; }
-        bool UpgradeStat(int increase, int xp);
+        void UpgradeStat(int increase);
+    }
 
-        int GetUpgradeCost(int increase);
+    public interface IXpUpdate
+    {
+        bool SpendXp(int xp);
+        void EarnXp(int xp);
     }
 }

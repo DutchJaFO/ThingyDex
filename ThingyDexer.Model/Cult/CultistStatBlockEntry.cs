@@ -4,36 +4,20 @@
     {
         #region Constructor
 
-        public CultistStatBlockEntry(StatBlockType statBlockType, int value, int xp) : base(statBlockType, value)
+        public CultistStatBlockEntry(StatBlockType statBlockType, int value) : base(statBlockType, value)
         {
-            XpSpent = xp;
         }
 
         #endregion Constructor
 
         #region Public
-
-        public int XpSpent { get; private set; }
-        public int MinValue { get; init; } = 1;
-        public int MaxValue { get; init; } = 5;
-
         public string StatName => $"{Type}";
 
-        public bool UpgradeStat(int increase, int xp)
+        void IUpgradeStat.UpgradeStat(int increase)
         {
-            if (increase < 0) return false;
-            if (xp < 0) return false;
-
-            if ((Value + increase) > MaxValue) return false;
-
-            if (xp != GetUpgradeCost(increase)) return false;
-
             Value += increase;
-            XpSpent += xp;
-            return true;
         }
 
-        public int GetUpgradeCost(int increase) => increase * UpgradeCosts.StatisticUpgrade;
 
         #endregion Public
     }

@@ -4,7 +4,7 @@
     {
         #region Constructor
 
-        public WoundStatBlock(int value = 10)
+        public WoundStatBlock(int value = CultistStatistics.StartWounds)
         {
             Value = value;
         }
@@ -13,6 +13,7 @@
 
         #region Public
         public int Value { get; protected set; }
+
         #endregion Public
     }
 }

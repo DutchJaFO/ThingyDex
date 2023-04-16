@@ -10,8 +10,10 @@ namespace ThingyDexer.Test
         [TestMethod]
         public void TestValidator()
         {
-            CultNameSettingsViewModel data = new CultNameSettingsViewModel();
-            data.CultnameInputType = null;
+            CultNameSettingsViewModel data = new()
+            {
+                CultnameInputType = null
+            };
             EditContext editContext = new(data);
 
 #pragma warning disable CS0618 // Type or member is obsolete
@@ -27,8 +29,10 @@ namespace ThingyDexer.Test
         [TestMethod]
         public void TestValidator2()
         {
-            CultNameSettingsViewModel data = new CultNameSettingsViewModel();
-            data.CultnameInputType = Model.General.CultnameInputType.TemplateAdjective1Noun1;
+            CultNameSettingsViewModel data = new()
+            {
+                CultnameInputType = Model.General.CultnameInputType.TemplateAdjective1Noun1
+            };
 
             EditContext editContext = new(data);
 

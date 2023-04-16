@@ -48,48 +48,6 @@ namespace ThingyDexer.ViewModel.Cult
             private set => SetField(ref _ValidCultname, value);
         }
 
-        private void AutoGenerateName(CultnameInputType? newType, CultnameInputType? oldType)
-        {
-            switch (newType)
-            {
-                case Model.General.CultnameInputType.Manual:
-                    DefiniteArticle = null;
-                    Adjective1 = null;
-                    Noun1 = null;
-                    Adjective2 = null;
-                    Noun2 = null;
-                    break;
-                default:
-                    if ((newType != oldType)
-                        && (newType != null)
-                        && (oldType != null)
-                        &&
-                        (
-                        (oldType == Model.General.CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
-                            ||
-                            (newType == Model.General.CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
-                            ))
-                    {
-                        TableRowBase<string>? n1 = Noun1;
-                        TableRowBase<string>? n2 = Noun2;
-                        Noun1 = n2;
-                        Noun2 = n1;
-
-                        TableRowBase<string>? p1 = Adjective1;
-                        TableRowBase<string>? p2 = Adjective2;
-                        Adjective1 = p2;
-                        Adjective2 = p1;
-                    }
-                    GenerateCultName();
-                    break;
-            }
-        }
-        public void UpdateFromEditModel(CultNameSettingsViewModel editModel)
-        {
-
-            // AutoGenerateName(editModel.CultnameInputType, oldType);
-        }
-
         public CultNameGeneratorViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsViewModel settings)
         {
             CultnameTableSet = cultnameTableSet;
@@ -134,10 +92,7 @@ namespace ThingyDexer.ViewModel.Cult
                 string? oldValue = _Cultname;
                 SetField(ref _Cultname, value);
 
-                if (OnUpdateCultname != null)
-                {
-                    OnUpdateCultname.Invoke(value);
-                }
+                OnUpdateCultname?.Invoke(value);
             }
         }
 
@@ -210,10 +165,7 @@ namespace ThingyDexer.ViewModel.Cult
                 SetField(ref _SelectedRegel, value);
                 HeeftSelectedRegel = _SelectedRegel is not null;
 
-                if (OnUpdateSelection != null)
-                {
-                    OnUpdateSelection.Invoke(_SelectedRegel);
-                }
+                OnUpdateSelection?.Invoke(_SelectedRegel);
             }
         }
 

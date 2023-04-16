@@ -1,6 +1,6 @@
 ﻿namespace ThingyDexer.Model.Cult
 {
-    public class Cult
+    public class Cult : IXpUpdate
     {
         #region Constructor
 
@@ -22,10 +22,34 @@
         public string WorshippedEntity { get; set; }
 
         public int Power { get; set; }
-        public int Favour { get; set; } = 300;
+        public int Favour { get; set; }
+        public int FavourSpent { get; private set; }
         public StatBlockType? FavouredStat { get; set; }
 
-        public List<Cultist> ActiveCultists { get; set; } = new();
-        public List<Cultist> DeadCultists { get; set; } = new();
+        private readonly List<Cultist> _ActiveCultists = new();
+        public IEnumerable<Cultist> ActiveCultists => _ActiveCultists;
+
+        private readonly List<Cultist> _DeadCultists = new();
+        public IEnumerable<Cultist> DeadCultists => _DeadCultists;
+
+        void IXpUpdate.EarnXp(int xp)
+        {
+            Favour += xp;
+        }
+
+        bool IXpUpdate.SpendXp(int xp)
+        {
+            if (Favour >= xp)
+            {
+                Favour -= xp;
+                FavourSpent += xp;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

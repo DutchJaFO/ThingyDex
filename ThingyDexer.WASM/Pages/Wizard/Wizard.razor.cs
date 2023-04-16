@@ -8,7 +8,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// <summary>
         /// List of <see cref="WizardStep"/> added to the Wizard
         /// </summary>
-        protected internal List<WizardStep> Steps = new List<WizardStep>();
+        protected internal List<WizardStep> Steps = new();
 
         protected internal List<WizardStep> ActivatedSteps = new();
 
@@ -46,7 +46,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// Sets the <see cref="ActiveStep"/> to the previous Index
         /// </summary>
 
-        protected internal void DoCancel()
+        protected static internal void DoCancel()
         {
         }
 

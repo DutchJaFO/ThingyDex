@@ -1,33 +1,45 @@
 ﻿namespace ThingyDexer.Model.Cult
 {
-    public class Cultist
+    public class Cultist : IXpUpdate
     {
         #region Constructor
 
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public Cultist() { }
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
-        public Cultist(string name, string description, int strength, int dexterity, int intelligence, int defense, int wounds)
+        public Cultist(Cult cult, string name, string description, int strength, int dexterity, int intelligence, int defense, int wounds)
         {
+            Cult = cult;
             Name = name;
             Description = description;
 
-            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Strength, strength, (strength * 50)));
-            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Dexterity, dexterity, (dexterity * 50)));
-            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Intelligence, intelligence, (intelligence * 50)));
-            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Defense, defense, (defense * 50)));
+            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Strength, strength));
+            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Dexterity, dexterity));
+            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Intelligence, intelligence));
+            StatBlocks.Add(new CultistStatBlockEntry(StatBlockType.Defense, defense));
 
-            Wounds = new CultistWoundStatBlock(wounds, (wounds * 75));
+            Wounds = new CultistWoundStatBlock(wounds);
         }
 
         #endregion Constructor
 
         #region Public
+        public Cult Cult { get; private set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public CultistWoundStatBlock Wounds { get; set; }
         public HashSet<CultistStatBlockEntry> StatBlocks { get; private set; } = new HashSet<CultistStatBlockEntry>();
+
+        public int XpEarnt { get; private set; }
+        public int XpSpent { get; private set; }
+
+        public void EarnXp(int xp)
+        {
+            ((IXpUpdate)Cult).EarnXp(xp);
+        }
+
+        public bool SpendXp(int xp)
+        {
+            return ((IXpUpdate)Cult).SpendXp(xp);
+        }
+
         #endregion Public
     }
 }

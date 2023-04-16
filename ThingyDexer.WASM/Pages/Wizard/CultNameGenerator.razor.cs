@@ -5,7 +5,7 @@ using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
 
-namespace ThingyDexer.WASM.Pages
+namespace ThingyDexer.WASM.Pages.Wizard
 {
     public partial class CultNameGenerator
     {
@@ -23,13 +23,13 @@ namespace ThingyDexer.WASM.Pages
         #region Private
         private async Task<GridDataProviderResult<SelectableRegelString>> SelectedRegelTableDataProvider(GridDataProviderRequest<SelectableRegelString> request)
         {
-            if (CultNameSettingsViewModel?.SelectedRegel != null)
+            if (CultNameGeneratorViewModel?.SelectedRegel != null)
             {
-                TableRowBase<string> regel = CultNameSettingsViewModel.SelectedRegel;
+                TableRowBase<string> regel = CultNameGeneratorViewModel.SelectedRegel;
                 IEnumerable<SelectableRegelString> data = regel.Owner.Rows(o =>
                                         new SelectableRegelString()
                                         {
-                                            Selected = (o.Index == regel.Index),
+                                            Selected = o.Index == regel.Index,
                                             Id = o.Index,
                                             Name = o.Value,
                                             Source = regel.Owner
@@ -59,23 +59,23 @@ namespace ThingyDexer.WASM.Pages
 
         private void DoChangeSelectedRow(SelectableRegelString context, bool allowDelete)
         {
-            if (CultNameSettingsViewModel != null)
+            if (CultNameGeneratorViewModel != null)
             {
                 if (context.Selected && allowDelete)
                 {
-                    CultNameSettingsViewModel.ClearSelectedItem();
+                    CultNameGeneratorViewModel.ClearSelectedItem();
                 }
                 else
                 {
-                    CultNameSettingsViewModel.DoSelectItem(context);
+                    CultNameGeneratorViewModel.DoSelectItem(context);
                 }
             }
         }
 
         private void HandleValidSubmit()
         {
-            CultNameSettingsViewModel = new(CultnameTableSet, CultNameSettingsEditModel);
-            CultNameSettingsViewModel.UpdateFromEditModel(CultNameSettingsEditModel);
+            CultNameGeneratorViewModel = new(CultnameTableSet, CultNameSettingsViewModel);
+            CultNameGeneratorViewModel.UpdateFromEditModel(CultNameSettingsViewModel);
             StateHasChanged();
         }
         private void HandleInvalidSubmit()
@@ -86,7 +86,7 @@ namespace ThingyDexer.WASM.Pages
 
         private void ResetCultnameSettings()
         {
-            CultNameSettingsViewModel = new(CultnameTableSet, CultNameSettingsEditModel);
+            CultNameGeneratorViewModel = new(CultnameTableSet, CultNameSettingsViewModel);
             StateHasChanged();
         }
         #endregion Private
@@ -102,21 +102,21 @@ namespace ThingyDexer.WASM.Pages
                 CultnameTableSet = CultnameTableFactory.Create(new());
             }
 
-            if (CultNameSettingsEditModel is null)
-            {
-                CultNameSettingsEditModel = new();
-            }
-
             if (CultNameSettingsViewModel is null)
             {
-                CultNameSettingsViewModel = new CultNameGeneratorViewModel(CultnameTableSet, CultNameSettingsEditModel);
+                CultNameSettingsViewModel = new();
             }
 
-            MyContext = new EditContext(CultNameSettingsViewModel);
+            if (CultNameGeneratorViewModel is null)
+            {
+                CultNameGeneratorViewModel = new CultNameGeneratorViewModel(CultnameTableSet, CultNameSettingsViewModel);
+            }
+
+            MyContext = new EditContext(CultNameGeneratorViewModel);
             MyContext.EnableDataAnnotationsValidation(ServiceProvider);
 
-            CultNameSettingsViewModel.OnUpdateSelection = DoOnUpdateSelection;
-            CultNameSettingsViewModel.OnUpdateCultname = DoOnUpdateCultname;
+            CultNameGeneratorViewModel.OnUpdateSelection = DoOnUpdateSelection;
+            CultNameGeneratorViewModel.OnUpdateCultname = DoOnUpdateCultname;
 
             initControls = true;
         }
@@ -137,8 +137,8 @@ namespace ThingyDexer.WASM.Pages
 
         public void DoUpdateControls()
         {
-            DoOnUpdateSelection(CultNameSettingsViewModel.SelectedRegel);
-            DoOnUpdateCultname(CultNameSettingsViewModel.Cultname);
+            DoOnUpdateSelection(CultNameGeneratorViewModel.SelectedRegel);
+            DoOnUpdateCultname(CultNameGeneratorViewModel.Cultname);
         }
 
         public EditContext MyContext
@@ -158,14 +158,14 @@ namespace ThingyDexer.WASM.Pages
         #endregion
 
         [Parameter]
-        public CultNameSettingsEditModel CultNameSettingsEditModel
+        public CultNameSettingsViewModel CultNameSettingsViewModel
         {
             get;
             set;
         }
 
         [Parameter, EditorRequired]
-        public CultNameGeneratorViewModel CultNameSettingsViewModel
+        public CultNameGeneratorViewModel CultNameGeneratorViewModel
         {
             get;
             set;

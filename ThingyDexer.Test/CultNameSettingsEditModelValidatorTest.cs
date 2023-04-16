@@ -9,7 +9,7 @@ namespace ThingyDexer.Test
 
         [TestMethod]
         public void TestValidator() {
-            CultNameSettingsEditModel data = new CultNameSettingsEditModel();
+            CultNameSettingsViewModel data = new CultNameSettingsViewModel();
             data.CultnameInputType = null;
             EditContext editContext = new(data);
 
@@ -26,7 +26,7 @@ namespace ThingyDexer.Test
         [TestMethod]
         public void TestValidator2()
         {
-            CultNameSettingsEditModel data = new CultNameSettingsEditModel();
+            CultNameSettingsViewModel data = new CultNameSettingsViewModel();
             data.CultnameInputType = Model.General.CultnameInputType.TemplateAdjective1Noun1;
 
             EditContext editContext = new(data);

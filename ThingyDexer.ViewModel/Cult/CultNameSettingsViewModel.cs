@@ -4,7 +4,7 @@ using ThingyDexer.Model.General;
 namespace ThingyDexer.ViewModel.Cult
 {
 
-    public class CultNameSettingsEditModel : ViewModelBase
+    public class CultNameSettingsViewModel : ViewModelBase
     {
 
         private CultnameInputType? _CultnameInputType;

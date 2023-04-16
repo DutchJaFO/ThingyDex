@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel;
-using System.Text;
 using ThingyDexer.ViewModel.Cult;
 
 namespace ThingyDexer.WASM.Pages.Wizard

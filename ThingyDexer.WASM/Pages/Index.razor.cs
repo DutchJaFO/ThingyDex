@@ -1,6 +1,5 @@
 using Markdig;
 using Microsoft.AspNetCore.Components;
-using System.Runtime.CompilerServices;
 
 namespace ThingyDexer.WASM.Pages
 {
@@ -27,7 +26,7 @@ namespace ThingyDexer.WASM.Pages
             }
         }
 
-        public bool TrackTrivia { get; private set;}
+        public bool TrackTrivia { get; private set; }
         public string? Welcome { get; set; }
 
         public string? ReleaseNotes { get; set; }

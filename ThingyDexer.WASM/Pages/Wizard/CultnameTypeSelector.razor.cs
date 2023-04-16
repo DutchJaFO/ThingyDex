@@ -20,9 +20,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
             CultNameSettingsViewModel ??= new();
 
             MyContext = new EditContext(CultNameSettingsViewModel);
-#pragma warning disable CS8604 // Possible null reference argument.
             MyContext.EnableDataAnnotationsValidation(ServiceProvider);
-#pragma warning restore CS8604 // Possible null reference argument.
         }
         #endregion Protected
 

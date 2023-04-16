@@ -39,23 +39,16 @@ namespace ThingyDexer.WASM.Pages.Wizard
             }
             else
             {
-                List<SelectableRegelString> set = new List<SelectableRegelString>();
+                List<SelectableRegelString> set = new ();
                 return await Task.FromResult(request.ApplyTo(set));
             }
         }
-        private static string? MakePossessive(string? value)
-        {
-            if (!string.IsNullOrEmpty(value))
-            {
-                return value.EndsWith('s')
+        private static string? MakePossessive(string? value) => 
+            string.IsNullOrEmpty(value)
+                ? value
+                : value.EndsWith('s')
                             ? $"{value}'"
                             : $"{value}'s";
-            }
-            else
-            {
-                return value;
-            }
-        }
 
         private void DoChangeSelectedRow(SelectableRegelString context, bool allowDelete)
         {
@@ -75,7 +68,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         private void HandleValidSubmit()
         {
             CultNameGeneratorViewModel = new(CultnameTableSet, CultNameSettingsViewModel);
-            CultNameGeneratorViewModel.UpdateFromEditModel(CultNameSettingsViewModel);
+            // CultNameGeneratorViewModel.UpdateFromEditModel(CultNameSettingsViewModel);
             StateHasChanged();
         }
         private void HandleInvalidSubmit()
@@ -97,20 +90,11 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             base.OnParametersSet();
 
-            if (CultnameTableSet is null)
-            {
-                CultnameTableSet = CultnameTableFactory.Create(new());
-            }
+            CultnameTableSet ??= CultnameTableFactory.Create(new());
 
-            if (CultNameSettingsViewModel is null)
-            {
-                CultNameSettingsViewModel = new();
-            }
+            CultNameSettingsViewModel ??= new();
 
-            if (CultNameGeneratorViewModel is null)
-            {
-                CultNameGeneratorViewModel = new CultNameGeneratorViewModel(CultnameTableSet, CultNameSettingsViewModel);
-            }
+            CultNameGeneratorViewModel ??= new CultNameGeneratorViewModel(CultnameTableSet, CultNameSettingsViewModel);
 
             MyContext = new EditContext(CultNameGeneratorViewModel);
             MyContext.EnableDataAnnotationsValidation(ServiceProvider);

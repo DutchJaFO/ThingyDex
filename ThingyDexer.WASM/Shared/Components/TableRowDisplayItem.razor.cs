@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Components;
-using System.Reflection.Metadata.Ecma335;
 using ThingyDexer.Model.Table;
 
 namespace ThingyDexer.WASM.Shared.Components

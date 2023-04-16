@@ -1,21 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using ThingyDexer.WASM;
-using ThingyDexer.WASM.Shared;
-using BlazorBootstrap;
-using ThingyDexer.ViewModel.Cult;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThingyDexer.WASM.Pages.Wizard
 {
@@ -25,7 +8,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// <summary>
         /// List of <see cref="WizardStep"/> added to the Wizard
         /// </summary>
-        protected internal List<WizardStep> Steps = new List<WizardStep>();
+        protected internal List<WizardStep> Steps = new();
 
         protected internal List<WizardStep> ActivatedSteps = new();
 
@@ -63,7 +46,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// Sets the <see cref="ActiveStep"/> to the previous Index
         /// </summary>
 
-        protected internal void DoCancel()
+        protected static internal void DoCancel()
         {
         }
 

@@ -42,7 +42,7 @@ namespace ThingyDexer.ViewModel.Cult
         }
 
         private bool? _ValidCultname;
-        [Required(ErrorMessage ="Cult name is invalid")]
+        [Required(ErrorMessage = "Cult name is invalid")]
         public bool? ValidCultname
         {
             get => _ValidCultname;
@@ -81,7 +81,7 @@ namespace ThingyDexer.ViewModel.Cult
                         Adjective1 = p2;
                         Adjective2 = p1;
                     }
-                    this.GenerateCultName();
+                    GenerateCultName();
                     break;
             }
         }
@@ -130,14 +130,30 @@ namespace ThingyDexer.ViewModel.Cult
         public string? Cultname
         {
             get => _Cultname;
-            set => SetField(ref _Cultname, value);
+            set
+            {
+                string? oldValue = _Cultname;
+                SetField(ref _Cultname, value);
+
+                if (OnUpdateCultname != null)
+                {
+                    OnUpdateCultname.Invoke(value);
+                }
+            }
         }
+
+        public Action<string?>? OnUpdateCultname { get; set; }
+        public Action<TableRowBase<string>?>? OnUpdateSelection { get; set; }
 
         private TableRowBase<string>? _DefiniteArticle;
         public TableRowBase<string>? DefiniteArticle
         {
             get => _DefiniteArticle;
-            set { SetField(ref _DefiniteArticle, value); this.UpdateCultname(); }
+            set
+            {
+                SetField(ref _DefiniteArticle, value);
+                UpdateCultname();
+            }
 
         }
 
@@ -145,28 +161,44 @@ namespace ThingyDexer.ViewModel.Cult
         public TableRowBase<string>? Adjective1
         {
             get => _Adjective1;
-            set { SetField(ref _Adjective1, value); this.UpdateCultname(); }
+            set
+            {
+                SetField(ref _Adjective1, value);
+                UpdateCultname();
+            }
         }
 
         private TableRowBase<string>? _Noun1;
         public TableRowBase<string>? Noun1
         {
             get => _Noun1;
-            set { SetField(ref _Noun1, value); this.UpdateCultname(); }
+            set
+            {
+                SetField(ref _Noun1, value);
+                UpdateCultname();
+            }
         }
 
         private TableRowBase<string>? _Adjective2;
         public TableRowBase<string>? Adjective2
         {
             get => _Adjective2;
-            set { SetField(ref _Adjective2, value); this.UpdateCultname(); }
+            set
+            {
+                SetField(ref _Adjective2, value);
+                UpdateCultname();
+            }
         }
 
         private TableRowBase<string>? _Noun2;
         public TableRowBase<string>? Noun2
         {
             get => _Noun2;
-            set { SetField(ref _Noun2, value); this.UpdateCultname(); }
+            set
+            {
+                SetField(ref _Noun2, value);
+                UpdateCultname();
+            }
         }
 
         private TableRowBase<string>? _SelectedRegel;
@@ -175,8 +207,14 @@ namespace ThingyDexer.ViewModel.Cult
             get => _SelectedRegel;
             set
             {
+                TableRowBase<string>? oldValue = _SelectedRegel;
                 SetField(ref _SelectedRegel, value);
                 HeeftSelectedRegel = _SelectedRegel is not null;
+
+                if (OnUpdateSelection != null) 
+                {
+                    OnUpdateSelection.Invoke(_SelectedRegel);
+                }
             }
         }
 
@@ -259,7 +297,8 @@ namespace ThingyDexer.ViewModel.Cult
 
                 ShowDetails = false;
             }
-            finally {
+            finally
+            {
                 _SkipUpdates = false;
                 UpdateCultname();
             }

@@ -80,7 +80,10 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// </summary>
         protected internal void GoNext()
         {
-            ActiveStep?.AfterNextStepAction?.Invoke();
+            if (ActiveStep?.AfterNextStepAction is not null)
+            {
+                ActiveStep.AfterNextStepAction.Invoke();
+            }
 
             ActiveStep?.DoValidateModel();
             if (ActiveStep?.IsStepValid == true)
@@ -91,7 +94,13 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
                     WizardStep nextStep = Steps[nextStepId];
                     SetActive(nextStep);
-                    ActiveStep?.BeforeNextStepAction?.Invoke();
+
+                    StateHasChanged();
+
+                    if (ActiveStep?.BeforeNextStepAction is not null)
+                    {
+                        ActiveStep.BeforeNextStepAction.Invoke();
+                    }
                 }
             }
             else

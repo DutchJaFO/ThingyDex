@@ -10,7 +10,9 @@ namespace ThingyDexer.WASM.Pages
     public partial class CultNameGenerator
     {
         #region Constructors
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public CultNameGenerator()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             // CultnameTableSet = CultnameTableFactory.Create(new());
             // CultNameSettingsEditModel = new();
@@ -113,10 +115,31 @@ namespace ThingyDexer.WASM.Pages
             MyContext = new EditContext(CultNameSettingsViewModel);
             MyContext.EnableDataAnnotationsValidation(ServiceProvider);
 
+            CultNameSettingsViewModel.OnUpdateSelection = DoOnUpdateSelection;
+            CultNameSettingsViewModel.OnUpdateCultname = DoOnUpdateCultname;
+
+            initControls = true;
+        }
+
+        private bool initControls = false;
+        protected override void OnAfterRender(bool firstRender)
+        {
+            base.OnAfterRender(firstRender);
+            if (initControls)
+            {
+                DoUpdateControls();
+                initControls = false;
+            }
         }
         #endregion Protected
 
         #region Public
+
+        public void DoUpdateControls()
+        {
+            DoOnUpdateSelection(CultNameSettingsViewModel.SelectedRegel);
+            DoOnUpdateCultname(CultNameSettingsViewModel.Cultname);
+        }
 
         public EditContext MyContext
         {
@@ -124,7 +147,7 @@ namespace ThingyDexer.WASM.Pages
             private set;
         }
 
-        [Inject] IServiceProvider ServiceProvider {get; set; }
+        [Inject] IServiceProvider ServiceProvider { get; set; }
 
         [Inject]
         public CultnameTableSet CultnameTableSet

@@ -34,22 +34,6 @@ steps:
     projects: '**/ThingyDexer.Test.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
-- task: VSTest@2
-  inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-    codeCoverageEnabled: true
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/TEST-*.xml'
-    buildConfiguration: $(buildConfiguration)
-
 - task: DotNetCoreCLI@2
   inputs:
     command: publish

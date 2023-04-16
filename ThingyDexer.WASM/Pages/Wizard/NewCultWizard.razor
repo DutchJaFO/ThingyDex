@@ -18,9 +18,7 @@
                                             { 
                                                 ViewModel.GenerateCultName();
                                             })">
-            <CultnameTypeSelector CultNameSettingsEditModel=@ViewModel.Settings
-                
-                                  />
+            <CultnameTypeSelector CultNameSettingsViewModel=@ViewModel.Settings />
         </WizardStep>
         <WizardStep Id="step2" Name="Generate name" Title="Generate name"
                     ViewModel=@ViewModel
@@ -32,8 +30,8 @@
                         })"
                     AfterNextStepAction="@(() => {})">
 
-            <CultNameGenerator @ref=generatorControl CultNameSettingsEditModel=@EditModel
-                               CultNameSettingsViewModel=@ViewModel />
+            <CultNameGenerator @ref=generatorControl CultNameSettingsViewModel=@EditModel
+                               CultNameGeneratorViewModel=@ViewModel />
         </WizardStep>
 
         @*

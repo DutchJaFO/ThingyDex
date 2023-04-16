@@ -85,20 +85,20 @@ namespace ThingyDexer.ViewModel.Cult
                     break;
             }
         }
-        public void UpdateFromEditModel(CultNameSettingsEditModel editModel)
+        public void UpdateFromEditModel(CultNameSettingsViewModel editModel)
         {
 
             // AutoGenerateName(editModel.CultnameInputType, oldType);
         }
 
-        public CultNameGeneratorViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsEditModel settings)
+        public CultNameGeneratorViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsViewModel settings)
         {
             CultnameTableSet = cultnameTableSet;
             Settings = settings;
         }
 
         [Required]
-        public CultNameSettingsEditModel Settings
+        public CultNameSettingsViewModel Settings
         {
             get;
             private set;

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 
 namespace ThingyDexer.WASM.Pages.Wizard
@@ -18,19 +17,23 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             base.OnParametersSet();
 
-            CultNameSettingsEditModel ??= new();
+            CultNameSettingsViewModel ??= new();
 
-            MyContext = new EditContext(CultNameSettingsEditModel);
+            MyContext = new EditContext(CultNameSettingsViewModel);
 #pragma warning disable CS8604 // Possible null reference argument.
             MyContext.EnableDataAnnotationsValidation(ServiceProvider);
 #pragma warning restore CS8604 // Possible null reference argument.
         }
         #endregion Protected
 
-        [Inject] IServiceProvider? ServiceProvider { get; set; }
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        [Inject] public IServiceProvider ServiceProvider { get; set; }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        [Parameter]
-        public CultNameSettingsEditModel? CultNameSettingsEditModel
+        [Parameter, EditorRequired]
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public CultNameSettingsViewModel CultNameSettingsViewModel
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             get;
             set;

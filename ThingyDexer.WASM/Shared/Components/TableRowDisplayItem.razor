@@ -29,7 +29,7 @@
                     <Icon Name="IconName.Dice2" />
                 }
             }
-            <h4>
+            <div>
                 @{
                     string? displayValue;
                     if ((string.IsNullOrEmpty(Value?.Value) == false) && (SuffixAction != null))
@@ -42,7 +42,7 @@
                     }
                 }
                 @displayValue
-            </h4>
+            </div>
         </Button>
     }
     else
@@ -52,12 +52,12 @@
             Outline=true
             @onclick="@(() => DoRollSelectedRegel())">
             <Icon Name="IconName.PlusCircle"></Icon>
-            <h4>
+            <div>
                 @{
                     string? displayValue = Table?.Name;
                 }
                 [@displayValue]
-            </h4>
+            </div>
         </Button>
     }
 

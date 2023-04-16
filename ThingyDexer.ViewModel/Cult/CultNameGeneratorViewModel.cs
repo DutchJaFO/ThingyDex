@@ -6,7 +6,7 @@ using ThingyDexer.ViewModel.Table;
 
 namespace ThingyDexer.ViewModel.Cult
 {
-    public class CultNameSettingsViewModel : ViewModelBase
+    public class CultNameGeneratorViewModel : ViewModelBase
     {
         private static string? MakePossessive(string? value)
         {
@@ -91,7 +91,7 @@ namespace ThingyDexer.ViewModel.Cult
             // AutoGenerateName(editModel.CultnameInputType, oldType);
         }
 
-        public CultNameSettingsViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsEditModel settings)
+        public CultNameGeneratorViewModel(CultnameTableSet cultnameTableSet, CultNameSettingsEditModel settings)
         {
             CultnameTableSet = cultnameTableSet;
             Settings = settings;

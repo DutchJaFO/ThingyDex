@@ -39,9 +39,9 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// </summary>
         [Parameter] public RenderFragment ChildContent { get; set; }
 
-        [Parameter] public RenderFragment Footer { get; set; }
-
-
+        /// <summary>
+        /// unique Id to be used when navigating between steps
+        /// </summary>
         [Parameter] public string Id { get; set; }
 
         /// <summary>

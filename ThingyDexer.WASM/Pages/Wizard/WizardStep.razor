@@ -1,55 +1,42 @@
 ﻿@if (Parent.ActiveStep == this)
 {
     <div id="step-@(Parent.StepsIndex(this) + 1)">
-        <div class="row">
-            @if (!string.IsNullOrEmpty(Title))
-            {
-                <h4>@Title</h4>
-            }
-            else
-            {
-                <br />
-            }
+        <div class="row px-0 py-0">
+            <div class="col">
+                @if (!string.IsNullOrEmpty(Title))
+                {
+                    <h4 class="ps-4">@Title</h4>
+                }
+                else
+                {
+                    <br />
+                }
+            </div>
         </div>
         @{
             if (Errors.Any())
             {
-                <hr />
+                <hr class="px-0 py-0" />
+
                 <Callout Heading="Errors" Type="CalloutType.Danger">
-                <ul>
-                    @foreach (DisplayError error in Errors)
-                    {
-                        <li>
-                            @error.Text
-                        </li>
-                    }
-                </ul>
+                    <ul>
+                        @foreach (DisplayError error in Errors)
+                        {
+                            <li>
+                                @error.Text
+                            </li>
+                        }
+                    </ul>
                 </Callout>
             }
         }
-        <hr />
-        <div class="row px-4 py-4">
-            <div class="col-sm">
+
+        <hr class="px-0 py-0" />
+
+        <div class="row px-0 py-0 mx-0 my-0">
+            <div class="col ms-2 me-2 my-0 ps-4 pe-2 py-0">
                 @ChildContent
             </div>
         </div>
-        <hr />
-        @{
-            if (Footer != null)
-            {
-                @Footer
-            }
-            else
-            {
-                <div class="row">
-                    <div class="col-sm-10"></div>
-                    <div class="col-sm-2">
-                        <span>@(Parent.StepsIndex(this) + 1) </span>
-                        <text>/</text>
-                        <span>@(Parent.Steps.Count())</span>
-                    </div>
-                </div>
-            }
-        }
     </div>
 }

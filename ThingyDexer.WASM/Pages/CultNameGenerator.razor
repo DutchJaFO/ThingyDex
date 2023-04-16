@@ -23,16 +23,14 @@
                 <!--re-roll bits -->
                 <div class="row">
                     <div class="col-sm-auto py-1 px-1">
-                        <Button Disabled="@HasNoSelection" @ref=BtnReRollSelection Size="Size.Medium"
-                        Color="ButtonColor.Secondary"
+                        <Button     Disabled="@HasNoSelection" Color="ButtonColor.Secondary"
                         @onclick="@((a)=>{CultNameSettingsViewModel.RerollSelectedRegel();StateHasChanged();})">
                             <Icon Name="IconName.Dice3Fill" />
                             Re-roll selection
                         </Button>
                     </div>
                     <div class="col-sm-auto py-1 px-1">
-                        <Button @ref=BtnReRollName Size="Size.Medium" Disabled="@HasNoCultname"
-                        Color="ButtonColor.Secondary"
+                        <Button Disabled="@HasNoCultname"                        Color="ButtonColor.Secondary"
                         @onclick="@(()=> {CultNameSettingsViewModel.RerollCultName(); StateHasChanged();})">
                             <Icon Name="IconName.Dice4Fill" />
                             Re-roll name
@@ -45,15 +43,13 @@
                 {
                     <div class="row">
                         <div class="col-sm-auto py-1 px-1">
-                            <Button @ref=BtnClearSelection Disabled="@HasNoSelection"
-                        Size="Size.Medium"
-                        Color="ButtonColor.Danger" @onclick="@(() => {CultNameSettingsViewModel.ClearSelectedItem();StateHasChanged();})">
+                            <Button Disabled="@HasNoSelection"                         Color="ButtonColor.Danger" @onclick="@(() => {CultNameSettingsViewModel.ClearSelectedItem();StateHasChanged();})">
                                 <Icon Name="IconName.Trash" />
                                 Delete selection
                             </Button>
                         </div>
                         <div class="col-sm-auto py-1 px-1">
-                            <Button @ref=BtnClearName Size="Size.Medium" Disabled="@HasNoCultname"
+                            <Button Disabled="@HasNoCultname"
                         Color="ButtonColor.Danger" @onclick="@(() => {CultNameSettingsViewModel.ClearCultname();StateHasChanged();})">
                                 <Icon Name="IconName.Trash" />
                                 Delete name
@@ -126,10 +122,12 @@
                 <!--show details -->
                 <div class="row">
                     <div class="col-sm-auto py-1 px-1">
-                        @if(CultNameSettingsViewModel is not null)
+                        @if (CultNameSettingsViewModel is not null)
                         {
-                            var testLabel = $"Show details of table {CultNameSettingsViewModel.SelectedRegel?.Owner?.Name ?? String.Empty}";
-                            <Switch @ref=swShowDetails @bind-Value="@CultNameSettingsViewModel.ShowDetails" Label="@testLabel">
+                            string testLabel = $"Show details of table {CultNameSettingsViewModel.SelectedRegel?.Owner?.Name ?? String.Empty}";
+                            <Switch @ref=swShowDetails 
+                                @bind-Value="@CultNameSettingsViewModel.ShowDetails" 
+                                Label="@testLabel">
                             </Switch>
                         }
                     </div>
@@ -204,16 +202,11 @@
     </div>
 }
 
-@code{
-    private Button BtnReRollName;
-    private Button BtnReRollSelection;
-    private Button BtnClearName;
-    private Button BtnClearSelection;
-
+@code {
     private Switch swShowDetails;
 
-    public bool HasNoCultname {get;set;}
-    public bool HasNoSelection {get;set;}
+    public bool HasNoCultname { get; set; }
+    public bool HasNoSelection { get; set; }
 
     private void DoOnUpdateCultname(string? newName)
     {

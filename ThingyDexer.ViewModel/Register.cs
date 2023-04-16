@@ -7,7 +7,7 @@ namespace ThingyDexer.ViewModel
     {
         public static IServiceCollection AddThingyDexerViewModels(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<CultNameSettingsViewModel>();
+            serviceCollection.AddTransient<CultNameGeneratorViewModel>();
             serviceCollection.AddTransient<CultNameSettingsEditModel>();
             return serviceCollection;
         }

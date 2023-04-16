@@ -109,7 +109,7 @@ namespace ThingyDexer.WASM.Pages
 
             if (CultNameSettingsViewModel is null)
             {
-                CultNameSettingsViewModel = new CultNameSettingsViewModel(CultnameTableSet, CultNameSettingsEditModel);
+                CultNameSettingsViewModel = new CultNameGeneratorViewModel(CultnameTableSet, CultNameSettingsEditModel);
             }
 
             MyContext = new EditContext(CultNameSettingsViewModel);
@@ -165,7 +165,7 @@ namespace ThingyDexer.WASM.Pages
         }
 
         [Parameter, EditorRequired]
-        public CultNameSettingsViewModel CultNameSettingsViewModel
+        public CultNameGeneratorViewModel CultNameSettingsViewModel
         {
             get;
             set;

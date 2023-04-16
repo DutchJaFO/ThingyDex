@@ -17,8 +17,6 @@
         public int MinValue { get; init; } = 1;
         public int MaxValue { get; init; } = 5;
 
-        public static int UpgradeCost = 50;
-
         public string StatName => $"{Type}";
 
         public bool UpgradeStat(int increase, int xp)
@@ -35,7 +33,7 @@
             return true;
         }
 
-        public int GetUpgradeCost(int increase) => increase * UpgradeCost;
+        public int GetUpgradeCost(int increase) => increase * UpgradeCosts.StatisticUpgrade;
 
         #endregion Public
     }

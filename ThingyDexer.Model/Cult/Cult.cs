@@ -21,6 +21,8 @@
         public string Description { get; set; }
         public string WorshippedEntity { get; set; }
 
+        public int Power { get; set; }
+        public int Favour { get; set; } = 300;
         public StatBlockType? FavouredStat { get; set; }
 
         public List<Cultist> ActiveCultists { get; set; } = new();

@@ -19,8 +19,6 @@
         public int MinValue { get; init; } = 1;
         public int MaxValue { get; init; } = 5;
 
-        public static int UpgradeCost = 75;
-
         public string StatName => "Wounds";
 
         public bool UpgradeStat(int increase, int xp)
@@ -36,7 +34,7 @@
             XpSpent += xp;
             return true;
         }
-        public int GetUpgradeCost(int increase) => increase * UpgradeCost;
+        public int GetUpgradeCost(int increase) => increase * UpgradeCosts.WoundUpgrade;
 
         #endregion Public
     }

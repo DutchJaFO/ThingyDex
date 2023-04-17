@@ -153,7 +153,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             get;
             set;
-        }
+        } 
 
 
 

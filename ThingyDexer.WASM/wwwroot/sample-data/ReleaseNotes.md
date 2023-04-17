@@ -28,9 +28,10 @@
 	- added validations
 3) [expirmental] indicator for new version updates (visible only when app update is available)
 4) option to collapse sidemenu to icons
+5) (new) first preview of cult detail page
 
 ## Version
-v0.1.17 (ALPHA)
+v0.1.18 (ALPHA)
 
 ### Experimental
 - new version indicator in UI
@@ -40,4 +41,5 @@ v0.1.17 (ALPHA)
 ### Breaking changes
 
 ### Changes
-- layout updates
+- first layout/preview of cult detail page (WIP)
+- Deity name is based on last adjective + noun from cult

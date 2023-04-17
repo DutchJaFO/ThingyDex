@@ -4,7 +4,7 @@ using ThingyDexer.ViewModel.Cult;
 
 namespace ThingyDexer.WASM.Pages.Wizard
 {
-    public partial class CultnameTypeSelector
+    public partial class CultDefinition
     {
         #region Protected
 
@@ -17,9 +17,9 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             base.OnParametersSet();
 
-            CultNameSettingsViewModel ??= new();
+            ViewModel ??= new();
 
-            MyContext = new EditContext(CultNameSettingsViewModel);
+            MyContext = new EditContext(ViewModel);
             MyContext.EnableDataAnnotationsValidation(ServiceProvider);
         }
         #endregion Protected
@@ -30,7 +30,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
         [Parameter, EditorRequired]
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-        public CultNameSettingsViewModel CultNameSettingsViewModel
+        public CultDefinitionViewModel ViewModel
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             get;

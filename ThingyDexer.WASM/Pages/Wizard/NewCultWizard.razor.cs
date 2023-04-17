@@ -9,6 +9,8 @@ namespace ThingyDexer.WASM.Pages.Wizard
         [Inject] public CultNameSettingsViewModel EditModel { get; set; }
 
         [Inject] public CultNameGeneratorViewModel ViewModel { get; set; }
+
+        [Inject] public CultDefinitionViewModel CultDefinition { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     }
 }

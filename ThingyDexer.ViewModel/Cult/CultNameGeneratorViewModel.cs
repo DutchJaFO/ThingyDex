@@ -22,22 +22,12 @@ namespace ThingyDexer.ViewModel.Cult
         }
 
         private bool _SkipUpdates = false;
-        private void UpdateCultname()
+        public void UpdateCultname()
         {
             if (_SkipUpdates) return;
-            ValidCultname = ((Noun1 != null) || (Noun2 != null)) ? true : null;
+            ValidCultname = ((CultnameResult.Noun1 != null) || (CultnameResult.Noun2 != null)) ? true : null;
 
-            string? noun1 =
-                  (Settings.CultnameInputType == CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1)
-                    ? MakePossessive(Noun1?.Value)
-                    : Noun1?.Value;
-
-            string nameStep1 = $"{DefiniteArticle?.Value} {Adjective1?.Value} {noun1}".Trim();
-            string nameStep2 = $"{Adjective2?.Value} {Noun2?.Value}".Trim();
-            if ((Noun1 is not null) && (Noun2 is not null) && (Settings.CultnameInputType != CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1))
-                Cultname = $"{nameStep1} of the {nameStep2}".Trim();
-            else
-                Cultname = $"{nameStep1} {nameStep2}".Trim();
+            Cultname = CultnameResult.FullName;
         }
 
         private bool? _ValidCultname;
@@ -77,7 +67,7 @@ namespace ThingyDexer.ViewModel.Cult
         {
             get
             {
-                return (Adjective1 != null) || (Noun1 != null) || (Adjective2 != null) || (Noun2 != null);
+                return (CultnameResult.Adjective1 != null) || (CultnameResult.Noun1 != null) || (CultnameResult.Adjective2 != null) || (CultnameResult.Noun2 != null);
             }
         }
 
@@ -99,60 +89,12 @@ namespace ThingyDexer.ViewModel.Cult
         public Action<string?>? OnUpdateCultname { get; set; }
         public Action<TableRowBase<string>?>? OnUpdateSelection { get; set; }
 
-        private TableRowBase<string>? _DefiniteArticle;
-        public TableRowBase<string>? DefiniteArticle
-        {
-            get => _DefiniteArticle;
-            set
-            {
-                SetField(ref _DefiniteArticle, value);
-                UpdateCultname();
-            }
 
-        }
-
-        private TableRowBase<string>? _Adjective1;
-        public TableRowBase<string>? Adjective1
+        private ThingyDexer.Model.Table.CultnameResult _CultnameResult = new();
+        public ThingyDexer.Model.Table.CultnameResult CultnameResult
         {
-            get => _Adjective1;
-            set
-            {
-                SetField(ref _Adjective1, value);
-                UpdateCultname();
-            }
-        }
-
-        private TableRowBase<string>? _Noun1;
-        public TableRowBase<string>? Noun1
-        {
-            get => _Noun1;
-            set
-            {
-                SetField(ref _Noun1, value);
-                UpdateCultname();
-            }
-        }
-
-        private TableRowBase<string>? _Adjective2;
-        public TableRowBase<string>? Adjective2
-        {
-            get => _Adjective2;
-            set
-            {
-                SetField(ref _Adjective2, value);
-                UpdateCultname();
-            }
-        }
-
-        private TableRowBase<string>? _Noun2;
-        public TableRowBase<string>? Noun2
-        {
-            get => _Noun2;
-            set
-            {
-                SetField(ref _Noun2, value);
-                UpdateCultname();
-            }
+            get => _CultnameResult;
+            set => SetField(ref _CultnameResult, value);
         }
 
         private TableRowBase<string>? _SelectedRegel;
@@ -191,35 +133,35 @@ namespace ThingyDexer.ViewModel.Cult
             try
             {
                 _SkipUpdates = true;
-                bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
-                bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
-                bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
-                bool isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                bool isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                bool isDefiniteArticleSelected = CultnameResult.DefiniteArticle?.Equals(SelectedRegel) == true;
+                bool isAdjective1Selected = CultnameResult.Adjective1?.Equals(SelectedRegel) == true;
+                bool isAdjective2Selected = CultnameResult.Adjective2?.Equals(SelectedRegel) == true;
+                bool isNoun1Selected = CultnameResult.Noun1?.Equals(SelectedRegel) == true;
+                bool isNoun2Selected = CultnameResult.Noun2?.Equals(SelectedRegel) == true;
 
-                if ((DefiniteArticle != null) && isDefiniteArticleSelected)
+                if ((CultnameResult.DefiniteArticle != null) && isDefiniteArticleSelected)
                 {
-                    DefiniteArticle = null;
+                    CultnameResult.DefiniteArticle = null;
                 }
 
-                if ((Adjective1 != null) && isAdjective1Selected)
+                if ((CultnameResult.Adjective1 != null) && isAdjective1Selected)
                 {
-                    Adjective1 = null;
+                    CultnameResult.Adjective1 = null;
                 }
 
-                if ((Noun1 != null) && isNoun1Selected)
+                if ((CultnameResult.Noun1 != null) && isNoun1Selected)
                 {
-                    Noun1 = null;
+                    CultnameResult.Noun1 = null;
                 }
 
-                if ((Adjective2 != null) && isAdjective2Selected)
+                if ((CultnameResult.Adjective2 != null) && isAdjective2Selected)
                 {
-                    Adjective2 = null;
+                    CultnameResult.Adjective2 = null;
                 }
 
-                if ((Noun2 != null) && isNoun2Selected)
+                if ((CultnameResult.Noun2 != null) && isNoun2Selected)
                 {
-                    Noun2 = null;
+                    CultnameResult.Noun2 = null;
                 }
             }
             finally
@@ -238,11 +180,12 @@ namespace ThingyDexer.ViewModel.Cult
             {
                 _SkipUpdates = true;
                 SelectedRegel = null;
-                DefiniteArticle = null;
-                Adjective1 = null;
-                Adjective2 = null;
-                Noun1 = null;
-                Noun2 = null;
+
+                CultnameResult.DefiniteArticle = null;
+                CultnameResult.Adjective1 = null;
+                CultnameResult.Adjective2 = null;
+                CultnameResult.Noun1 = null;
+                CultnameResult.Noun2 = null;
 
                 TimeStamp = DateTime.Now.ToLocalTime();
 
@@ -259,57 +202,58 @@ namespace ThingyDexer.ViewModel.Cult
         {
             try
             {
-                bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
-                bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
-                bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
-                bool isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                bool isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                bool isDefiniteArticleSelected = CultnameResult.DefiniteArticle?.Equals(SelectedRegel) == true;
+                bool isAdjective1Selected = CultnameResult.Adjective1?.Equals(SelectedRegel) == true;
+                bool isAdjective2Selected = CultnameResult.Adjective2?.Equals(SelectedRegel) == true;
+                bool isNoun1Selected = CultnameResult.Noun1?.Equals(SelectedRegel) == true;
+                bool isNoun2Selected = CultnameResult.Noun2?.Equals(SelectedRegel) == true;
 
-                if ((DefiniteArticle != null) && isDefiniteArticleSelected)
+                if ((CultnameResult.DefiniteArticle != null) && isDefiniteArticleSelected)
                 {
-                    DefiniteArticle = DefiniteArticle.Owner.GetRandomItem();
-                    SelectedRegel = DefiniteArticle;
+                    CultnameResult.DefiniteArticle = CultnameResult.DefiniteArticle.Owner.GetRandomItem();
+                    SelectedRegel = CultnameResult.DefiniteArticle;
                 }
 
-                if ((Adjective1 != null) && isAdjective1Selected)
+                if ((CultnameResult.Adjective1 != null) && isAdjective1Selected)
                 {
-                    Adjective1 = Adjective1.Owner.GetRandomItem();
-                    SelectedRegel = Adjective1;
+                    CultnameResult.Adjective1 = CultnameResult.Adjective1.Owner.GetRandomItem();
+                    SelectedRegel = CultnameResult.Adjective1;
                 }
 
-                if ((Noun1 != null) && isNoun1Selected)
+                if ((CultnameResult.Noun1 != null) && isNoun1Selected)
                 {
-                    Noun1 = Noun1.Owner.GetRandomItem();
-                    SelectedRegel = Noun1;
+                    CultnameResult.Noun1 = CultnameResult.Noun1.Owner.GetRandomItem();
+                    SelectedRegel = CultnameResult.Noun1;
                 }
 
-                if ((Adjective2 != null) && isAdjective2Selected)
+                if ((CultnameResult.Adjective2 != null) && isAdjective2Selected)
                 {
-                    Adjective2 = Adjective2.Owner.GetRandomItem();
-                    SelectedRegel = Adjective2;
+                    CultnameResult.Adjective2 = CultnameResult.Adjective2.Owner.GetRandomItem();
+                    SelectedRegel = CultnameResult.Adjective2;
                 }
 
-                if ((Noun2 != null) && isNoun2Selected)
+                if ((CultnameResult.Noun2 != null) && isNoun2Selected)
                 {
-                    Noun2 = Noun2.Owner.GetRandomItem();
-                    SelectedRegel = Noun2;
+                    CultnameResult.Noun2 = CultnameResult.Noun2.Owner.GetRandomItem();
+                    SelectedRegel = CultnameResult.Noun2;
                 }
             }
             finally
             {
                 TimeStamp = DateTime.Now.ToLocalTime();
+                UpdateCultname();
             }
         }
 
         public void RerollDefiniteArticle()
         {
-            bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
+            bool isDefiniteArticleSelected = CultnameResult.DefiniteArticle?.Equals(SelectedRegel) == true;
 
-            DefiniteArticle = DefiniteArticle?.Owner.GetRandomItem();
+            CultnameResult.DefiniteArticle = CultnameResult.DefiniteArticle?.Owner.GetRandomItem();
 
             if (isDefiniteArticleSelected)
             {
-                SelectedRegel = DefiniteArticle;
+                SelectedRegel = CultnameResult.DefiniteArticle;
             }
         }
         public void RerollCultName()
@@ -317,54 +261,54 @@ namespace ThingyDexer.ViewModel.Cult
             try
             {
                 _SkipUpdates = true;
-                bool isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
-                bool isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
-                bool isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
-                bool isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                bool isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                bool isDefiniteArticleSelected = CultnameResult.DefiniteArticle?.Equals(SelectedRegel) == true;
+                bool isAdjective1Selected = CultnameResult.Adjective1?.Equals(SelectedRegel) == true;
+                bool isAdjective2Selected = CultnameResult.Adjective2?.Equals(SelectedRegel) == true;
+                bool isNoun1Selected = CultnameResult.Noun1?.Equals(SelectedRegel) == true;
+                bool isNoun2Selected = CultnameResult.Noun2?.Equals(SelectedRegel) == true;
 
-                if (DefiniteArticle is not null)
+                if (CultnameResult.DefiniteArticle is not null)
                 {
-                    DefiniteArticle = DefiniteArticle.Owner.GetRandomItem();
+                    CultnameResult.DefiniteArticle = CultnameResult.DefiniteArticle.Owner.GetRandomItem();
                     if (isDefiniteArticleSelected)
                     {
-                        SelectedRegel = DefiniteArticle;
+                        SelectedRegel = CultnameResult.DefiniteArticle;
                     }
                 }
 
-                if (Adjective1 is not null)
+                if (CultnameResult.Adjective1 is not null)
                 {
-                    Adjective1 = Adjective1.Owner.GetRandomItem();
+                    CultnameResult.Adjective1 = CultnameResult.Adjective1.Owner.GetRandomItem();
                     if (isAdjective1Selected)
                     {
-                        SelectedRegel = Adjective1;
+                        SelectedRegel = CultnameResult.Adjective1;
                     }
                 }
 
-                if (Noun1 is not null)
+                if (CultnameResult.Noun1 is not null)
                 {
-                    Noun1 = Noun1.Owner.GetRandomItem();
+                    CultnameResult.Noun1 = CultnameResult.Noun1.Owner.GetRandomItem();
                     if (isNoun1Selected)
                     {
-                        SelectedRegel = Noun1;
+                        SelectedRegel = CultnameResult.Noun1;
                     }
                 }
 
-                if (Adjective2 is not null)
+                if (CultnameResult.Adjective2 is not null)
                 {
-                    Adjective2 = Adjective2.Owner.GetRandomItem();
+                    CultnameResult.Adjective2 = CultnameResult.Adjective2.Owner.GetRandomItem();
                     if (isAdjective2Selected)
                     {
-                        SelectedRegel = Adjective2;
+                        SelectedRegel = CultnameResult.Adjective2;
                     }
                 }
 
-                if (Noun2 is not null)
+                if (CultnameResult.Noun2 is not null)
                 {
-                    Noun2 = Noun2.Owner.GetRandomItem();
+                    CultnameResult.Noun2 = CultnameResult.Noun2.Owner.GetRandomItem();
                     if (isNoun2Selected)
                     {
-                        SelectedRegel = Noun2;
+                        SelectedRegel = CultnameResult.Noun2;
                     }
                 }
             }
@@ -388,26 +332,17 @@ namespace ThingyDexer.ViewModel.Cult
                 {
                     _SkipUpdates = true;
 
-                    isDefiniteArticleSelected = DefiniteArticle?.Equals(SelectedRegel) == true;
-                    isAdjective1Selected = Adjective1?.Equals(SelectedRegel) == true;
-                    isAdjective2Selected = Adjective2?.Equals(SelectedRegel) == true;
-                    isNoun1Selected = Noun1?.Equals(SelectedRegel) == true;
-                    isNoun2Selected = Noun2?.Equals(SelectedRegel) == true;
+                    isDefiniteArticleSelected = CultnameResult.DefiniteArticle?.Equals(SelectedRegel) == true;
+                    isAdjective1Selected = CultnameResult.Adjective1?.Equals(SelectedRegel) == true;
+                    isAdjective2Selected = CultnameResult.Adjective2?.Equals(SelectedRegel) == true;
+                    isNoun1Selected = CultnameResult.Noun1?.Equals(SelectedRegel) == true;
+                    isNoun2Selected = CultnameResult.Noun2?.Equals(SelectedRegel) == true;
 
-                    (TableRowBase<string>? definiteArticle, TableRowBase<string>? adjective1, TableRowBase<string>? name, TableRowBase<string>? adjective2, TableRowBase<string>? something) =
-                            CultnameTableSet.GenerateName(
-                                        DefiniteArticle,
-                                        Adjective1,
-                                        Noun1,
-                                        Adjective2,
-                                        Noun2,
+                    ThingyDexer.Model.Table.CultnameResult cultnameResult =
+                            CultnameTableSet.GenerateName(CultnameResult,
                                         Settings.IncludeRandomDefiniteArticle,
                                         Settings.CultnameInputType ?? Model.General.CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2);
-                    DefiniteArticle = definiteArticle;
-                    Adjective1 = adjective1;
-                    Noun1 = name;
-                    Adjective2 = adjective2;
-                    Noun2 = something;
+                    CultnameResult = cultnameResult;
                 }
                 finally
                 {
@@ -415,27 +350,27 @@ namespace ThingyDexer.ViewModel.Cult
 
                     if (isDefiniteArticleSelected)
                     {
-                        SelectedRegel = DefiniteArticle;
+                        SelectedRegel = CultnameResult.DefiniteArticle;
                     }
 
                     if (isAdjective1Selected)
                     {
-                        SelectedRegel = Adjective1;
+                        SelectedRegel = CultnameResult.Adjective1;
                     }
 
                     if (isAdjective2Selected)
                     {
-                        SelectedRegel = Adjective2;
+                        SelectedRegel = CultnameResult.Adjective2;
                     }
 
                     if (isNoun1Selected)
                     {
-                        SelectedRegel = Noun1;
+                        SelectedRegel = CultnameResult.Noun1;
                     }
 
                     if (isNoun2Selected)
                     {
-                        SelectedRegel = Noun2;
+                        SelectedRegel = CultnameResult.Noun2;
                     }
 
                     _SkipUpdates = false;
@@ -452,35 +387,35 @@ namespace ThingyDexer.ViewModel.Cult
                 TableRowBase<string>? item = newItem?.Source?.GetRow(newItem.Id);
                 try
                 {
-                    bool isDefiniteArticleSelected = (item?.Owner != null) && (DefiniteArticle?.Owner.Equals(item.Owner) == true);
-                    bool isAdjective1Selected = (item?.Owner != null) && (Adjective1?.Owner.Equals(item.Owner) == true);
-                    bool isAdjective2Selected = (item?.Owner != null) && (Adjective2?.Owner.Equals(item.Owner) == true);
-                    bool isNoun1Selected = (item?.Owner != null) && (Noun1?.Owner.Equals(item.Owner) == true);
-                    bool isNoun2Selected = (item?.Owner != null) && (Noun2?.Owner.Equals(item.Owner) == true);
+                    bool isDefiniteArticleSelected = (item?.Owner != null) && (CultnameResult.DefiniteArticle?.Owner.Equals(item.Owner) == true);
+                    bool isAdjective1Selected = (item?.Owner != null) && (CultnameResult.Adjective1?.Owner.Equals(item.Owner) == true);
+                    bool isAdjective2Selected = (item?.Owner != null) && (CultnameResult.Adjective2?.Owner.Equals(item.Owner) == true);
+                    bool isNoun1Selected = (item?.Owner != null) && (CultnameResult.Noun1?.Owner.Equals(item.Owner) == true);
+                    bool isNoun2Selected = (item?.Owner != null) && (CultnameResult.Noun2?.Owner.Equals(item.Owner) == true);
 
-                    if ((DefiniteArticle != null) && isDefiniteArticleSelected)
+                    if ((CultnameResult.DefiniteArticle != null) && isDefiniteArticleSelected)
                     {
-                        DefiniteArticle = item;
+                        CultnameResult.DefiniteArticle = item;
                     }
 
-                    if ((Adjective1 != null) && isAdjective1Selected)
+                    if ((CultnameResult.Adjective1 != null) && isAdjective1Selected)
                     {
-                        Adjective1 = item;
+                        CultnameResult.Adjective1 = item;
                     }
 
-                    if ((Noun1 != null) && isNoun1Selected)
+                    if ((CultnameResult.Noun1 != null) && isNoun1Selected)
                     {
-                        Noun1 = item;
+                        CultnameResult.Noun1 = item;
                     }
 
-                    if ((Adjective2 != null) && isAdjective2Selected)
+                    if ((CultnameResult.Adjective2 != null) && isAdjective2Selected)
                     {
-                        Adjective2 = item;
+                        CultnameResult.Adjective2 = item;
                     }
 
-                    if ((Noun2 != null) && isNoun2Selected)
+                    if ((CultnameResult.Noun2 != null) && isNoun2Selected)
                     {
-                        Noun2 = item;
+                        CultnameResult.Noun2 = item;
                     }
                 }
                 finally

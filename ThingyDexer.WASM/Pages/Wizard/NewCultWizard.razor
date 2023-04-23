@@ -31,7 +31,7 @@
                     AfterNextStepAction="@(() =>
                         {
                             CultDefinition.CultName = ViewModel?.Cultname ?? "[Unknown]";
-                            CultDefinition.Deity = $"{ViewModel?.Adjective2?.Value} {ViewModel?.Noun2?.Value}".Trim();
+                            CultDefinition.Deity = $"{ViewModel?.CultnameResult.Adjective2?.Value} {ViewModel?.CultnameResult.Noun2?.Value}".Trim();
                         })">
 
             <CultNameGenerator @ref=generatorControl CultNameSettingsViewModel=@EditModel

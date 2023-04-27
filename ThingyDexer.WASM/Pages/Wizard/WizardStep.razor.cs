@@ -20,13 +20,39 @@ namespace ThingyDexer.WASM.Pages.Wizard
         }
 
         private IEnumerable<DisplayError> _Errors = new List<DisplayError>();
-        public IEnumerable<DisplayError> Errors => _Errors;
+        public IEnumerable<DisplayError> Errors
+        {
+            get => _Errors;
+            private set => _Errors = value;
+        }
 
 
         [Inject] public IServiceProvider ServiceProvider { get; set; }
 
+
+        private ViewModelBase _ViewModel;
         [Parameter]
-        public ViewModelBase ViewModel { get; set; }
+        public ViewModelBase ViewModel
+        {
+            get => _ViewModel;
+            set {
+                if (value != _ViewModel)
+                {
+                    if (_ViewModel is not null)
+                    {
+                        _ViewModel.PropertyChanged -= ViewModel_PropertyChanged;
+                    }
+
+                    _ViewModel = value;
+
+                    if (_ViewModel is not null)
+                    {
+                        _ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+                        DoValidateModel();
+                    }
+                }
+            }
+        }
 
         [Parameter] public Action? BeforeNextStepAction { get; set; }
 
@@ -57,10 +83,13 @@ namespace ThingyDexer.WASM.Pages.Wizard
             // if ((IsStepValid == null) || (MyContext?.IsModified() == true))
             {
                 bool? isValid = MyContext?.Validate();
+                int oldErrorCount = Errors?.Count() ?? 0;
 
-                _Errors = MyContext?.GetValidationMessages().Select(o => new DisplayError(o)).ToList() ?? new List<DisplayError>();
+                Errors = MyContext?.GetValidationMessages().Select(o => new DisplayError(o)).ToList() ?? new List<DisplayError>();
 
-                if (IsStepValid != isValid)
+                int newErrorCount = Errors?.Count() ?? 0;
+
+                if ((IsStepValid != isValid) || (oldErrorCount != newErrorCount))
                 {
                     IsStepValid = isValid;
                     StateHasChanged();
@@ -71,16 +100,17 @@ namespace ThingyDexer.WASM.Pages.Wizard
         protected override void OnInitialized()
         {
             Parent.AddStep(this);
+
+            MyContext = new EditContext(ViewModel);
+            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
+            MyContext.MarkAsUnmodified();
+            DoValidateModel();
         }
 
         protected async override Task OnParametersSetAsync()
         {
             await base.OnParametersSetAsync();
-            MyContext = new EditContext(ViewModel);
-            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
-            MyContext.MarkAsUnmodified();
-            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-            DoValidateModel();
+
         }
 
         private void ViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)

@@ -13,14 +13,22 @@ namespace ThingyDexer.WASM.Pages.Wizard
             get;
             private set;
         }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            MyContext = new EditContext(CultNameSettingsViewModel);
+            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
+            MyContext.MarkAsUnmodified();
+        }
         protected override void OnParametersSet()
         {
             base.OnParametersSet();
 
-            CultNameSettingsViewModel ??= new();
-
-            MyContext = new EditContext(CultNameSettingsViewModel);
-            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
+//            CultNameSettingsViewModel ??= new();
+//
+//            MyContext = new EditContext(CultNameSettingsViewModel);
+//            MyContext.EnableDataAnnotationsValidation(ServiceProvider);
         }
         #endregion Protected
 
@@ -35,7 +43,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
         {
             get;
             set;
-        }
+        } = new();
 
     }
 }

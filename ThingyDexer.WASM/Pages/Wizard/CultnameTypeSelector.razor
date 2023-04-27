@@ -1,6 +1,6 @@
 ﻿@using ThingyDexer.Model.General;
 
-<EditForm Model="CultNameSettingsViewModel">
+<EditForm EditContext="MyContext">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
     <div class="row">
@@ -138,4 +138,5 @@
             </div>
         </div>
     </InputRadioGroup>
+    <ValidationMessage For="@(() =>  CultNameSettingsViewModel.CultnameInputType)"></ValidationMessage>
 </EditForm>

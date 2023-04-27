@@ -26,12 +26,13 @@
 	- template : [adjective] [possessive noun] [adjective] [noun] (Unholy King's Rotten Apple)
 	- option to include definite article
 	- added validations
-3) [expirmental] indicator for new version updates (visible only when app update is available)
+3) [experimental] indicator for new version updates (visible only when app update is available)
 4) option to collapse sidemenu to icons
-5) (new) editors added to cult detail page (WIP)
+5) (WIP) editors added to cult detail page
+6) improved validation + updated error messages
 
 ## Version
-v0.1.19 (ALPHA)
+v0.1.20 (ALPHA)
 
 ### Experimental
 - new version indicator in UI
@@ -41,4 +42,4 @@ v0.1.19 (ALPHA)
 ### Breaking changes
 
 ### Changes
-- editors added to cult detail page (WIP)
+- improved validation + updated error messages

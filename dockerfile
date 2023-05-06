@@ -28,7 +28,15 @@ RUN dotnet build ThingyDexer.WASM.csproj -c Release -o /app/build/ThingyDexer.WA
 FROM build AS publish
 RUN dotnet publish ThingyDexer.WASM.csproj -c Release -o /app/publish
 
-FROM nginx:alpine AS final
+
+FROM nginx:stable-alpine AS final
 WORKDIR /usr/share/nginx/html
-COPY --from=publish /app/publish/wwwroot .
+
+COPY --chmod=755 --from=publish /app/publish/wwwroot .
 COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --chmod=755 <<-"EOT" /usr/share/nginx/html/sample-data/Version.md
+## Version
+v0.1.20 (ALPHA - DOCKER)
+EOT
+EXPOSE 80

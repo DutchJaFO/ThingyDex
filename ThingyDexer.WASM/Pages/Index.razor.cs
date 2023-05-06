@@ -13,22 +13,32 @@ namespace ThingyDexer.WASM.Pages
         protected override async Task OnInitializedAsync()
         {
             MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
-            if (Welcome is null)
+            // if (Welcome is null)
             {
                 string markdownText = await Client.GetStringAsync("sample-data/Welcome.md");
                 Welcome = Markdig.Markdown.ToHtml(markdownText, pipeline);
             }
 
-            if (ReleaseNotes is null)
+            // if (ReleaseNotes is null)
             {
                 string markdownText = await Client.GetStringAsync("sample-data/ReleaseNotes.md");
                 ReleaseNotes = Markdig.Markdown.ToHtml(markdownText, pipeline);
             }
+
+            if (Test is null)
+            {
+                try
+                {
+                    string markdownText = await Client.GetStringAsync("sample-data/Version.md");
+                    Test = Markdig.Markdown.ToHtml(markdownText, pipeline);
+                }
+                catch {
+                }
+            }
         }
-
-        public bool TrackTrivia { get; private set; }
         public string? Welcome { get; set; }
-
         public string? ReleaseNotes { get; set; }
+
+        public string? Test { get; set; }
     }
 }

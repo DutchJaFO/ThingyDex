@@ -31,9 +31,6 @@
 5) (WIP) editors added to cult detail page
 6) improved validation + updated error messages
 
-## Version
-v0.1.20 (ALPHA)
-
 ### Experimental
 - new version indicator in UI
 

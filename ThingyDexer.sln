@@ -19,6 +19,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{49592DFB-34D4-4D4A-8811-8E01ECAE24F1}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		dockerfile = dockerfile
+		nginx.conf = nginx.conf
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThingyDexer.Test", "ThingyDexer.Test\ThingyDexer.Test.csproj", "{B046AF3C-E4F0-43BC-866E-8C1D16D4DCDA}"

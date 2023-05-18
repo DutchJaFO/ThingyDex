@@ -10,6 +10,17 @@ namespace ThingyDexer.ViewModel
             serviceCollection.AddTransient<CultNameGeneratorViewModel>();
             serviceCollection.AddTransient<CultNameSettingsViewModel>();
             serviceCollection.AddTransient<CultDefinitionViewModel>();
+            serviceCollection.AddTransient<CultRitualsViewModel>((s) =>
+                        {
+                            CultRitualsViewModel data = new();
+                            /*
+                            CultRitualViewModel ritual = CultRitualViewModel.Create();
+                            ritual.Name = "TEST";
+                            data.Rituals.Add(ritual);
+                            */
+                            return data;
+                        });
+
             return serviceCollection;
         }
     }

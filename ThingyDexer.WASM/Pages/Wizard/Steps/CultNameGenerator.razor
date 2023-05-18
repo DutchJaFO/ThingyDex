@@ -24,14 +24,14 @@
                 <!--re-roll bits -->
                 <div class="row">
                     <div class="col-sm-auto py-1 px-1">
-                        <Button     Disabled="@HasNoSelection" Color="ButtonColor.Secondary"
+                        <Button Disabled="@HasNoSelection" Color="ButtonColor.Secondary"
                         @onclick="@((a)=>{CultNameGeneratorViewModel.RerollSelectedRegel();StateHasChanged();})">
                             <Icon Name="IconName.Dice3Fill" />
                             Re-roll selection
                         </Button>
                     </div>
                     <div class="col-sm-auto py-1 px-1">
-                        <Button Disabled="@HasNoCultname"                        Color="ButtonColor.Secondary"
+                        <Button Disabled="@HasNoCultname" Color="ButtonColor.Secondary"
                         @onclick="@(()=> {CultNameGeneratorViewModel.RerollCultName(); StateHasChanged();})">
                             <Icon Name="IconName.Dice4Fill" />
                             Re-roll name
@@ -44,7 +44,7 @@
                 {
                     <div class="row">
                         <div class="col-sm-auto py-1 px-1">
-                            <Button Disabled="@HasNoSelection"                         Color="ButtonColor.Danger" @onclick="@(() => {CultNameGeneratorViewModel.ClearSelectedItem();StateHasChanged();})">
+                            <Button Disabled="@HasNoSelection" Color="ButtonColor.Danger" @onclick="@(() => {CultNameGeneratorViewModel.ClearSelectedItem();StateHasChanged();})">
                                 <Icon Name="IconName.Trash" />
                                 Delete selection
                             </Button>
@@ -126,9 +126,9 @@
                         @if (CultNameGeneratorViewModel is not null)
                         {
                             string testLabel = $"Show details of table {CultNameGeneratorViewModel.SelectedRegel?.Owner?.Name ?? String.Empty}";
-                            <Switch @ref=swShowDetails 
-                                @bind-Value="@CultNameGeneratorViewModel.ShowDetails" 
-                                Label="@testLabel">
+                            <Switch @ref=swShowDetails
+                        @bind-Value="@CultNameGeneratorViewModel.ShowDetails"
+                        Label="@testLabel">
                             </Switch>
                         }
                     </div>
@@ -169,7 +169,9 @@
                     <GridColumn TItem="SelectableRegelString"
                             PropertyName="IdText"
                             HeaderText="Id"
-                            IsDefaultSortColumn=true SortDirection="SortDirection.Ascending" SortKeySelector="@((o) => o.IdText)" Class="col-sm-auto" FilterValue="">
+                            IsDefaultSortColumn=true 
+                            SortDirection="SortDirection.Ascending" 
+                            SortKeySelector="@((o) => o.IdText)" Class="col-sm-auto" FilterValue="">
                         <label @onclick="@(() => {var x=context; DoChangeSelectedRow(x, (CultNameGeneratorViewModel?.Settings.CultnameInputType == CultnameInputType.Custom));})">
                             @if (context.Selected)
                             {

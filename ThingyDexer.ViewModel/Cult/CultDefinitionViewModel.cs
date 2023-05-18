@@ -3,10 +3,11 @@ using ThingyDexer.Model.Cult;
 
 namespace ThingyDexer.ViewModel.Cult
 {
+
     public class CultDefinitionViewModel : ViewModelBase
     {
         private string _CultName = string.Empty;
-        [Required(ErrorMessage ="Cult name is required")]
+        [Required(ErrorMessage = "Cult name is required")]
         public string CultName
         {
             get => _CultName;
@@ -29,7 +30,7 @@ namespace ThingyDexer.ViewModel.Cult
         }
 
         private StatBlockType? _PrimaryFocus;
-        [Required(ErrorMessage ="Primary focus is required")]
+        [Required(ErrorMessage = "Primary focus is required")]
         public StatBlockType? PrimaryFocus
         {
             get => _PrimaryFocus;
@@ -37,8 +38,8 @@ namespace ThingyDexer.ViewModel.Cult
         }
 
         private int? _StartingFavour;
-        [Required(ErrorMessage ="Need starting favour (300 or 500 recommended)")]
-        [Range(0, 1000, ErrorMessage ="Starting favour must be between 0 and 1000")]
+        [Required(ErrorMessage = "Need starting favour (300 or 500 recommended)")]
+        [Range(0, 1000, ErrorMessage = "Starting favour must be between 0 and 1000")]
         public int? StartingFavour
         {
             get => _StartingFavour;
@@ -46,7 +47,7 @@ namespace ThingyDexer.ViewModel.Cult
         }
 
         private int _InitialPower;
-        [Required(ErrorMessage ="Initial power is required")]
+        [Required(ErrorMessage = "Initial power is required")]
         [Range(0, 1000, ErrorMessage = "Initial power must be between 0 and 1000")]
         public int InitialPower
         {

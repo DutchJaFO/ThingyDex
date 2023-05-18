@@ -1,0 +1,104 @@
+﻿@using ThingyDexer.Model.Cult
+@using ThingyDexer.ViewModel.Cult
+<div class="border border-1">
+    <EditForm EditContext="MyContext" OnValidSubmit="@DoOnValidSubmit" OnInvalidSubmit="@DoOnInvalidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">
+                Cult name
+            </label>
+            <div class="col-sm-8 py-1 px-1">
+                <InputText class="w-100" @bind-Value="@ViewModel.CultName"></InputText>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">
+                Deity
+            </label>
+            <div class="col-sm-8 py-1 px-1">
+                <InputText class="w-100" @bind-Value="@ViewModel.Deity"></InputText>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">
+                Description
+            </label>
+            <div class="col-sm-8 py-1 px-1" style="margin-right:16px">
+                <InputTextArea class="w-100" @bind-Value="@ViewModel.Description"></InputTextArea>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">
+                Primary focus
+            </label>
+            <div class="col-sm-10 py-1 px-1">
+                <InputRadioGroup @bind-Value="ViewModel.PrimaryFocus">
+                    <div class="row" style="padding-left:8px; padding-right:8px;margin-right:16px">
+                        @{
+                            var x = EnumExtensions.GetEnumList<StatBlockType>();
+                            foreach (StatBlockType stat in x)
+                            {
+                                <div class="col-sm-auto mx-8 py-1 px-1">
+                                    <InputRadio id="@($"edtTemplate{stat}")" Value="@stat" />
+                                    <label class="px-2" for="@($"edtTemplate{stat}")">
+                                        @stat
+                                    </label>
+                                </div>
+                            }
+                        }
+                        <div class="col py-1 px-1">
+                        </div>
+                    </div>
+                </InputRadioGroup>
+            </div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">
+                Starting Favour
+            </label>
+            <div class="col-sm-2 py-1 px-1">
+                <NumberInput TValue="int?"
+                             Value="@ViewModel.StartingFavour"
+                             ValueChanged="@((a) => { ViewModel.StartingFavour=a; })"></NumberInput>
+            </div>
+            <div class="col-sm-auto py-1 px-1">
+                <Button Color="ButtonColor.Secondary" Type="ButtonType.Button" 
+                        @onclick="@(() =>
+                               {
+                                   ViewModel.StartingFavour = 300;
+                                   StateHasChanged();
+                               })">
+                    300
+                </Button>
+                <Button Color="ButtonColor.Secondary" Type="ButtonType.Button"
+                        @onclick="@(() =>
+                                {
+                                    ViewModel.StartingFavour = 500;
+                                    StateHasChanged();
+                                })">
+                    500
+                </Button>
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="form-group row mb-3">
+            <label class="col-sm-2 col-form-label">Initial power</label>
+            <div class="col-sm-2 py-1 px-1">
+                <NumberInput TValue="int" AllowNegativeNumbers=false
+                             Value="@ViewModel.InitialPower"
+                             ValueChanged="@(async (a) => { ViewModel.InitialPower=a; await InvokeAsync( StateHasChanged);})">
+                </NumberInput>
+            </div>
+            <div class="col"></div>
+        </div>
+    </EditForm>
+</div>

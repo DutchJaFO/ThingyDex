@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using ThingyDexer.ViewModel.Cult;
 
-namespace ThingyDexer.WASM.Pages.Wizard
+namespace ThingyDexer.WASM.Pages.Wizard.Steps
 {
     public partial class CultnameTypeSelector
     {

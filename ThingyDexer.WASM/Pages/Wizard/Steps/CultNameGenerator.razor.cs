@@ -5,7 +5,7 @@ using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
 
-namespace ThingyDexer.WASM.Pages.Wizard
+namespace ThingyDexer.WASM.Pages.Wizard.Steps
 {
     public partial class CultNameGenerator
     {
@@ -131,7 +131,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
             private set;
         }
 
-        [Inject] IServiceProvider ServiceProvider { get; set; }
+        [Inject] private IServiceProvider ServiceProvider { get; set; }
 
         [Inject]
         public CultnameTableSet CultnameTableSet

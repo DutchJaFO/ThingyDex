@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using ThingyDexer.ViewModel.Cult;
 
-namespace ThingyDexer.WASM.Pages.Wizard
+namespace ThingyDexer.WASM.Pages.Wizard.Steps
 {
     public partial class CultDefinition
     {
@@ -58,9 +58,10 @@ namespace ThingyDexer.WASM.Pages.Wizard
             //     var d = MyContext.GetValidationMessages(fieldIdentifier).ToArray();
             // }
         }
+
         #endregion Protected
 
-        
+
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         [Inject] public IServiceProvider ServiceProvider { get; set; }
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

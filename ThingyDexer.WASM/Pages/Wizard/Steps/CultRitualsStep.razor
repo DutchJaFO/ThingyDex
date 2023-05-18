@@ -1,0 +1,168 @@
+﻿@using ThingyDexer.Model.Cult
+@using ThingyDexer.ViewModel.Cult
+
+<div>
+    <div class="row">
+        <div class="col">
+            <Grid TItem="CultRitualViewModel" @ref=SourceGrid
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="AvailableRitualsDataprovider"
+                  AllowPaging=true PageSize="@CurrentPageSize"
+                  PaginationAlignment="Alignment.Start"
+                  Responsive=true
+                  AllowFiltering=true
+                  AllowSorting=true EmptyText="[blah]" RowClass="GetRowClass">
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <Switch @bind-Value="context.Checked" Disabled="false" Label="Selected">
+                        </Switch>
+                    }
+                    else
+                    {
+                        <Switch @bind-Value="context.Checked" Disabled="true" Label="" hidden>
+                        </Switch>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Name" PropertyName="Name" IsDefaultSortColumn=true Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Name
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Description" PropertyName="Description" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Description
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Passive" PropertyName="Passive" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Passive
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Ritual points" PropertyName="RitualPoints" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.RitualPoints
+                        </span>
+                    }
+                </GridColumn>
+            </Grid>
+        </div>
+        <div class="col-sm-auto">
+            <div class="row">
+                <Button Color="ButtonColor.Primary"
+                        Type="ButtonType.Button"
+                        Class="mx-2 my-2"
+                        Disabled="@(ViewModel.SelectedSource.Any() == false)"
+                        Block=true
+                        onclick="@(async() =>
+                                    {
+                                        ViewModel.AddSelection();
+                                        await UpdateGrids();
+                                    })">
+                    [Add selection
+                    @if (ViewModel.SelectedSource.Any())
+                    {
+                        @(ViewModel.SelectedSourceCost)
+                    }
+                    ]
+                </Button>
+            </div>
+            <div class="row">
+                <Button Color="ButtonColor.Primary"
+                        Type="ButtonType.Button"
+                        Class="mx-2 my-2"
+                        Disabled="@(ViewModel.SelectedTarget.Any() == false)"
+                        Block=true
+                        onclick="@(async () =>
+                                    {
+                                        ViewModel.RemoveSelection();
+                                        await UpdateGrids();
+                                    })">
+                    [Remove selection
+                    @if (ViewModel.SelectedTarget.Any())
+                    {
+                        @(ViewModel.SelectedTargetCost)
+                    }
+                    ]
+                </Button>
+            </div>
+        </div>
+        <div class="col">
+            <Grid TItem="CultRitualViewModel" @ref=TargetGrid
+                  DataProvider="SelectedRitualsDataprovider"
+                  Class="table table-hover table-bordered table-striped"
+                  AllowPaging=true PageSize="@CurrentPageSize"
+                  PaginationAlignment="Alignment.Start"
+                  Responsive=true
+                  AllowFiltering=true
+                  AllowSorting=true
+                  EmptyText="[TODO]" RowClass="GetRowClass">
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <Switch @bind-Value="context.Checked" Disabled="false" Label="Selected">
+                        </Switch>
+                    }
+                    else
+                    {
+                        <Switch @bind-Value="context.Checked" Disabled="true" Label="" hidden>
+                        </Switch>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Name" PropertyName="Name" IsDefaultSortColumn=true Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Name
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Description" PropertyName="Description" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Description
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Passive" PropertyName="Passive" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Passive
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultRitualViewModel" HeaderText="Ritual points" PropertyName="RitualPoints" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.RitualPoints
+                        </span>
+                    }
+                </GridColumn>
+            </Grid>
+        </div>
+    </div>
+</div>

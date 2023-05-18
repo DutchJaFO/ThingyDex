@@ -1,4 +1,8 @@
-﻿@using ThingyDexer.WASM.Pages.Wizard
+﻿@using ThingyDexer.ViewModel.Table;
+@using ThingyDexer.WASM.Pages.Wizard
+@using ThingyDexer.WASM.Pages.Wizard.Steps
+@using ThingyDexer.ViewModel.Cult
+@using ThingyDexer.Model.Cult
 
 <div class="container-fluid">
     @if (ViewModel.UseGenerator == true)
@@ -44,6 +48,13 @@
                     AfterNextStepAction="@(() => {})">
 
             <CultDefinition ViewModel="@CultDefinition"></CultDefinition>
+        </WizardStep>
+
+        <WizardStep Id="step4" Name="Rituals" Title="Rituals"
+                    ViewModel=@CultRituals
+                    BeforeNextStepAction="@(() => {})"
+                    AfterNextStepAction="@(() => {})">
+            <CultRitualsStep ViewModel="@CultRituals"></CultRitualsStep>
         </WizardStep>
         @*
 

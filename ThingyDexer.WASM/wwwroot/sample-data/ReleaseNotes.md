@@ -28,13 +28,16 @@
 	- added validations
 3) [experimental] indicator for new version updates (visible only when app update is available)
 4) option to collapse sidemenu to icons
-5) (WIP) editors added to cult detail page
+5) editors added to cult detail page
 6) improved validation + updated error messages
+7) (WIP) step 'add rituals'
 
 ### Experimental
 - new version indicator in UI
 
 ### New features
+- (WIP) step 'add rituals'
+	list contains dummy data
 
 ### Breaking changes
 

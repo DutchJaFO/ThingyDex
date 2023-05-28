@@ -16,7 +16,7 @@
                 <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
                     @if (context.IsEmpty == false)
                     {
-                        <Switch @bind-Value="context.Checked" Disabled="false" Label="Selected">
+                        <Switch @bind-Value="context.Checked" Disabled="false" Label="">
                         </Switch>
                     }
                     else
@@ -68,10 +68,11 @@
                 <Button Color="ButtonColor.Primary"
                         Type="ButtonType.Button"
                         Class="mx-2 my-2"
-                        Disabled="@(ViewModel.SelectedSource.Any() == false)"
+                        Disabled="@(ViewModel.CanAddSelection == false)"
                         Block=true
                         onclick="@(async() =>
                                     {
+                                        var cost = ViewModel.SelectedSourceCost;
                                         ViewModel.AddSelection();
                                         await UpdateGrids();
                                     })">
@@ -87,10 +88,11 @@
                 <Button Color="ButtonColor.Primary"
                         Type="ButtonType.Button"
                         Class="mx-2 my-2"
-                        Disabled="@(ViewModel.SelectedTarget.Any() == false)"
+                        Disabled="@(ViewModel.CanAddTarget == false)"
                         Block=true
                         onclick="@(async () =>
                                     {
+                                        var cost = ViewModel.SelectedTargetCost;
                                         ViewModel.RemoveSelection();
                                         await UpdateGrids();
                                     })">
@@ -101,6 +103,9 @@
                     }
                     ]
                 </Button>
+
+                <div>RitualsCost : @ViewModel.RitualsCost</div>
+                <div>StartingFavour : @Definition.StartingFavour</div>
             </div>
         </div>
         <div class="col">
@@ -117,7 +122,7 @@
                 <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
                     @if (context.IsEmpty == false)
                     {
-                        <Switch @bind-Value="context.Checked" Disabled="false" Label="Selected">
+                        <Switch @bind-Value="context.Checked" Disabled="false" Label="">
                         </Switch>
                     }
                     else

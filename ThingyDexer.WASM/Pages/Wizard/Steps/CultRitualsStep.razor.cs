@@ -1,23 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using System.Net.Http;
-using System.Net.Http.Json;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.AspNetCore.Components.WebAssembly.Http;
-using Microsoft.JSInterop;
-using ThingyDexer.WASM;
-using ThingyDexer.WASM.Shared;
 using BlazorBootstrap;
-using ThingyDexer.Model.Cult;
+using Microsoft.AspNetCore.Components;
 using ThingyDexer.ViewModel.Cult;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ThingyDexer.WASM.Pages.Wizard.Steps
 {
@@ -33,7 +16,7 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
             }
         }
 
-        private List<CultRitualViewModel> _EmptyRows;
+        private readonly List<CultRitualViewModel> _EmptyRows;
         private async Task<GridDataProviderResult<CultRitualViewModel>> AvailableRitualsDataprovider(GridDataProviderRequest<CultRitualViewModel> request)
         {
             IEnumerable<CultRitualViewModel> ritualList = ViewModel.AvailabelCultRituals;
@@ -101,7 +84,9 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         private Grid<CultRitualViewModel>? SourceGrid;
         private Grid<CultRitualViewModel>? TargetGrid;
 
+        public CultRitualsViewModel? ViewModel => Definition?.Rituals;
+
         [Parameter, EditorRequired]
-        public CultRitualsViewModel ViewModel { get; set; } = new CultRitualsViewModel();
+        public CultDefinitionViewModel? Definition { get; set; }
     }
 }

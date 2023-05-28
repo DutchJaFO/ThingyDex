@@ -73,7 +73,7 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         {
             get;
             set;
-        } = new();
+        } 
 
     }
 }

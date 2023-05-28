@@ -6,6 +6,13 @@ namespace ThingyDexer.ViewModel.Cult
 
     public class CultDefinitionViewModel : ViewModelBase
     {
+        public CultDefinitionViewModel(CultRitualsViewModel cultRitualsViewModel)
+        {
+            Rituals = cultRitualsViewModel;
+            Rituals.GetStartingFavourCost = () => this.StartingFavour;
+            Rituals.SetStartingFavourCost = (a) => this.StartingFavour = a;
+        }
+
         private string _CultName = string.Empty;
         [Required(ErrorMessage = "Cult name is required")]
         public string CultName
@@ -54,5 +61,7 @@ namespace ThingyDexer.ViewModel.Cult
             get => _InitialPower;
             set => SetField(ref _InitialPower, value);
         }
+
+        public CultRitualsViewModel Rituals { get; private set; }
     }
 }

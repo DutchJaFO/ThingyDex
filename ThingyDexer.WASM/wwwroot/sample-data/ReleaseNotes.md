@@ -37,7 +37,8 @@
 
 ### New features
 - (WIP) step 'add rituals'
-	list contains dummy data
+	- list contains dummy data
+	- maximum 4 rituals or favour cost
 
 ### Breaking changes
 

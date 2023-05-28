@@ -51,10 +51,10 @@
         </WizardStep>
 
         <WizardStep Id="step4" Name="Rituals" Title="Rituals"
-                    ViewModel=@CultRituals
+                    ViewModel=@CultDefinition.Rituals
                     BeforeNextStepAction="@(() => {})"
                     AfterNextStepAction="@(() => {})">
-            <CultRitualsStep ViewModel="@CultRituals"></CultRitualsStep>
+            <CultRitualsStep Definition=@CultDefinition></CultRitualsStep>
         </WizardStep>
         @*
 

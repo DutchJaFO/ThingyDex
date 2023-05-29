@@ -44,7 +44,7 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
             StateHasChanged();
         }
 
-        protected void DoStuffChanged(int? a)
+        protected void DoStuffChanged(int a)
         {
             ViewModel.StartingFavour = a;
             StateHasChanged();

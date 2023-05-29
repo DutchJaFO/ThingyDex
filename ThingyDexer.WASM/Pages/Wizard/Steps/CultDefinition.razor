@@ -65,9 +65,8 @@
                 Starting Favour
             </label>
             <div class="col-sm-2 py-1 px-1">
-                <NumberInput TValue="int?"
-                             Value="@ViewModel.StartingFavour"
-                             ValueChanged="@((a) => { ViewModel.StartingFavour=a; })"></NumberInput>
+                <NumberInput TValue="int"
+                             @bind-Value="@ViewModel.StartingFavour"></NumberInput>
             </div>
             <div class="col-sm-auto py-1 px-1">
                 <Button Color="ButtonColor.Secondary" Type="ButtonType.Button" 

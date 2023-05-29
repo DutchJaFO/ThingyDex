@@ -55,7 +55,7 @@ namespace ThingyDexer.ViewModel.Cult
                 return
                    (SelectedSource?.Any() == true)
                    && ((Rituals.Count + (SelectedSource?.Count() ?? 0)) <= 4)
-                   && (SelectedSource?.Sum(o => o.RitualPoints) ?? 0) <= (GetStartingFavourCost is null ? 300 : GetStartingFavourCost.Invoke());
+                   && (SelectedSource?.Sum(o => o.RitualPoints) ?? 0) <= (GetBudget is null ? 300 : GetBudget.Invoke());
             }
         }
 
@@ -83,8 +83,8 @@ namespace ThingyDexer.ViewModel.Cult
             private set => SetField(ref _RitualsCost, value);
         }
 
-        public Func<int?> GetStartingFavourCost { get; internal set; }
-        public Action<int?> SetStartingFavourCost { get; internal set; }
+        public Func<int> GetBudget { get; internal set; }
+        public Action<int> SetBudget { get; internal set; }
 
         public void AddSelection()
         {
@@ -98,10 +98,10 @@ namespace ThingyDexer.ViewModel.Cult
 
             RitualsCost += cost;
 
-            var currentFavour = GetStartingFavourCost.Invoke();
-            if (SetStartingFavourCost is not null)
+            var currentBudget = GetBudget.Invoke();
+            if (SetBudget is not null)
             {
-                SetStartingFavourCost(currentFavour - cost);
+                SetBudget(currentBudget - cost);
             }
         }
 
@@ -118,10 +118,10 @@ namespace ThingyDexer.ViewModel.Cult
 
             RitualsCost -= cost;
 
-            var currentFavour = GetStartingFavourCost.Invoke();
-            if (SetStartingFavourCost is not null)
+            var currentFavour = GetBudget.Invoke();
+            if (SetBudget is not null)
             {
-                SetStartingFavourCost(currentFavour + cost);
+                SetBudget(currentFavour + cost);
             }
         }
 

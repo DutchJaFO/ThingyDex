@@ -36,11 +36,11 @@
 - new version indicator in UI
 
 ### New features
-- (WIP) step 'add rituals'
-	- list contains dummy data
-	- maximum 4 rituals or favour cost
 
 ### Breaking changes
 
 ### Changes
 - improved validation + updated error messages
+
+### TO DO
+- list of available rituals

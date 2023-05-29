@@ -9,8 +9,8 @@ namespace ThingyDexer.ViewModel.Cult
         public CultDefinitionViewModel(CultRitualsViewModel cultRitualsViewModel)
         {
             Rituals = cultRitualsViewModel;
-            Rituals.GetStartingFavourCost = () => this.StartingFavour;
-            Rituals.SetStartingFavourCost = (a) => this.StartingFavour = a;
+            Rituals.GetBudget = () => { return this.Budget; };
+            Rituals.SetBudget = (a) => { this.Budget = a; };
         }
 
         private string _CultName = string.Empty;
@@ -44,13 +44,45 @@ namespace ThingyDexer.ViewModel.Cult
             set => SetField(ref _PrimaryFocus, value);
         }
 
-        private int? _StartingFavour;
+        public bool AutoFixMinimalBudget { get; set; } = false;
+
+        private int _StartingFavour;
         [Required(ErrorMessage = "Need starting favour (300 or 500 recommended)")]
-        [Range(0, 1000, ErrorMessage = "Starting favour must be between 0 and 1000")]
-        public int? StartingFavour
+        [Range(0, int.MaxValue, ErrorMessage = "Starting favour must be between 0 and 1000")]
+        public int StartingFavour
         {
             get => _StartingFavour;
-            set => SetField(ref _StartingFavour, value);
+            set
+            {
+                var newBudget = value - _StartingFavour;
+                if (AutoFixMinimalBudget == false)
+                {
+                    Budget += newBudget;
+                    SetField(ref _StartingFavour, value);
+                }
+                else
+                {
+                    if ((Budget + newBudget) >= 0)
+                    {
+                        Budget += newBudget;
+                        SetField(ref _StartingFavour, value);
+                    }
+                    else
+                    {
+                        var delta = _StartingFavour - Budget;
+                        Budget = 0;
+                        SetField(ref _StartingFavour, delta);
+                    }
+                }
+            }
+        }
+
+        private int _Budget;
+        [Range(0, int.MaxValue, ErrorMessage = "Changing starting favour can not result in negative budget")]
+        public int Budget
+        {
+            get => _Budget;
+            set => SetField(ref _Budget, value);
         }
 
         private int _InitialPower;

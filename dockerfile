@@ -37,6 +37,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY --chmod=755 <<-"EOT" /usr/share/nginx/html/sample-data/Version.md
 ## Version
-v0.1.24 (ALPHA - DOCKER)
+v0.1.25 (ALPHA - DOCKER)
 EOT
 EXPOSE 80

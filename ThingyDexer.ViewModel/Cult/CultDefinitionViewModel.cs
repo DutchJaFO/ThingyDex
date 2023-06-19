@@ -6,8 +6,12 @@ namespace ThingyDexer.ViewModel.Cult
 
     public class CultDefinitionViewModel : ViewModelBase
     {
-        public CultDefinitionViewModel(CultRitualsViewModel cultRitualsViewModel)
+        public CultDefinitionViewModel(CultRitualsViewModel cultRitualsViewModel, CultMembersViewModel cultMembersViewModel)
         {
+            Members = cultMembersViewModel;
+            Members.GetBudget = () => { return this.Budget; };
+            Members.SetBudget = (a) => { this.Budget = a; };
+
             Rituals = cultRitualsViewModel;
             Rituals.GetBudget = () => { return this.Budget; };
             Rituals.SetBudget = (a) => { this.Budget = a; };
@@ -95,5 +99,7 @@ namespace ThingyDexer.ViewModel.Cult
         }
 
         public CultRitualsViewModel Rituals { get; private set; }
+
+        public CultMembersViewModel Members { get; private set; }
     }
 }

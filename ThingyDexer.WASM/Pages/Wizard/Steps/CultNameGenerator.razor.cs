@@ -1,6 +1,7 @@
 using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using ThingyDexer.Model.General;
 using ThingyDexer.Model.Table;
 using ThingyDexer.ViewModel.Cult;
 using ThingyDexer.ViewModel.Table;
@@ -39,11 +40,11 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
             }
             else
             {
-                List<SelectableRegelString> set = new ();
+                List<SelectableRegelString> set = new();
                 return await Task.FromResult(request.ApplyTo(set));
             }
         }
-        private static string? MakePossessive(string? value) => 
+        private static string? MakePossessive(string? value) =>
             string.IsNullOrEmpty(value)
                 ? value
                 : value.EndsWith('s')
@@ -153,7 +154,7 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         {
             get;
             set;
-        } 
+        }
 
 
 

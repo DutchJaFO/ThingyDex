@@ -11,7 +11,9 @@
                   PaginationAlignment="Alignment.Start"
                   Responsive=true
                   AllowFiltering=true
-                  AllowSorting=true EmptyText="[blah]" RowClass="GetRowClass">
+                  AllowSorting=true 
+                  AllowSelection=false
+                  RowClass="GetRowClass">
 
                 <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
                     @if (context.IsEmpty == false)
@@ -118,7 +120,8 @@
                   Responsive=true
                   AllowFiltering=true
                   AllowSorting=true
-                  EmptyText="[TODO]" RowClass="GetRowClass">
+                  AllowSelection=false
+                  RowClass="GetRowClass">
 
                 <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
                     @if (context.IsEmpty == false)

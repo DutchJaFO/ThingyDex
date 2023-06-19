@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 namespace ThingyDexer.ViewModel.Cult
 {
     public class CultRitualsViewModel : ViewModelBase, IDisposable
@@ -33,7 +31,7 @@ namespace ThingyDexer.ViewModel.Cult
 
             for (int i = 1; i <= 40; i++)
             {
-                var item = CultRitualViewModel.Create();
+                CultRitualViewModel item = new ();
                 {
                     item.Name = $"Ritual {i:d2}";
                     item.Description = $"Test ritual {i}"; item.Passive = false; item.RitualPoints = i * 10;

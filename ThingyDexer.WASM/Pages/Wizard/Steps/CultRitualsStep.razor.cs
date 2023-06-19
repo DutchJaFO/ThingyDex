@@ -9,10 +9,11 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         public int CurrentPageSize { get; } = 15;
         public CultRitualsStep()
         {
+
             _EmptyRows = new();
             for (int i = 1; i <= CurrentPageSize; i++)
             {
-                _EmptyRows.Add(CultRitualViewModel.Empty());
+                _EmptyRows.Add(new ());
             }
         }
 

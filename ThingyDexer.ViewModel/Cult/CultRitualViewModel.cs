@@ -2,21 +2,33 @@
 
 namespace ThingyDexer.ViewModel.Cult
 {
+    public class CultMemberViewModel : ViewModelBase
+    {
+        public bool IsEmpty { get; init; }
+
+        public CultMemberViewModel()
+        {
+            IsEmpty = true;
+        }
+    }
     public class CultRitualViewModel : ViewModelBase
     {
-        private static CultRitualViewModel _Empty = new(true);
+        public CultRitualViewModel() { }
 
-        protected CultRitualViewModel(bool empty = false) { IsEmpty = empty; }
-
-        public static CultRitualViewModel Create() => new(false);
-        public static CultRitualViewModel Empty() => new(true);
+        public bool IsEmpty { get; private set; } = true;
 
         private string _Name = string.Empty;
         [Required]
         public string Name
         {
             get => _Name;
-            set => SetField(ref _Name, value);
+            set
+            {
+                if (SetField(ref _Name, value))
+                {
+                    IsEmpty = string.IsNullOrEmpty(_Name);
+                }
+            }
         }
 
         private bool _Passive = false;
@@ -47,6 +59,5 @@ namespace ThingyDexer.ViewModel.Cult
             get => _Checked;
             set => SetField(ref _Checked, value);
         }
-        public bool IsEmpty { get; init; }
     }
 }

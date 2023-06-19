@@ -1,142 +1,147 @@
 ﻿@using ThingyDexer.Model.General;
-
-<EditForm EditContext="MyContext">
-    <DataAnnotationsValidator></DataAnnotationsValidator>
-    <ValidationSummary></ValidationSummary>
+<div class="wizard-step-content">
     <div class="row">
-        <div class="col-sm-auto py-1 px-1">
-            <Switch Value=@CultNameSettingsViewModel.IncludeRandomDefiniteArticle
-                    ValueChanged="@((v)  =>
+        <div class="col">
+            <EditForm EditContext="MyContext">
+                <DataAnnotationsValidator></DataAnnotationsValidator>
+                <ValidationSummary></ValidationSummary>
+                <div class="form-group row mb-3">
+                    <div class="col-sm-2 col-form-label">
+                        <Switch Value=@CultNameSettingsViewModel.IncludeRandomDefiniteArticle
+                                ValueChanged="@((v)  =>
                                             {
                                               CultNameSettingsViewModel.IncludeRandomDefiniteArticle = v;
                                               StateHasChanged();
                                             })"
-                    Label="Include definite article">
-            </Switch>
+                                Label="Include definite article">
+                        </Switch>
+                    </div>
+                </div>
+
+                <InputRadioGroup @bind-Value="CultNameSettingsViewModel.CultnameInputType">
+                    <!-- option 1 : Template 1  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate1"
+                                        Value="CultnameInputType.TemplateNoun1OfTheAdjective2Noun2" />
+                            <label class="px-2" for="edtTemplate1">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Noun] of the [Adjective] [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 2 : Template 2  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate2"
+                                        Value="CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2" />
+                            <label class="px-2" for="edtTemplate2">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Adjective] [Noun] of the [Adjective] [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 3 : Template 3  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate3"
+                                        Value="CultnameInputType.TemplateAdjective1Noun1OfTheNoun2" />
+                            <label class="px-2" for="edtTemplate3">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Adjective] [Noun] of the [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 4 : Template 4  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate4"
+                                        Value="CultnameInputType.TemplateNoun1OfTheNoun2" />
+                            <label class="px-2" for="edtTemplate4">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Noun] of the [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 5 : Template 5  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate5"
+                                        Value="CultnameInputType.TemplateAdjective1Adjective2Noun2" />
+                            <label class="px-2" for="edtTemplate5">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Adjective] [Adjective] [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 6 : Template 6  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate6"
+                                        Value="CultnameInputType.TemplateAdjective1Noun1" />
+                            <label class="px-2" for="edtTemplate6">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Adjective] [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 7 : Template 7  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate7"
+                                        Value="CultnameInputType.TemplateAdjective2Noun2" />
+                            <label class="px-2" for="edtTemplate7">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Adjective] [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 8 : Template [adjective] [noun]('s) [adjective] [noun] -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtTemplate8"
+                                        Value="CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1" />
+                            <label class="px-2" for="edtTemplate8">
+                                @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
+                                {
+                                    <span>[Definite Article]</span>
+                                }
+                                [Adjective] [Possessive noun] [Adjective] [Noun]
+                            </label>
+                        </div>
+                    </div>
+                    <!-- option 9 : Custom  -->
+                    <div class="form-group row mb-3">
+                        <div class="col-sm-2 col-form-label">
+                            <InputRadio id="edtCustom"
+                                        Value="CultnameInputType.Custom" />
+                            <label class="px-2" for="edtCustom">Roll your own</label>
+                        </div>
+                    </div>
+                </InputRadioGroup>
+                <ValidationMessage For="@(() =>  CultNameSettingsViewModel.CultnameInputType)"></ValidationMessage>
+            </EditForm>
         </div>
     </div>
-
-    <InputRadioGroup @bind-Value="CultNameSettingsViewModel.CultnameInputType">
-        <!-- option 1 : Template 1  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate1"
-                            Value="CultnameInputType.TemplateNoun1OfTheAdjective2Noun2" />
-                <label class="px-2" for="edtTemplate1">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Noun] of the [Adjective] [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 2 : Template 2  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate2"
-                            Value="CultnameInputType.TemplateAdjective1Noun1OfTheAdjective2Noun2" />
-                <label class="px-2" for="edtTemplate2">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Adjective] [Noun] of the [Adjective] [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 3 : Template 3  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate3"
-                            Value="CultnameInputType.TemplateAdjective1Noun1OfTheNoun2" />
-                <label class="px-2" for="edtTemplate3">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Adjective] [Noun] of the [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 4 : Template 4  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate4"
-                            Value="CultnameInputType.TemplateNoun1OfTheNoun2" />
-                <label class="px-2" for="edtTemplate4">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Noun] of the [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 5 : Template 5  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate5"
-                            Value="CultnameInputType.TemplateAdjective1Adjective2Noun2" />
-                <label class="px-2" for="edtTemplate5">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Adjective] [Adjective] [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 6 : Template 6  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate6"
-                            Value="CultnameInputType.TemplateAdjective1Noun1" />
-                <label class="px-2" for="edtTemplate6">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Adjective] [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 7 : Template 7  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate7"
-                            Value="CultnameInputType.TemplateAdjective2Noun2" />
-                <label class="px-2" for="edtTemplate7">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Adjective] [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 8 : Template [adjective] [noun]('s) [adjective] [noun] -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtTemplate8"
-                            Value="CultnameInputType.TemplateAdjective2PossessiveNoun2Adjective1Noun1" />
-                <label class="px-2" for="edtTemplate8">
-                    @if (CultNameSettingsViewModel.IncludeRandomDefiniteArticle)
-                    {
-                        <span>[Definite Article]</span>
-                    }
-                    [Adjective] [Possessive noun] [Adjective] [Noun]
-                </label>
-            </div>
-        </div>
-        <!-- option 9 : Custom  -->
-        <div class="row">
-            <div class="col py-1 px-1">
-                <InputRadio id="edtCustom"
-                            Value="CultnameInputType.Custom" />
-                <label class="px-2" for="edtCustom">Roll your own</label>
-            </div>
-        </div>
-    </InputRadioGroup>
-    <ValidationMessage For="@(() =>  CultNameSettingsViewModel.CultnameInputType)"></ValidationMessage>
-</EditForm>
+</div>

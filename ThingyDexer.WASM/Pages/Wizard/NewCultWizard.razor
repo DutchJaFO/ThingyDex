@@ -56,6 +56,13 @@
                     AfterNextStepAction="@(() => {})">
             <CultRitualsStep Definition=@CultDefinition></CultRitualsStep>
         </WizardStep>
+
+        <WizardStep Id="step5" Name="Members" Title="Members"
+                    ViewModel=@CultDefinition.Members
+                    BeforeNextStepAction="@(() => {})"
+                    AfterNextStepAction="@(() => {})">
+            <CultMembersStep Definition=@CultDefinition></CultMembersStep>
+        </WizardStep>
         @*
 
         <WizardStep id="step4" Name="Cultists" Title="Add Cultists"

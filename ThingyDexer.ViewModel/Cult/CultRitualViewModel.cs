@@ -2,15 +2,6 @@
 
 namespace ThingyDexer.ViewModel.Cult
 {
-    public class CultMemberViewModel : ViewModelBase
-    {
-        public bool IsEmpty { get; init; }
-
-        public CultMemberViewModel()
-        {
-            IsEmpty = true;
-        }
-    }
     public class CultRitualViewModel : ViewModelBase
     {
         public CultRitualViewModel() { }

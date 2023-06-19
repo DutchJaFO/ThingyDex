@@ -1,4 +1,11 @@
-﻿@if (Parent.ActiveStep == this)
+﻿<style>
+    .wizard-step-content {
+        margin: 4px 4px 4px 4px;
+        padding: 4px 4px 4px 4px;
+    }
+</style>
+
+@if (Parent.ActiveStep == this)
 {
     <div id="step-@(Parent.StepsIndex(this) + 1)">
         <div class="row px-0 py-0">

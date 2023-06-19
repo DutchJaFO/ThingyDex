@@ -1,0 +1,107 @@
+﻿@using ThingyDexer.ViewModel.Cult;
+@using ThingyDexer.Model.Cult
+
+<div class="wizard-step-content" >
+    <div class="row">
+        <div class="col-sm-auto">
+            <Button Color="ButtonColor.Primary"
+                    Type="ButtonType.Button"
+                    Disabled=true
+                    Block=true>
+                ADD
+            </Button>
+            <Button Color="ButtonColor.Primary"
+                    Type="ButtonType.Button"
+                    Disabled=true
+                    Block=true>
+                EDIT
+            </Button>
+            <Button Color="ButtonColor.Primary"
+                    Type="ButtonType.Button"
+                    Disabled=true
+                    Block=true>
+                DELETE
+            </Button>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <Grid TItem="CultMemberViewModel"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="CultMembersDataprovider"
+                  AllowPaging=false
+                  PaginationAlignment="Alignment.Start"
+                  Responsive=true
+                  AllowFiltering=true
+                  AllowSorting=true
+                  AllowSelection=true>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="Name" PropertyName="Name" IsDefaultSortColumn=true Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context.Name
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="Wounds" PropertyName="Wounds" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context?.Wounds?.Value
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="Strength" PropertyName="Strength" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context?.Strength?.Value
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="Dexterity" PropertyName="Dexterity" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context?.Dexterity?.Value
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="Defense" PropertyName="Defense" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context?.Defense?.Value
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="XP Earnt" PropertyName="XpEarnt" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context?.XpEarnt
+                        </span>
+                    }
+                </GridColumn>
+
+                <GridColumn TItem="CultMemberViewModel" HeaderText="XP Spent" PropertyName="XpSpent" Sortable=true>
+                    @if (context.IsEmpty == false)
+                    {
+                        <span>
+                            @context?.XpSpent
+                        </span>
+                    }
+                </GridColumn>
+
+            </Grid>
+        </div>
+    </div>
+</div>

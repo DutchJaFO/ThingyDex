@@ -32,7 +32,9 @@ namespace ThingyDexer.WASM.Pages.Wizard
 
         private ViewModelBase _ViewModel;
         [Parameter]
+#pragma warning disable BL0007 // Component parameters should be auto properties
         public ViewModelBase ViewModel
+#pragma warning restore BL0007 // Component parameters should be auto properties
         {
             get => _ViewModel;
             set {

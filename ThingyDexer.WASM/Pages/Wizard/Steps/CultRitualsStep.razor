@@ -72,12 +72,11 @@
                         Block=true
                         onclick="@(async() =>
                                     {
-                                        var cost = ViewModel.SelectedSourceCost;
-                                        ViewModel.AddSelection();
+                                        ViewModel?.AddSelection();
                                         await UpdateGrids();
                                     })">
                     [Add selection
-                    @if (ViewModel.SelectedSource.Any())
+                    @if (ViewModel?.SelectedSource?.Any() is true)
                     {
                         @(ViewModel.SelectedSourceCost)
                     }
@@ -92,21 +91,20 @@
                         Block=true
                         onclick="@(async () =>
                                     {
-                                        var cost = ViewModel.SelectedTargetCost;
-                                        ViewModel.RemoveSelection();
+                                        ViewModel?.RemoveSelection();
                                         await UpdateGrids();
                                     })">
                     [Remove selection
-                    @if (ViewModel.SelectedTarget.Any())
+                    @if (ViewModel?.SelectedTarget?.Any() is true)
                     {
                         @(ViewModel.SelectedTargetCost)
                     }
                     ]
                 </Button>
 
-                <div>RitualsCost : @ViewModel.RitualsCost</div>
-                <div>Starting Favour : @Definition.StartingFavour</div>
-                <div>Budget : @Definition.Budget</div>
+                <div>RitualsCost : @ViewModel?.RitualsCost</div>
+                <div>Starting Favour : @Definition?.StartingFavour</div>
+                <div>Budget : @Definition?.Budget</div>
             </div>
         </div>
         <div class="col">

@@ -1,5 +1,6 @@
 using ThingyDexer.Model.Table;
 
+[assembly: Parallelize(Workers = 0, Scope = ExecutionScope.MethodLevel)]
 namespace ThingyDexer.Test
 {
     [TestClass]

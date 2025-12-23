@@ -4,14 +4,16 @@
 <div>
     <div class="row">
         <div class="col">
-            <Grid TItem="CultRitualViewModel" @ref=SourceGrid
+            <Grid TItem="CultRitualViewModel"
+                  @ref="@SourceGrid"
                   Class="table table-hover table-bordered table-striped"
                   DataProvider="AvailableRitualsDataprovider"
                   AllowPaging=true PageSize="@CurrentPageSize"
-                  PaginationAlignment="Alignment.Start"
-                  Responsive=true
-                  AllowFiltering=true
-                  AllowSorting=true EmptyText="[blah]" RowClass="GetRowClass">
+                  Responsive="true"
+                  AllowFiltering="true"
+                  AllowSorting="true"
+                  EmptyText="[blah]"
+                  RowClass="GetRowClass">
 
                 <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
                     @if (context.IsEmpty == false)
@@ -71,10 +73,10 @@
                         Disabled="@(ViewModel?.CanAddSelection is false)"
                         Block=true
                         onclick="@(async() =>
-                                    {
-                                        ViewModel?.AddSelection();
-                                        await UpdateGrids();
-                                    })">
+                                                                                                            {
+                                                                                                                ViewModel?.AddSelection();
+                                                                                                                await UpdateGrids();
+                                                                                                            })">
                     [Add selection
                     @if (ViewModel?.SelectedSource?.Any() is true)
                     {
@@ -90,10 +92,10 @@
                         Disabled="@(ViewModel?.CanAddTarget is false)"
                         Block=true
                         onclick="@(async () =>
-                                    {
-                                        ViewModel?.RemoveSelection();
-                                        await UpdateGrids();
-                                    })">
+                                                                                                            {
+                                                                                                                ViewModel?.RemoveSelection();
+                                                                                                                await UpdateGrids();
+                                                                                                            })">
                     [Remove selection
                     @if (ViewModel?.SelectedTarget?.Any() is true)
                     {
@@ -108,15 +110,16 @@
             </div>
         </div>
         <div class="col">
-            <Grid TItem="CultRitualViewModel" @ref=TargetGrid
+            <Grid TItem="CultRitualViewModel"
+                  @ref="@TargetGrid"
                   DataProvider="SelectedRitualsDataprovider"
                   Class="table table-hover table-bordered table-striped"
                   AllowPaging=true PageSize="@CurrentPageSize"
-                  PaginationAlignment="Alignment.Start"
-                  Responsive=true
-                  AllowFiltering=true
-                  AllowSorting=true
-                  EmptyText="[TODO]" RowClass="GetRowClass">
+                  Responsive="true"
+                  AllowFiltering="true"
+                  AllowSorting="true"
+                  EmptyText="[TODO]"
+                  RowClass="GetRowClass">
 
                 <GridColumn TItem="CultRitualViewModel" HeaderText="Checked" PropertyName="Checked" Sortable=true>
                     @if (context.IsEmpty == false)

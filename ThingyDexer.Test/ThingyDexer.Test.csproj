@@ -3,11 +3,6 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Parallelize>
-            <Scope>methodlevel</Scope>
-        </Parallelize>
-
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 

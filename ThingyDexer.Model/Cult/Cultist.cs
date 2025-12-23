@@ -25,7 +25,7 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public CultistWoundStatBlock Wounds { get; set; }
-        public HashSet<CultistStatBlockEntry> StatBlocks { get; private set; } = new HashSet<CultistStatBlockEntry>();
+        public HashSet<CultistStatBlockEntry> StatBlocks { get; private set; } = [];
 
         public int XpEarnt { get; private set; }
         public int XpSpent { get; private set; }

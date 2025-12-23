@@ -26,10 +26,10 @@
         public int FavourSpent { get; private set; }
         public StatBlockType? FavouredStat { get; set; }
 
-        private readonly List<Cultist> _ActiveCultists = new();
+        private readonly List<Cultist> _ActiveCultists = [];
         public IEnumerable<Cultist> ActiveCultists => _ActiveCultists;
 
-        private readonly List<Cultist> _DeadCultists = new();
+        private readonly List<Cultist> _DeadCultists = [];
         public IEnumerable<Cultist> DeadCultists => _DeadCultists;
 
         void IXpUpdate.EarnXp(int xp)

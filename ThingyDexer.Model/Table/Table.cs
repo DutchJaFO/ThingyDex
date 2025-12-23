@@ -4,7 +4,7 @@
     public class Table<T>
     {
         private readonly Random _Randomizer;
-        private readonly List<TableRowBase<T>> _list = new();
+        private readonly List<TableRowBase<T>> _list = [];
 
         private int minValue = int.MinValue;
         private int maxValue = int.MaxValue;

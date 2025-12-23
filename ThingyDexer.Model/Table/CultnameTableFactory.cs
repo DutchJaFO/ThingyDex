@@ -1,4 +1,5 @@
-﻿namespace ThingyDexer.Model.Table
+﻿
+namespace ThingyDexer.Model.Table
 {
     public static class CultnameTableFactory
     {
@@ -344,10 +345,10 @@
         public static CultnameTableSet Create(Random random)
         {
 #if DEBUG
-            var r0 = _table0.ToList(); r0.Insert(0, dummyWord);
-            var r1 = _table1.ToList(); r1.Insert(0, dummyWord);
-            var r2 = _table2.ToList(); r2.Insert(0, dummyWord);
-            var r3 = _table3.ToList(); r3.Insert(0, dummyWord);
+            List<string> r0 = _table0.ToList(); r0.Insert(0, dummyWord);
+            List<string> r1 = _table1.ToList(); r1.Insert(0, dummyWord);
+            List<string> r2 = _table2.ToList(); r2.Insert(0, dummyWord);
+            List<string> r3 = _table3.ToList(); r3.Insert(0, dummyWord);
 
             return new CultnameTableSet(random, r0.ToArray(), r1.ToArray(), r2.ToArray(), r3.ToArray());
 #else

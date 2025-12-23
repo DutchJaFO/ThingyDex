@@ -8,8 +8,8 @@ namespace ThingyDexer.Test
         private const int seed = 500;
         private Random? rnd;
         private readonly string[] testdata = { "a", "b", "3", "4", "5", "6", "7", "8", "9", "0" };
-        private readonly Dictionary<int, int> testSet = new();
-        private readonly List<int> sequence = new();
+        private readonly Dictionary<int, int> testSet = [];
+        private readonly List<int> sequence = [];
 
         private TextTable? table;
 

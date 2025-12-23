@@ -1,2 +1,2 @@
 ﻿## Version
-v0.1.25 (ALPHA)
+v0.1.26 (ALPHA)

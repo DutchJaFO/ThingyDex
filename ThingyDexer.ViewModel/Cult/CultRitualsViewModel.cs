@@ -9,7 +9,8 @@ namespace ThingyDexer.ViewModel.Cult
         public CultRitualsViewModel()
         {
             AvailabelCultRituals = new ObservableCollection<CultRitualViewModel>(GetAvaliableCultRituals());
-
+            // SetBudget = null;
+            // GetBudget
             Rituals.CollectionChanged += Rituals_CollectionChanged;
         }
 
@@ -17,19 +18,19 @@ namespace ThingyDexer.ViewModel.Cult
         {
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
             {
-                CultRitualViewModel[] newItems = (e.NewItems?.Cast<CultRitualViewModel>() ?? new List<CultRitualViewModel>()).ToArray();
+                CultRitualViewModel[] newItems = (e.NewItems?.Cast<CultRitualViewModel>() ?? []).ToArray();
                 RitualsCount += newItems.Length;
             }
             if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
             {
-                CultRitualViewModel[] removedItems = (e.OldItems?.Cast<CultRitualViewModel>() ?? new List<CultRitualViewModel>()).ToArray();
+                CultRitualViewModel[] removedItems = (e.OldItems?.Cast<CultRitualViewModel>() ?? []).ToArray();
                 RitualsCount -= removedItems.Length;
             }
         }
 
         private static IEnumerable<CultRitualViewModel> GetAvaliableCultRituals()
         {
-            List<CultRitualViewModel> rituals = new();
+            List<CultRitualViewModel> rituals = [];
 
             for (int i = 1; i <= 40; i++)
             {
@@ -59,7 +60,7 @@ namespace ThingyDexer.ViewModel.Cult
             }
         }
 
-        public ObservableCollection<CultRitualViewModel> Rituals { get; } = new();
+        public ObservableCollection<CultRitualViewModel> Rituals { get; } = [];
         public IEnumerable<CultRitualViewModel> SelectedTarget => Rituals.Where(o => o.Checked).ToList();
 
         public int? SelectedTargetCost => SelectedTarget?.Sum(o => o.RitualPoints) ?? 0;
@@ -83,14 +84,14 @@ namespace ThingyDexer.ViewModel.Cult
             private set => SetField(ref _RitualsCost, value);
         }
 
-        public Func<int> GetBudget { get; internal set; }
-        public Action<int> SetBudget { get; internal set; }
+        public Func<int>? GetBudget { get; internal set; }
+        public Action<int>? SetBudget { get; internal set; }
 
         public void AddSelection()
         {
-            var set = SelectedSource.ToArray();
+            CultRitualViewModel[] set = SelectedSource.ToArray();
             var cost = set.Where(o => o.IsEmpty == false).Sum(p => p.RitualPoints);
-            foreach (var item in set) item.Checked = false;
+            foreach (CultRitualViewModel? item in set) item.Checked = false;
 
             Rituals.AddRange(set);
             Rituals.Sort((a, b) => (a?.Name ?? "").CompareTo((b.Name ?? "")));
@@ -98,7 +99,7 @@ namespace ThingyDexer.ViewModel.Cult
 
             RitualsCost += cost;
 
-            var currentBudget = GetBudget.Invoke();
+            var currentBudget = GetBudget?.Invoke() ?? int.MaxValue;
             if (SetBudget is not null)
             {
                 SetBudget(currentBudget - cost);
@@ -107,10 +108,10 @@ namespace ThingyDexer.ViewModel.Cult
 
         public void RemoveSelection()
         {
-            var set = SelectedTarget.ToArray();
+            CultRitualViewModel[] set = SelectedTarget.ToArray();
             var cost = set.Where(o => o.IsEmpty == false).Sum(p => p.RitualPoints);
 
-            foreach (var item in set) item.Checked = false;
+            foreach (CultRitualViewModel? item in set) item.Checked = false;
 
             AvailabelCultRituals.AddRange(set);
             AvailabelCultRituals.Sort((a, b) => (a?.Name ?? "").CompareTo((b.Name ?? "")));
@@ -118,7 +119,7 @@ namespace ThingyDexer.ViewModel.Cult
 
             RitualsCost -= cost;
 
-            var currentFavour = GetBudget.Invoke();
+            var currentFavour = GetBudget?.Invoke() ?? int.MaxValue;
             if (SetBudget is not null)
             {
                 SetBudget(currentFavour + cost);

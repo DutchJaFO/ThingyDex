@@ -39,7 +39,7 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
             }
             else
             {
-                List<SelectableRegelString> set = new ();
+                List<SelectableRegelString> set = [];
                 return await Task.FromResult(request.ApplyTo(set));
             }
         }

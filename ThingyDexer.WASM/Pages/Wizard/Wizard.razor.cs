@@ -8,9 +8,9 @@ namespace ThingyDexer.WASM.Pages.Wizard
         /// <summary>
         /// List of <see cref="WizardStep"/> added to the Wizard
         /// </summary>
-        protected internal List<WizardStep> Steps = new();
+        protected internal List<WizardStep> Steps = [];
 
-        protected internal List<WizardStep> ActivatedSteps = new();
+        protected internal List<WizardStep> ActivatedSteps = [];
 
         /// <summary>
         /// The control Id

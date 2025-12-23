@@ -68,7 +68,7 @@
                 <Button Color="ButtonColor.Primary"
                         Type="ButtonType.Button"
                         Class="mx-2 my-2"
-                        Disabled="@(ViewModel.CanAddSelection == false)"
+                        Disabled="@(ViewModel?.CanAddSelection is false)"
                         Block=true
                         onclick="@(async() =>
                                     {
@@ -88,7 +88,7 @@
                 <Button Color="ButtonColor.Primary"
                         Type="ButtonType.Button"
                         Class="mx-2 my-2"
-                        Disabled="@(ViewModel.CanAddTarget == false)"
+                        Disabled="@(ViewModel?.CanAddTarget is false)"
                         Block=true
                         onclick="@(async () =>
                                     {

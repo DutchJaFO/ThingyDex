@@ -42,7 +42,7 @@
                 <InputRadioGroup @bind-Value="ViewModel.PrimaryFocus">
                     <div class="row" style="padding-left:8px; padding-right:8px;margin-right:16px">
                         @{
-                            var x = EnumExtensions.GetEnumList<StatBlockType>();
+                            StatBlockType[] x = [..ThingyDexer.Model.Cult.EnumExtensions.GetEnumList<StatBlockType>()];
                             foreach (StatBlockType stat in x)
                             {
                                 <div class="col-sm-auto mx-8 py-1 px-1">

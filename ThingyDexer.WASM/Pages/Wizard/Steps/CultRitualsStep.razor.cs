@@ -1,5 +1,6 @@
 using BlazorBootstrap;
 using Microsoft.AspNetCore.Components;
+using System.Collections.ObjectModel;
 using ThingyDexer.ViewModel.Cult;
 
 namespace ThingyDexer.WASM.Pages.Wizard.Steps
@@ -9,7 +10,7 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         public int CurrentPageSize { get; } = 15;
         public CultRitualsStep()
         {
-            _EmptyRows = new();
+            _EmptyRows = [];
             for (int i = 1; i <= CurrentPageSize; i++)
             {
                 _EmptyRows.Add(CultRitualViewModel.Empty());
@@ -19,14 +20,14 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         private readonly List<CultRitualViewModel> _EmptyRows;
         private async Task<GridDataProviderResult<CultRitualViewModel>> AvailableRitualsDataprovider(GridDataProviderRequest<CultRitualViewModel> request)
         {
-            IEnumerable<CultRitualViewModel> ritualList = ViewModel.AvailabelCultRituals;
+            IEnumerable<CultRitualViewModel> ritualList = ViewModel?.AvailabelCultRituals ?? [];
             IEnumerable<CultRitualViewModel> data;
             //
             var total = ritualList.Count();
             var pageSize = CurrentPageSize;
             var extra = total % pageSize;
 
-            if ((extra > 0) || (total == 0))            // if (extra > 0)
+            if ((extra > 0) || (total == 0))
                 data = ritualList.Union(_EmptyRows.Take((pageSize - extra)));
             else
                 data = ritualList;
@@ -34,10 +35,10 @@ namespace ThingyDexer.WASM.Pages.Wizard.Steps
         }
         private async Task<GridDataProviderResult<CultRitualViewModel>> SelectedRitualsDataprovider(GridDataProviderRequest<CultRitualViewModel> request)
         {
-            var ritualList = ViewModel.Rituals;
+            ObservableCollection<CultRitualViewModel> ritualList = ViewModel?.Rituals ?? [];
             IEnumerable<CultRitualViewModel> data;
             //
-            var total = ritualList.Count();
+            var total = ritualList.Count;
             var pageSize = CurrentPageSize;
             var extra = total % pageSize;
 

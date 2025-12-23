@@ -85,7 +85,7 @@ namespace ThingyDexer.WASM.Pages.Wizard
                 bool? isValid = MyContext?.Validate();
                 int oldErrorCount = Errors?.Count() ?? 0;
 
-                Errors = MyContext?.GetValidationMessages().Select(o => new DisplayError(o)).ToList() ?? new List<DisplayError>();
+                Errors = MyContext?.GetValidationMessages().Select(o => new DisplayError(o)).ToList() ?? [];
 
                 int newErrorCount = Errors?.Count() ?? 0;
 

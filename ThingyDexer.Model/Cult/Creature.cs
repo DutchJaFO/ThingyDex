@@ -21,7 +21,7 @@
         #region Public
 
         public string Name { get; set; }
-        public HashSet<StatBlockEntry> StatBlocks { get; private set; } = new HashSet<StatBlockEntry>();
+        public HashSet<StatBlockEntry> StatBlocks { get; private set; } = [];
         public WoundStatBlock Wounds { get; private set; } = new WoundStatBlock();
 
         #endregion Public

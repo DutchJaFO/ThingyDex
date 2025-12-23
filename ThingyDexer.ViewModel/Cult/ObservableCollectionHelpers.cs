@@ -21,8 +21,8 @@ namespace ThingyDexer.ViewModel.Cult
 
         public static void RemoveRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
         {
-            var set = items.ToArray();
-            foreach (var item in set)
+            T[] set = items.ToArray();
+            foreach (T? item in set)
             {
                 collection.Remove(item);
             }
